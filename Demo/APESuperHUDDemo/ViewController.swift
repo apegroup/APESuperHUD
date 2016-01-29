@@ -48,9 +48,9 @@ class ViewController: UIViewController {
         APESuperHUD.appearance.animateInTime = 1.0
         APESuperHUD.appearance.animateOutTime = 1.0
         APESuperHUD.appearance.backgroundBlurEffect = .None
-        APESuperHUD.appearance.iconColor = UIColor.greenColor()
-        APESuperHUD.appearance.textColor = UIColor.greenColor()
-        APESuperHUD.appearance.loadingActivityIndicatorColor = UIColor.greenColor()
+        APESuperHUD.appearance.iconColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
+        APESuperHUD.appearance.textColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
+        APESuperHUD.appearance.loadingActivityIndicatorColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
         APESuperHUD.appearance.defaultDurationTime = 4.0
         APESuperHUD.appearance.cancelableOnTouch = true
         APESuperHUD.appearance.iconWidth = 48
