@@ -1,0 +1,385 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18AC6D631C5B942900FE881A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D621C5B942900FE881A /* AppDelegate.swift */; };
+		18AC6D651C5B942900FE881A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D641C5B942900FE881A /* ViewController.swift */; };
+		18AC6D681C5B942900FE881A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D661C5B942900FE881A /* Main.storyboard */; };
+		18AC6D6A1C5B942900FE881A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D691C5B942900FE881A /* Assets.xcassets */; };
+		18AC6D6D1C5B942900FE881A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D6B1C5B942900FE881A /* LaunchScreen.storyboard */; };
+		18AC6D7D1C5B94A000FE881A /* APESuperHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */; };
+		18AC6D7E1C5B94A000FE881A /* APESuperHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		18AC6D831C5B94B700FE881A /* CaviarDreams.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D821C5B94B700FE881A /* CaviarDreams.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18AC6D791C5B947800FE881A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 18AC6CF61C5B902800FE881A;
+			remoteInfo = APESuperHUD;
+		};
+		18AC6D7B1C5B947800FE881A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 18AC6D001C5B902800FE881A;
+			remoteInfo = APESuperHUDTests;
+		};
+		18AC6D7F1C5B94A000FE881A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 18AC6CF51C5B902800FE881A;
+			remoteInfo = APESuperHUD;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		18AC6D811C5B94A000FE881A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AC6D7E1C5B94A000FE881A /* APESuperHUD.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		18AC6D5F1C5B942900FE881A /* APESuperHUDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APESuperHUDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AC6D621C5B942900FE881A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		18AC6D641C5B942900FE881A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		18AC6D671C5B942900FE881A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		18AC6D691C5B942900FE881A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18AC6D6C1C5B942900FE881A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		18AC6D6E1C5B942900FE881A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = APESuperHUD.xcodeproj; path = ../APESuperHUD.xcodeproj; sourceTree = "<group>"; };
+		18AC6D821C5B94B700FE881A /* CaviarDreams.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CaviarDreams.ttf; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18AC6D5C1C5B942900FE881A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18AC6D7D1C5B94A000FE881A /* APESuperHUD.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18AC6D561C5B942900FE881A = {
+			isa = PBXGroup;
+			children = (
+				18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */,
+				18AC6D611C5B942900FE881A /* APESuperHUDDemo */,
+				18AC6D601C5B942900FE881A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18AC6D601C5B942900FE881A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18AC6D5F1C5B942900FE881A /* APESuperHUDDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18AC6D611C5B942900FE881A /* APESuperHUDDemo */ = {
+			isa = PBXGroup;
+			children = (
+				18AC6D621C5B942900FE881A /* AppDelegate.swift */,
+				18AC6D691C5B942900FE881A /* Assets.xcassets */,
+				18AC6D821C5B94B700FE881A /* CaviarDreams.ttf */,
+				18AC6D6E1C5B942900FE881A /* Info.plist */,
+				18AC6D6B1C5B942900FE881A /* LaunchScreen.storyboard */,
+				18AC6D661C5B942900FE881A /* Main.storyboard */,
+				18AC6D641C5B942900FE881A /* ViewController.swift */,
+			);
+			path = APESuperHUDDemo;
+			sourceTree = "<group>";
+		};
+		18AC6D751C5B947800FE881A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */,
+				18AC6D7C1C5B947800FE881A /* APESuperHUDTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18AC6D5E1C5B942900FE881A /* APESuperHUDDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18AC6D711C5B942900FE881A /* Build configuration list for PBXNativeTarget "APESuperHUDDemo" */;
+			buildPhases = (
+				18AC6D5B1C5B942900FE881A /* Sources */,
+				18AC6D5C1C5B942900FE881A /* Frameworks */,
+				18AC6D5D1C5B942900FE881A /* Resources */,
+				18AC6D811C5B94A000FE881A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18AC6D801C5B94A000FE881A /* PBXTargetDependency */,
+			);
+			name = APESuperHUDDemo;
+			productName = APESuperHUDDemo;
+			productReference = 18AC6D5F1C5B942900FE881A /* APESuperHUDDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18AC6D571C5B942900FE881A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Apegroup;
+				TargetAttributes = {
+					18AC6D5E1C5B942900FE881A = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 18AC6D5A1C5B942900FE881A /* Build configuration list for PBXProject "APESuperHUDDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 18AC6D561C5B942900FE881A;
+			productRefGroup = 18AC6D601C5B942900FE881A /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 18AC6D751C5B947800FE881A /* Products */;
+					ProjectRef = 18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				18AC6D5E1C5B942900FE881A /* APESuperHUDDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = APESuperHUD.framework;
+			remoteRef = 18AC6D791C5B947800FE881A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		18AC6D7C1C5B947800FE881A /* APESuperHUDTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = APESuperHUDTests.xctest;
+			remoteRef = 18AC6D7B1C5B947800FE881A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18AC6D5D1C5B942900FE881A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18AC6D6D1C5B942900FE881A /* LaunchScreen.storyboard in Resources */,
+				18AC6D6A1C5B942900FE881A /* Assets.xcassets in Resources */,
+				18AC6D831C5B94B700FE881A /* CaviarDreams.ttf in Resources */,
+				18AC6D681C5B942900FE881A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18AC6D5B1C5B942900FE881A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18AC6D651C5B942900FE881A /* ViewController.swift in Sources */,
+				18AC6D631C5B942900FE881A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18AC6D801C5B94A000FE881A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = APESuperHUD;
+			targetProxy = 18AC6D7F1C5B94A000FE881A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		18AC6D661C5B942900FE881A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18AC6D671C5B942900FE881A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		18AC6D6B1C5B942900FE881A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18AC6D6C1C5B942900FE881A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		18AC6D6F1C5B942900FE881A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		18AC6D701C5B942900FE881A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18AC6D721C5B942900FE881A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = APESuperHUDDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apegroup.APESuperHUDDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		18AC6D731C5B942900FE881A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = APESuperHUDDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apegroup.APESuperHUDDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18AC6D5A1C5B942900FE881A /* Build configuration list for PBXProject "APESuperHUDDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AC6D6F1C5B942900FE881A /* Debug */,
+				18AC6D701C5B942900FE881A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18AC6D711C5B942900FE881A /* Build configuration list for PBXNativeTarget "APESuperHUDDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AC6D721C5B942900FE881A /* Debug */,
+				18AC6D731C5B942900FE881A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 18AC6D571C5B942900FE881A /* Project object */;
+}
