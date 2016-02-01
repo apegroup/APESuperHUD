@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "APESuperHUD"
   s.summary          = "A simple way to display a HUD with a message or progress information in your application."
-  s.version          = "0.3"
+  s.version          = "0.3.1"
   s.homepage         = "https://github.com/apegroup/APESuperHUD"
   s.license          = 'MIT'
   s.author           = { "apegroup AB" => "support@apegroup.com" }
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '8.0'
   s.requires_arc = true
   s.source_files = 'Source/**/*'
-  s.resource_bundles = {
+  s.resources = {
     'Resources' => ['Resources/*.xib', 'Resources/*.xcassets'] 
   }
 
