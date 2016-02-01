@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "APESuperHUD"
   s.summary          = ""
-  s.version          = "0.1"
+  s.version          = "0.2"
   s.homepage         = "https://github.com/apegroup/APESuperHUD"
   s.license          = 'MIT'
   s.author           = { "apegroup AB" => "support@apegroup.com" }
