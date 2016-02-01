@@ -32,7 +32,9 @@ class HudView: UIView {
     @IBOutlet weak var informationLabel: UILabel!
     @IBOutlet weak var iconImageWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var iconImageHeightConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var hudHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hudWidthConstraint: NSLayoutConstraint!
+    
     var isActivityIndicatorSpinnning: Bool {
 
         get {
@@ -221,6 +223,18 @@ extension HudView {
             NSNotificationCenter.defaultCenter().removeObserver(self)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("deviceOrientationDidChange"), name: UIDeviceOrientationDidChangeNotification, object: nil)
             
+            // HUD Size
+            if APESuperHUD.appearance.hudSquareSize < frame.width && APESuperHUD.appearance.hudSquareSize < frame.height {
+                hudWidthConstraint.constant = APESuperHUD.appearance.hudSquareSize
+                hudHeightConstraint.constant = APESuperHUD.appearance.hudSquareSize
+            
+            } else {
+                let size = frame.width <= frame.height ? frame.width : frame.height
+                hudWidthConstraint.constant = size
+                hudHeightConstraint.constant = size
+            }
+            
+            // Icon size
             iconImageWidthConstraint.constant = APESuperHUD.appearance.iconWidth
             iconImageHeightConstraint.constant = APESuperHUD.appearance.iconHeight
         }
