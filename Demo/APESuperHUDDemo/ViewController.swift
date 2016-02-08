@@ -68,27 +68,29 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(.Email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
+        APESuperHUD.showOrUpdateHUD(icon: .Email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
             // Completed
         })
     }
     
     @IBAction func withCustomIconButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
+        APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
             // Completed
         })
     }
     
     @IBAction func withLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(.Standard, message: "Demo loading...", presentingView: self.view, completion: nil)
+        
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "Demo loading...", presentingView: self.view)
+        
         
         runWithDelay(3.0, closure: { [weak self] in
-            APESuperHUD.showOrUpdateHUD(.CheckMark, message: "Done loading!", duration: 2.0, presentingView: self!.view, completion: nil)
+            APESuperHUD.showOrUpdateHUD(icon: .CheckMark, message: "Done loading!", duration: 2.0, presentingView: self!.view, completion: nil)
             })
     }
     
     @IBAction func withoutLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(.Standard, message: "", presentingView: self.view, completion: nil)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "", presentingView: self.view)
         
         runWithDelay(3.0, closure: { [weak self] in
             APESuperHUD.removeHUD(animated: true, presentingView: self!.view, completion: nil)
@@ -96,7 +98,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withFunnyLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(.Standard, funnyMessagesLanguage: .English, presentingView: self.view, completion: nil)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, funnyMessagesLanguage: .English, presentingView: self.view)
         
         runWithDelay(10.0, closure: { [weak self] in
             APESuperHUD.removeHUD(animated: true, presentingView: self!.view, completion: nil)
