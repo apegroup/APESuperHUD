@@ -54,7 +54,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
     */
-    public static func showOrUpdateHUD(icon: UIImage, message: String, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(icon icon: UIImage, message: String, presentingView: UIView, completion: (() -> Void)?) {
         let duration = appearance.defaultDurationTime
         showHud(text: Array(arrayLiteral: message), icon: icon, duration: duration, presentingView: presentingView, completion: completion)
     }
@@ -68,7 +68,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(icon: UIImage, message: String, duration: Double, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(icon icon: UIImage, message: String, duration: Double, presentingView: UIView, completion: (() -> Void)?) {
         showHud(text: Array(arrayLiteral: message), icon: icon, duration: duration, presentingView: presentingView, completion: completion)
     }
     
@@ -82,7 +82,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
     */
-    public static func showOrUpdateHUD(icon: IconType, message: String, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(icon icon: IconType, message: String, presentingView: UIView, completion: (() -> Void)?) {
         let defaultIcon = iconImage(imageName: icon.rawValue)
         let duration = appearance.defaultDurationTime
         showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, presentingView: presentingView, completion: completion)
@@ -97,7 +97,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(icon: IconType, message: String, duration: Double, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(icon icon: IconType, message: String, duration: Double, presentingView: UIView, completion: (() -> Void)?) {
         let defaultIcon = iconImage(imageName: icon.rawValue)
         showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, presentingView: presentingView, completion: completion)
     }
@@ -112,9 +112,9 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
     */
-    public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, message: String, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(loadingIndicator loadingIndicator: LoadingIndicatorType, message: String, presentingView: UIView) {
         if loadingIndicator == .Standard {
-            showHud(text: Array(arrayLiteral: message), presentingView: presentingView, completion: completion)
+            showHud(text: Array(arrayLiteral: message), presentingView: presentingView, completion: nil)
         }
     }
     
@@ -126,9 +126,9 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, funnyMessagesLanguage: LanguageType, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(loadingIndicator loadingIndicator: LoadingIndicatorType, funnyMessagesLanguage: LanguageType, presentingView: UIView) {
         if loadingIndicator == .Standard {
-            showHud(presentingView: presentingView, funnyMessagesLanguage: funnyMessagesLanguage, completion: completion)
+            showHud(presentingView: presentingView, funnyMessagesLanguage: funnyMessagesLanguage, completion: nil)
         }
     }
     
@@ -140,9 +140,9 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
     */
-    public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, messages: [String], presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(loadingIndicator loadingIndicator: LoadingIndicatorType, messages: [String], presentingView: UIView) {
         if loadingIndicator == .Standard {
-           showHud(text: messages, presentingView: presentingView, completion: completion)
+           showHud(text: messages, presentingView: presentingView, completion: nil)
         }
     }
 
