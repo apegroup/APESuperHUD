@@ -18,7 +18,7 @@ A simple way to display a HUD with a message or progress information in your app
 
 ##Installation
 ####CocoaPods
-You can use [Cocoapods](http://cocoapods.org/) to install `APESuperHUD` by adding it to your `Podfile`:
+You can use [CocoaPods](http://cocoapods.org/) to install `APESuperHUD` by adding it to your `Podfile`:
 ```ruby
 platform :ios, '8.0'
 use_frameworks!
