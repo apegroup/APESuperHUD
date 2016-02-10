@@ -50,7 +50,7 @@ APESuperHUD.showOrUpdateHUD(.Email, message: "1 new message", duration: 3.0, pre
 ######With custom image
 ```swift
 APESuperHUD.showOrUpdateHUD(UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
-    / Completed
+    // Completed
 })
 ```
 
