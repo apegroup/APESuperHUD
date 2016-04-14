@@ -95,7 +95,7 @@ class HudView: UIView {
     }
     
     private func setupGestureRecognizers() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HudView.tapGestureRecognized(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureRecognized(_:)))
         self.addGestureRecognizer(tapGesture)
     }
     
@@ -321,7 +321,7 @@ extension HudView {
 
             UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
             NSNotificationCenter.defaultCenter().removeObserver(self)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HudView.deviceOrientationDidChange), name: UIDeviceOrientationDidChangeNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(deviceOrientationDidChange), name: UIDeviceOrientationDidChangeNotification, object: nil)
             
             // HUD Size
             if APESuperHUD.appearance.hudSquareSize < frame.width && APESuperHUD.appearance.hudSquareSize < frame.height {
