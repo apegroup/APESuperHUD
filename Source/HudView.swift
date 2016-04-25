@@ -25,15 +25,15 @@
 import UIKit
 
 class HudView: UIView {
-
-    @IBOutlet weak var hudMessageView: UIView!
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var loadingActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var informationLabel: UILabel!
-    @IBOutlet weak var iconImageWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var iconImageHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var hudHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var hudWidthConstraint: NSLayoutConstraint!
+    
+    internal let hudMessageView: UIView
+    internal let iconImageView: UIImageView
+    internal let loadingActivityIndicator: UIActivityIndicatorView
+    internal let informationLabel: UILabel
+    internal var iconImageWidthConstraint: NSLayoutConstraint!
+    internal var iconImageHeightConstraint: NSLayoutConstraint!
+    internal var hudHeightConstraint: NSLayoutConstraint!
+    internal var hudWidthConstraint: NSLayoutConstraint!
     
     var isActivityIndicatorSpinnning: Bool {
 
@@ -55,14 +55,112 @@ class HudView: UIView {
     private var timer = NSTimer()
     private var loadingMessagesHandler: LoadingMessagesHandler!
     private var blurEffectView: UIView?
+    
+    internal override init(frame: CGRect) {
+        hudMessageView = UIView(frame: CGRect(x: 0, y: 0, width: 144, height: 144))
+        hudMessageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        iconImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        loadingActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        loadingActivityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        informationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 144, height: 16))
+        informationLabel.translatesAutoresizingMaskIntoConstraints = false
+        informationLabel.textAlignment = .Center
+        informationLabel.numberOfLines = 0
+        
+        hudMessageView.addSubview(iconImageView)
+        hudMessageView.addSubview(loadingActivityIndicator)
+        hudMessageView.addSubview(informationLabel)
+        
+        super.init(frame: frame)
+        
+        self.userInteractionEnabled = true
+        self.addSubview(hudMessageView)
+        self.generateConstraints()
+        self.setupGestureRecognizers()
+    }
+    
+    internal required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func generateConstraints() {
+        self.generateMessageViewConstraints()
+        self.generateIconConstraints()
+        self.generateLoadingIndicatorConstraints()
+        self.generateLabelConstraints()
+    }
+    
+    private func setupGestureRecognizers() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureRecognized(_:)))
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    private func generateMessageViewConstraints() {
+        let centerXConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
+        let centerYConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 144)
+        let heightConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 144)
+        
+        widthConstraint.priority = UILayoutPriorityRequired - 1
+        heightConstraint.priority = UILayoutPriorityRequired - 1
+        
+        [centerXConstraint, centerYConstraint, widthConstraint, heightConstraint].forEach {
+            $0.active = true
+        }
+        
+        hudWidthConstraint = widthConstraint
+        hudHeightConstraint = heightConstraint
+    }
+    
+    private func generateIconConstraints() {
+        let centerXConstraint = NSLayoutConstraint(item: iconImageView, attribute: .CenterX, relatedBy: .Equal, toItem: hudMessageView, attribute: .CenterX, multiplier: 1, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: iconImageView, attribute: .Top, relatedBy: .Equal, toItem: hudMessageView, attribute: .Top, multiplier: 1, constant: 30)
+        let widthConstraint = NSLayoutConstraint(item: iconImageView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 48)
+        let heightConstraint = NSLayoutConstraint(item: iconImageView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 48)
+        
+        [centerXConstraint, topConstraint, widthConstraint, heightConstraint].forEach {
+            $0.active = true
+        }
+        
+        iconImageWidthConstraint = widthConstraint
+        iconImageHeightConstraint = heightConstraint
+    }
+    
+    private func generateLoadingIndicatorConstraints() {
+        let centerXConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .CenterX, relatedBy: .Equal, toItem: iconImageView, attribute: .CenterX, multiplier: 1, constant: 0)
+        let centerYConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .CenterY, relatedBy: .Equal, toItem: iconImageView, attribute: .CenterY, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 48)
+        let heightConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 48)
+        
+        [centerXConstraint, centerYConstraint, widthConstraint, heightConstraint].forEach {
+            $0.active = true
+        }
+    }
+    
+    private func generateLabelConstraints() {
+        let topConstraint = NSLayoutConstraint(item: informationLabel, attribute: .Top, relatedBy: .Equal, toItem: iconImageView, attribute: .Bottom, multiplier: 1, constant: 8)
+        let bottomConstraint = NSLayoutConstraint(item: informationLabel, attribute: .Bottom, relatedBy: .GreaterThanOrEqual, toItem: hudMessageView, attribute: .Bottom, multiplier: 1, constant: -18)
+        let leadingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .Leading, relatedBy: .Equal, toItem: hudMessageView, attribute: .Leading, multiplier: 1, constant: 5)
+        let trailingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .Trailing, relatedBy: .Equal, toItem: hudMessageView, attribute: .Trailing, multiplier: 1, constant: -5)
+        
+        [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint].forEach {
+            $0.active = true
+        }
+        
+        informationLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+    }
 }
 
 
 extension HudView {
-
+    
     static func create() -> HudView {
-
-        let view: HudView = UIView.loadFromNibNamed("HudView", bundle: NSBundle(forClass: HudView.self), cached: true)!
+        
+        let view: HudView = HudView(frame: UIScreen.mainScreen().bounds)
         
         // Colors
         view.informationLabel.textColor = APESuperHUD.appearance.textColor
@@ -125,9 +223,10 @@ extension HudView {
     
     func showMessages(messages: [String]) {
         loadingMessagesHandler = LoadingMessagesHandler(messages: messages)
+        let showMessagesSelector = #selector(showMessages as Void -> Void)
         showMessages()
         timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(2.5, target: self, selector: Selector("showMessages"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(2.5, target: self, selector: showMessagesSelector, userInfo: nil, repeats: true)
     }
     
     func showMessages() {
@@ -141,9 +240,10 @@ extension HudView {
     
     func showFunnyMessages(languageType: LanguageType) {
         loadingMessagesHandler = LoadingMessagesHandler(languageType: languageType)
+        let showFunnyMessagesSelector = #selector(showFunnyMessages as Void -> Void)
         showFunnyMessages()
         timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(2.5, target: self, selector: Selector("showFunnyMessages"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(2.5, target: self, selector: showFunnyMessagesSelector, userInfo: nil, repeats: true)
     }
     
     func showFunnyMessages() {
@@ -221,7 +321,7 @@ extension HudView {
 
             UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
             NSNotificationCenter.defaultCenter().removeObserver(self)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("deviceOrientationDidChange"), name: UIDeviceOrientationDidChangeNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(deviceOrientationDidChange), name: UIDeviceOrientationDidChangeNotification, object: nil)
             
             // HUD Size
             if APESuperHUD.appearance.hudSquareSize < frame.width && APESuperHUD.appearance.hudSquareSize < frame.height {
