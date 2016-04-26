@@ -80,13 +80,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withLoadingTextButtonPressed(sender: UIButton) {
-        
         APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "Demo loading...", presentingView: self.view)
-        
         
         runWithDelay(3.0, closure: { [weak self] in
             APESuperHUD.showOrUpdateHUD(icon: .CheckMark, message: "Done loading!", duration: 2.0, presentingView: self!.view, completion: nil)
-            })
+        })
     }
     
     @IBAction func withoutLoadingTextButtonPressed(sender: UIButton) {
@@ -94,7 +92,7 @@ class ViewController: UIViewController {
         
         runWithDelay(3.0, closure: { [weak self] in
             APESuperHUD.removeHUD(animated: true, presentingView: self!.view, completion: nil)
-            })
+        })
     }
     
     @IBAction func withFunnyLoadingTextButtonPressed(sender: UIButton) {
@@ -102,7 +100,7 @@ class ViewController: UIViewController {
         
         runWithDelay(10.0, closure: { [weak self] in
             APESuperHUD.removeHUD(animated: true, presentingView: self!.view, completion: nil)
-            })
+        })
     }
     
     override func didReceiveMemoryWarning() {
