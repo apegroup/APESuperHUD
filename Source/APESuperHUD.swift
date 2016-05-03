@@ -24,6 +24,14 @@
 
 import UIKit
 
+/**
+ Default icons
+ 
+ - HappyFace: An icon with a smiling face.
+ - SadFace: An icon with a sad face.
+ - CheckMark: An icon with a standard checkmark.
+ - Email: An icon with a letter.
+*/
 public enum IconType: String {
     
     case HappyFace = "happy_face_icon"
@@ -32,16 +40,27 @@ public enum IconType: String {
     case Email = "email_icon"
 }
 
+/**
+Layout of the loading indicator
+ 
+ - Standard: Apple standard spinner loading indicator.
+*/
 public enum LoadingIndicatorType: Int {
     case Standard
 }
 
+/**
+ Enum for setting language for default messages in the HUD
+ 
+ - English: English
+ */
 public enum LanguageType: Int {
     case English
 }
 
 public class APESuperHUD {
 
+    /// Property for setting up the HUD appearance
     public static var appearance = HUDAppearance()
     
     // MARK: API With UIImage
