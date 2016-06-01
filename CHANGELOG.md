@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.5.4](https://github.com/apegroup/APESuperHUD/releases/tag/0.5.4)
+
+Centre the icon and the loading indicator if there is no message to show.
+
+## [0.5.3](https://github.com/apegroup/APESuperHUD/releases/tag/0.5.3)
+
+Prepare for SPM. Current version of SPM do not support UIKit.
+
+On Dec 4, 2015, at 5:39 PM, Daniel Dunbar (@apple.com) wrote:
+Right, now we only compile for the host platform (OS X or Linux, currently). Among other things, we currently have no knowledge (or options to choose) what SDK or architecture you are targeting. We also have no mechanisms for specifying what platforms targets are compatible with in the manifest.
+
 ## [0.5.2](https://github.com/apegroup/APESuperHUD/releases/tag/0.5.2)
 
 Adds documentation for public enums and properties.
