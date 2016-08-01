@@ -32,6 +32,8 @@ class HudView: UIView {
     internal let informationLabel: UILabel
     internal var iconImageWidthConstraint: NSLayoutConstraint!
     internal var iconImageHeightConstraint: NSLayoutConstraint!
+    internal var iconTopConstraint: NSLayoutConstraint!
+    internal var iconCenterYConstraint: NSLayoutConstraint!
     internal var hudHeightConstraint: NSLayoutConstraint!
     internal var hudWidthConstraint: NSLayoutConstraint!
     
@@ -118,16 +120,19 @@ class HudView: UIView {
     
     private func generateIconConstraints() {
         let centerXConstraint = NSLayoutConstraint(item: iconImageView, attribute: .CenterX, relatedBy: .Equal, toItem: hudMessageView, attribute: .CenterX, multiplier: 1, constant: 0)
+        let centerYConstraint = NSLayoutConstraint(item: iconImageView, attribute: .CenterY, relatedBy: .Equal, toItem: hudMessageView, attribute: .CenterY, multiplier: 1, constant: 0)
         let topConstraint = NSLayoutConstraint(item: iconImageView, attribute: .Top, relatedBy: .Equal, toItem: hudMessageView, attribute: .Top, multiplier: 1, constant: 30)
         let widthConstraint = NSLayoutConstraint(item: iconImageView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 48)
         let heightConstraint = NSLayoutConstraint(item: iconImageView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 48)
         
-        [centerXConstraint, topConstraint, widthConstraint, heightConstraint].forEach {
+        [centerXConstraint, centerYConstraint, widthConstraint, heightConstraint].forEach {
             $0.active = true
         }
         
         iconImageWidthConstraint = widthConstraint
         iconImageHeightConstraint = heightConstraint
+        iconCenterYConstraint = centerYConstraint
+        iconTopConstraint = topConstraint
     }
     
     private func generateLoadingIndicatorConstraints() {
@@ -259,7 +264,8 @@ extension HudView {
 
         iconImageView.alpha = 0.0
         informationLabel.text = text ?? ""
-
+        updateIconConstraints()
+        
         loadingActivityIndicator.startAnimating()
 
         showViewsAnimated(views: [loadingActivityIndicator, informationLabel], completion: { _ in
@@ -285,7 +291,8 @@ extension HudView {
     func showMessage(message message: String?, icon: UIImage?, completion: (() -> Void)?) {
 
         informationLabel.text = message
-
+        updateIconConstraints()
+        
         if icon != nil {
             alpha = 1.0
             iconImageView.image = icon
@@ -299,6 +306,13 @@ extension HudView {
 
         })
 
+    }
+    
+    func updateIconConstraints() {
+        let emptyMessage = (informationLabel.text ?? "").isEmpty
+        
+        iconTopConstraint.active = !emptyMessage
+        iconCenterYConstraint.active = emptyMessage
     }
 }
 
