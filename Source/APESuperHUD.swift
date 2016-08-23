@@ -72,6 +72,7 @@ public class APESuperHUD {
         showHud(text: Array(arrayLiteral: message), icon: icon, duration: duration, presentingView: presentingView, completion: completion)
     }
     
+    
     // MARK: API With IconType
     
     /**
@@ -101,6 +102,23 @@ public class APESuperHUD {
         let defaultIcon = iconImage(imageName: icon.rawValue)
         showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, presentingView: presentingView, completion: completion)
     }
+    
+    
+    // MARK: API With Title
+    
+    /**
+     Show or update the HUD.
+     
+     - parameter title: The title in the HUD.
+     - parameter message: The text in the HUD.
+     - parameter presentingView: The view that the HUD will be located in.
+     - parameter completion: Will be trigger when the HUD is removed.
+     */
+    public static func showOrUpdateHUD(title title: String, message: String, presentingView: UIView, completion: (() -> Void)?) {
+        let duration = appearance.defaultDurationTime
+        showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: duration, presentingView: presentingView, completion: completion)
+    }
+    
     
     // MARK: API With LoadingIndicator
     
@@ -165,7 +183,7 @@ public class APESuperHUD {
 
     // MARK: - Private functions
 
-    private static func showHud(text text: [String] = [""], icon: UIImage? = nil, duration: Double = -1, presentingView: UIView, funnyMessagesLanguage: LanguageType? = nil, completion: (() -> Void)? = nil) {
+    private static func showHud(title title: String = "", text: [String] = [""], icon: UIImage? = nil, duration: Double = -1, presentingView: UIView, funnyMessagesLanguage: LanguageType? = nil, completion: (() -> Void)? = nil) {
 
         let hudView = createHudViewIfNeeded(presentingView: presentingView)
 
@@ -188,8 +206,11 @@ public class APESuperHUD {
         } else if isMessages {
             hudView.showMessages(text)
         } else if icon != nil {
-            hudView.showMessage(message: text.first, icon: icon, completion: nil)
-        } else {
+            hudView.showMessage(title: nil, message: text.first, icon: icon, completion: nil)
+        } else if title != "" {
+            hudView.showMessage(title: title, message: text.first, icon: nil, completion: nil)
+        }
+        else {
             hudView.showLoadingActivityIndicator(text: text.first, completion: nil)
         }
 

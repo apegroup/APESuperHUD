@@ -29,6 +29,7 @@ class HudView: UIView {
     internal let hudMessageView: UIView
     internal let iconImageView: UIImageView
     internal let loadingActivityIndicator: UIActivityIndicatorView
+    internal let titleLabel: UILabel
     internal let informationLabel: UILabel
     internal var iconImageWidthConstraint: NSLayoutConstraint!
     internal var iconImageHeightConstraint: NSLayoutConstraint!
@@ -63,16 +64,22 @@ class HudView: UIView {
         iconImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        loadingActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        loadingActivityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
+        titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 144, height: 21))
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textAlignment = .Center
+        titleLabel.numberOfLines = 0
+                
         informationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 144, height: 16))
         informationLabel.translatesAutoresizingMaskIntoConstraints = false
         informationLabel.textAlignment = .Center
         informationLabel.numberOfLines = 0
         
+        loadingActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        loadingActivityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
         hudMessageView.addSubview(iconImageView)
         hudMessageView.addSubview(loadingActivityIndicator)
+        hudMessageView.addSubview(titleLabel)
         hudMessageView.addSubview(informationLabel)
         
         super.init(frame: frame)
@@ -91,7 +98,8 @@ class HudView: UIView {
         self.generateMessageViewConstraints()
         self.generateIconConstraints()
         self.generateLoadingIndicatorConstraints()
-        self.generateLabelConstraints()
+        self.generateTitleLabelConstraints()
+        self.generateMessageLabelConstraints()
     }
     
     private func setupGestureRecognizers() {
@@ -141,7 +149,21 @@ class HudView: UIView {
         }
     }
     
-    private func generateLabelConstraints() {
+    private func generateTitleLabelConstraints() {
+        let centerXConstraint = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: hudMessageView, attribute: .CenterX, multiplier: 1, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: hudMessageView, attribute: .Top, multiplier: 1, constant: 40)
+        let widthConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 144)
+        let heightConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 21)
+        
+        [centerXConstraint, topConstraint, widthConstraint, heightConstraint].forEach {
+            $0.active = true
+        }
+        
+        titleLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+    }
+
+    
+    private func generateMessageLabelConstraints() {
         let topConstraint = NSLayoutConstraint(item: informationLabel, attribute: .Top, relatedBy: .Equal, toItem: iconImageView, attribute: .Bottom, multiplier: 1, constant: 8)
         let bottomConstraint = NSLayoutConstraint(item: informationLabel, attribute: .Bottom, relatedBy: .GreaterThanOrEqual, toItem: hudMessageView, attribute: .Bottom, multiplier: 1, constant: -18)
         let leadingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .Leading, relatedBy: .Equal, toItem: hudMessageView, attribute: .Leading, multiplier: 1, constant: 5)
@@ -163,6 +185,7 @@ extension HudView {
         let view: HudView = HudView(frame: UIScreen.mainScreen().bounds)
         
         // Colors
+        view.titleLabel.textColor = APESuperHUD.appearance.textColor
         view.informationLabel.textColor = APESuperHUD.appearance.textColor
         view.hudMessageView.backgroundColor = APESuperHUD.appearance.foregroundColor
         view.backgroundColor = APESuperHUD.appearance.backgroundColor
@@ -181,8 +204,11 @@ extension HudView {
         }
         
         // Font
-        let font = UIFont(name: APESuperHUD.appearance.fontName, size: APESuperHUD.appearance.fontSize)
-        view.informationLabel.font = font
+        let titleFont = UIFont(name: APESuperHUD.appearance.titleFontName, size: APESuperHUD.appearance.titleFontSize)
+        
+        let messageFont = UIFont(name: APESuperHUD.appearance.messageFontName, size: APESuperHUD.appearance.messageFontSize)
+        view.titleLabel.font = titleFont
+        view.informationLabel.font = messageFont
         
         return view
     }
@@ -282,10 +308,11 @@ extension HudView {
 
     }
 
-    func showMessage(message message: String?, icon: UIImage?, completion: (() -> Void)?) {
+    func showMessage(title title: String?, message: String?, icon: UIImage?, completion: (() -> Void)?) {
 
+        titleLabel.text = title
         informationLabel.text = message
-
+        
         if icon != nil {
             alpha = 1.0
             iconImageView.image = icon
@@ -293,7 +320,7 @@ extension HudView {
             loadingActivityIndicator.stopAnimating()
         }
 
-        showViewsAnimated(views: [informationLabel, iconImageView], completion: { _ in
+        showViewsAnimated(views: [titleLabel, informationLabel, iconImageView], completion: { _ in
 
             completion?()
 
@@ -362,6 +389,7 @@ extension HudView {
 
         alpha = 0.0
         hudMessageView.alpha = 0.0
+        titleLabel.alpha = 0.0
         informationLabel.alpha = 0.0
         iconImageView.alpha = 0.0
         loadingActivityIndicator.alpha = 0.0
