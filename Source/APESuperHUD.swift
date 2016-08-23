@@ -26,10 +26,12 @@ import UIKit
 
 public enum IconType: String {
     
+    case Info = "info_icon"
     case HappyFace = "happy_face_icon"
     case SadFace = "sad_face_icon"
     case CheckMark = "checkmark_icon"
     case Email = "email_icon"
+    
 }
 
 public enum LoadingIndicatorType: Int {
