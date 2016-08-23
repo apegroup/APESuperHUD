@@ -78,11 +78,17 @@ public struct HUDAppearance {
     /// Enables/disables removal of the HUD if the user taps on the screen
     public var cancelableOnTouch = false
     
-    /// The font name of text in the HUD
-    public var fontName: String = "Helvetica"
+    /// The title font name of text in the HUD
+    public var titleFontName: String = "Helvetica-Bold"
     
-    /// The font size of text in the HUD
-    public var fontSize: CGFloat = 13
+    /// The info message font name of text in the HUD
+    public var messageFontName: String = "Helvetica"
+    
+    /// The title font size of text in the HUD
+    public var titleFontSize: CGFloat = 20
+    
+    /// The info message font size of text in the HUD
+    public var messageFontSize: CGFloat = 13
     
     /// The HUD size
     public var hudSquareSize: CGFloat = 144
