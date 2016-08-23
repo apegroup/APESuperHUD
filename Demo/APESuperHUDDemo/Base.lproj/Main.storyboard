@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,13 +17,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4j-OJ-zTL">
-                                <rect key="frame" x="130" y="115" width="340" height="370"/>
+                                <rect key="frame" x="130" y="89" width="340" height="422"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="CTT-Ce-clN">
-                                        <rect key="frame" x="20" y="8" width="300" height="125"/>
+                                        <rect key="frame" x="20" y="8" width="300" height="177"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show message HUD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWt-LZ-bVd">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="3Wk-XX-Xgy"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -57,16 +59,33 @@
                                                     <action selector="withCustomIconButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ABQ-v0-Qzh"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsq-eQ-eMz">
+                                                <rect key="frame" x="0.0" y="137" width="300" height="40"/>
+                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="J6Z-gy-mSB"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="With title">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="withTitleButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C7s-lj-myq"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="rnn-nC-atc"/>
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1GO-6z-9Fa">
-                                        <rect key="frame" x="20" y="163" width="300" height="177"/>
+                                        <rect key="frame" x="20" y="215" width="300" height="177"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show loading indicator HUD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3f0-RL-iwG">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="iYf-ig-8VY"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -124,11 +143,17 @@
                                     <constraint firstItem="CTT-Ce-clN" firstAttribute="leading" secondItem="x4j-OJ-zTL" secondAttribute="leading" constant="20" id="RPC-81-tPy"/>
                                     <constraint firstAttribute="trailing" secondItem="1GO-6z-9Fa" secondAttribute="trailing" constant="20" id="Vv5-gA-pjd"/>
                                     <constraint firstItem="1GO-6z-9Fa" firstAttribute="leading" secondItem="x4j-OJ-zTL" secondAttribute="leading" constant="20" id="YOE-tV-lqp"/>
+                                    <constraint firstAttribute="height" constant="370" id="YiS-4X-4PQ"/>
                                     <constraint firstItem="CTT-Ce-clN" firstAttribute="top" secondItem="x4j-OJ-zTL" secondAttribute="top" constant="8" id="abL-d5-esH"/>
                                     <constraint firstAttribute="bottom" secondItem="1GO-6z-9Fa" secondAttribute="bottom" constant="30" id="j4g-oA-snb"/>
                                     <constraint firstItem="1GO-6z-9Fa" firstAttribute="top" secondItem="CTT-Ce-clN" secondAttribute="bottom" constant="30" id="o4B-6t-FNU"/>
                                     <constraint firstAttribute="trailing" secondItem="CTT-Ce-clN" secondAttribute="trailing" constant="20" id="s0g-38-ngm"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="YiS-4X-4PQ"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
@@ -143,6 +168,7 @@
                         <outlet property="loadingWithoutTextButton" destination="7SC-qk-9JQ" id="aIS-3w-lzN"/>
                         <outlet property="messageWithCustomIconButton" destination="cZe-U2-wYM" id="aJP-co-8vB"/>
                         <outlet property="messageWithDefaultIconButton" destination="lFw-0J-sfk" id="37G-VQ-AoH"/>
+                        <outlet property="messageWithTitleButton" destination="hsq-eQ-eMz" id="Fcf-2B-yME"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

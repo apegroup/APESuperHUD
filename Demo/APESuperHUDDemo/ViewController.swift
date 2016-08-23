@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var messageWithDefaultIconButton: UIButton!
     @IBOutlet weak var messageWithCustomIconButton: UIButton!
+    @IBOutlet weak var messageWithTitleButton: UIButton!
     @IBOutlet weak var loadingWithTextButton: UIButton!
     @IBOutlet weak var loadingWithoutTextButton: UIButton!
     @IBOutlet weak var loadingWithFunnyMessagesButton: UIButton!
@@ -55,16 +56,20 @@ class ViewController: UIViewController {
         APESuperHUD.appearance.cancelableOnTouch = true
         APESuperHUD.appearance.iconWidth = 48
         APESuperHUD.appearance.iconHeight = 48
-        APESuperHUD.appearance.fontName = "Caviar Dreams"
-        APESuperHUD.appearance.fontSize = 14
+        APESuperHUD.appearance.messageFontName = "Caviar Dreams"
+        APESuperHUD.appearance.titleFontName = "Caviar Dreams"
+        APESuperHUD.appearance.titleFontSize = 22
+        APESuperHUD.appearance.messageFontSize = 14
+        
     }
     
     private func setupButtonsLayout() {
+        messageWithDefaultIconButton.layer.cornerRadius = messageWithDefaultIconButton.frame.height / 2
+        messageWithCustomIconButton.layer.cornerRadius = messageWithCustomIconButton.frame.height / 2
+        messageWithTitleButton.layer.cornerRadius = messageWithTitleButton.frame.height / 2
         loadingWithTextButton.layer.cornerRadius = loadingWithFunnyMessagesButton.frame.height / 2
         loadingWithoutTextButton.layer.cornerRadius = loadingWithoutTextButton.frame.height / 2
         loadingWithFunnyMessagesButton.layer.cornerRadius = loadingWithFunnyMessagesButton.frame.height / 2
-        messageWithDefaultIconButton.layer.cornerRadius = messageWithDefaultIconButton.frame.height / 2
-        messageWithCustomIconButton.layer.cornerRadius = messageWithCustomIconButton.frame.height / 2
     }
     
     @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
@@ -77,6 +82,12 @@ class ViewController: UIViewController {
         APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
             // Completed
         })
+    }
+    
+    @IBAction func withTitleButtonPressed(sender: UIButton) {
+        APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", presentingView: self.view) { _ in
+            // Completed
+        }
     }
     
     @IBAction func withLoadingTextButtonPressed(sender: UIButton) {
