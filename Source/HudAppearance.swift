@@ -46,8 +46,10 @@ public struct HUDAppearance {
     public var animateOutTime: NSTimeInterval = 0.4
     public var defaultDurationTime: Double = 2.0
     public var cancelableOnTouch = false
-    public var fontName: String = "Helvetica"
-    public var fontSize: CGFloat = 13
+    public var titleFontName: String = "Helvetica-Bold"
+    public var messageFontName: String = "Helvetica"
+    public var titleFontSize: CGFloat = 20
+    public var messageFontSize: CGFloat = 13
     public var hudSquareSize: CGFloat = 144
     public var iconWidth: CGFloat = 48
     public var iconHeight: CGFloat = 48
