@@ -193,10 +193,14 @@ extension HudView {
     }
     
     func deviceOrientationDidChange() {
-        frame = (superview?.bounds)!
-        blurEffectView?.frame = (superview?.bounds)!
+      guard let superview = superview,
+            let bounds = superview.bounds else {
+        return
+      }
 
-        layoutIfNeeded()
+      frame = bounds
+      blurEffectView?.frame = bounds
+      layoutIfNeeded()
     }
 
     func removeHud(animated animated: Bool, onDone: (Void -> Void)?) {
