@@ -219,13 +219,12 @@ extension HudView {
     }
     
     func deviceOrientationDidChange() {
-      guard let superview = superview,
-            let bounds = superview.bounds else {
+      guard let superview = superview else {
         return
       }
 
-      frame = bounds
-      blurEffectView?.frame = bounds
+      frame = superview.bounds
+      blurEffectView?.frame = frame 
       layoutIfNeeded()
     }
 
