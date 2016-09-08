@@ -357,10 +357,9 @@ extension HudView {
         if let bounds = newSuperview?.bounds {
             frame = bounds
             
-            if addBlurEffectView() != nil {
+            if let blurEffectView = addBlurEffectView() {
                 backgroundColor = UIColor.clearColor()
-                blurEffectView = addBlurEffectView()
-                insertSubview(blurEffectView!, atIndex: 0)
+                insertSubview(blurEffectView, atIndex: 0)
             }
 
             UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
