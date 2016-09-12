@@ -57,7 +57,7 @@ class HudView: UIView {
     private var isAnimating: Bool = false
     private var timer = NSTimer()
     private var loadingMessagesHandler: LoadingMessagesHandler!
-    private var blurEffectView: UIView?
+    private var effectView: UIView?
     
     internal override init(frame: CGRect) {
         hudMessageView = UIView(frame: CGRect(x: 0, y: 0, width: 144, height: 144))
@@ -224,7 +224,7 @@ extension HudView {
       }
 
       frame = superview.bounds
-      blurEffectView?.frame = frame 
+      effectView?.frame = frame
       layoutIfNeeded()
     }
 
@@ -237,7 +237,7 @@ extension HudView {
         if animated {
             animateOutHud(completion: { [weak self] _ in
                 
-                self?.blurEffectView?.removeFromSuperview()
+                self?.effectView?.removeFromSuperview()
                 self?.removeFromSuperview()
                 
                 onDone?()
@@ -246,7 +246,7 @@ extension HudView {
 
         } else {
             
-            self.blurEffectView?.removeFromSuperview()
+            self.effectView?.removeFromSuperview()
             self.removeFromSuperview()
             
             onDone?()
@@ -357,10 +357,9 @@ extension HudView {
         if let bounds = newSuperview?.bounds {
             frame = bounds
             
-            if addBlurEffectView() != nil {
+            if let blurEffectView = blurEffectView() {
                 backgroundColor = UIColor.clearColor()
-                blurEffectView = addBlurEffectView()
-                insertSubview(blurEffectView!, atIndex: 0)
+                insertSubview(blurEffectView, atIndex: 0)
             }
 
             UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
@@ -416,7 +415,7 @@ extension HudView {
 
     }
     
-    private func addBlurEffectView() -> UIView? {
+    private func blurEffectView() -> UIView? {
         
         var blurEffect: UIBlurEffect?
    
