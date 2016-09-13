@@ -44,7 +44,7 @@ class LoadingMessagesHandler {
 
         let randomIndex = Int(arc4random_uniform(UInt32(messages.count)))
         let message = messages[randomIndex]
-        messages.removeAtIndex(randomIndex)
+        messages.remove(at: randomIndex)
 
         return message
     }
@@ -55,7 +55,7 @@ class LoadingMessagesHandler {
         }
         
         let message = messages[0]
-        messages.removeAtIndex(0)
+        messages.remove(at: 0)
         
         return message
     }
@@ -66,7 +66,7 @@ class LoadingMessagesHandler {
         }
         
         let message = messages[messages.count]
-        messages.removeAtIndex(messages.count)
+        messages.remove(at: messages.count)
         
         return message
     }
