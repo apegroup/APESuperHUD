@@ -34,11 +34,11 @@ import UIKit
 */
 public enum IconType: String {
     
-    case Info = "info_icon"
-    case HappyFace = "happy_face_icon"
-    case SadFace = "sad_face_icon"
-    case CheckMark = "checkmark_icon"
-    case Email = "email_icon"
+    case info = "info_icon"
+    case happyFace = "happy_face_icon"
+    case sadFace = "sad_face_icon"
+    case checkMark = "checkmark_icon"
+    case email = "email_icon"
     
 }
 
@@ -48,7 +48,7 @@ Layout of the loading indicator
  - Standard: Apple standard spinner loading indicator.
 */
 public enum LoadingIndicatorType: Int {
-    case Standard
+    case standard
 }
 
 /**
@@ -57,7 +57,7 @@ public enum LoadingIndicatorType: Int {
  - English: English
  */
 public enum LanguageType: Int {
-    case English
+    case english
 }
 
 public class APESuperHUD {
@@ -152,7 +152,7 @@ public class APESuperHUD {
      - parameter completion: Will be trigger when the HUD is removed.
     */
     public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, message: String, presentingView: UIView) {
-        if loadingIndicator == .Standard {
+        if loadingIndicator == .standard {
             showHud(text: Array(arrayLiteral: message), presentingView: presentingView, completion: nil)
         }
     }
@@ -166,7 +166,7 @@ public class APESuperHUD {
      - parameter completion: Will be trigger when the HUD is removed.
      */
     public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, funnyMessagesLanguage: LanguageType, presentingView: UIView) {
-        if loadingIndicator == .Standard {
+        if loadingIndicator == .standard {
             showHud(presentingView: presentingView, funnyMessagesLanguage: funnyMessagesLanguage, completion: nil)
         }
     }
@@ -180,7 +180,7 @@ public class APESuperHUD {
      - parameter completion: Will be trigger when the HUD is removed.
     */
     public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, messages: [String], presentingView: UIView) {
-        if loadingIndicator == .Standard {
+        if loadingIndicator == .standard {
            showHud(text: messages, presentingView: presentingView, completion: nil)
         }
     }

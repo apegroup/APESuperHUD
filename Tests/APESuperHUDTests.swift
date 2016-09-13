@@ -77,12 +77,12 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: originalText, presentingView: testView)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: originalText, presentingView: testView)
         validateShow(view: testView)
         validateLoadIndicator(view: testView, informationText: self.originalText)
         
         // Test update
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: updatedTest, presentingView: testView)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: updatedTest, presentingView: testView)
         validateUpdateLoadingIndicator(view: testView, description: "Delay update loading indicator with info")
         
         // Test remove
@@ -109,7 +109,7 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "", presentingView: testView)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "", presentingView: testView)
         validateShow(view: testView)
         validateLoadIndicator(view: testView, informationText: "")
         
@@ -121,7 +121,7 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, funnyMessagesLanguage: .English, presentingView: testView)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, funnyMessagesLanguage: .english, presentingView: testView)
         validateShow(view: testView)
         let asyncExpectation = expectation(description: description)
         
@@ -154,7 +154,7 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show and duration
-        APESuperHUD.showOrUpdateHUD(icon: .Email, message: originalText, duration: 4.0, presentingView: testView, completion: nil)
+        APESuperHUD.showOrUpdateHUD(icon: .email, message: originalText, duration: 4.0, presentingView: testView, completion: nil)
         validateShow(view: testView)
         validateMessage(view: testView, informationText: originalText)
         
@@ -178,12 +178,12 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show
-        APESuperHUD.showOrUpdateHUD(icon: .HappyFace, message: originalText, presentingView: testView, completion: nil)
+        APESuperHUD.showOrUpdateHUD(icon: .happyFace, message: originalText, presentingView: testView, completion: nil)
         validateShow(view: testView)
         validateMessage(view: testView, informationText: originalText)
         
         // Test update
-        APESuperHUD.showOrUpdateHUD(icon: .CheckMark, message: updatedTest, presentingView: testView, completion: nil)
+        APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: updatedTest, presentingView: testView, completion: nil)
         let asyncExpectation = expectation(description: "Delay update message with default icon")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -204,7 +204,7 @@ class APESuperHUDTests: XCTestCase {
         
         // Test show and auto remove
         let asyncExpectation = expectation(description: "Completion duration message with default icon, duration and completion")
-        APESuperHUD.showOrUpdateHUD(icon: .CheckMark, message: originalText, duration: 3.0, presentingView: testView, completion: { _ in
+        APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: originalText, duration: 3.0, presentingView: testView, completion: { _ in
             asyncExpectation.fulfill()
         })
         validateShow(view: testView)
@@ -308,7 +308,7 @@ class APESuperHUDTests: XCTestCase {
         
         let testView = getTestView()
         
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: originalText, presentingView: testView)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: originalText, presentingView: testView)
         validateShow(view: testView)
         let hudView = getHudView(view: testView)
         hudView?.tapGestureRecognized(sender: "" as AnyObject)

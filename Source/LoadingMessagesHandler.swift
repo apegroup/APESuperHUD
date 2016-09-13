@@ -28,7 +28,7 @@ class LoadingMessagesHandler {
     private var messages: [String]!
 
     init(languageType: LanguageType) {
-        if languageType == .English {
+        if languageType == .english {
             messages = englishFunnyMessages()
         }
     }
