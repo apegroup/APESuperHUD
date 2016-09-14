@@ -81,8 +81,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
-        
-        APESuperHUD.showOrUpdateHUD(icon: .Email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
+        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
             // Completed
         })
     }
@@ -100,16 +99,16 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "Demo loading...", presentingView: self.view)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "Demo loading...", presentingView: self.view)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
             guard let strongSelf = self else { return }
-            APESuperHUD.showOrUpdateHUD(icon: .CheckMark, message: "Done loading!", duration: 2.0, presentingView: strongSelf.view, completion: nil)
+            APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: "Done loading!", duration: 2.0, presentingView: strongSelf.view, completion: nil)
         }
     }
     
     @IBAction func withoutLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "", presentingView: self.view)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "", presentingView: self.view)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
             guard let strongSelf = self else { return }
@@ -118,7 +117,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withFunnyLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, funnyMessagesLanguage: .English, presentingView: self.view)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, funnyMessagesLanguage: .english, presentingView: self.view)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { [weak self] in
             guard let strongSelf = self else { return }
