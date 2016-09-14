@@ -14,7 +14,7 @@ A simple way to display a HUD with a message or progress information in your app
 
 ##Requirements
 - iOS 8 or later.
-- Xcode 8 (Swift 3.0) or later.
+- Xcode 8 (Swift 3.0) or later. For Swift 2.2 use version 0.6
 
 ##Installation
 ####CocoaPods
