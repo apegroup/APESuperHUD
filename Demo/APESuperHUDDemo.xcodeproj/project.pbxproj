@@ -153,6 +153,7 @@
 				TargetAttributes = {
 					18AC6D5E1C5B942900FE881A = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = Q48PCXNS55;
 					};
 				};
 			};
@@ -340,7 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Q48PCXNS55;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = APESuperHUDDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -354,7 +355,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Q48PCXNS55;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = APESuperHUDDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
