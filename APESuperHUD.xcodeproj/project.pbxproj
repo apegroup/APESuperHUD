@@ -11,7 +11,6 @@
 		18AC6D191C5B90D500FE881A /* APESuperHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 18AC6D111C5B90D500FE881A /* APESuperHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		18AC6D1A1C5B90D500FE881A /* APESuperHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D121C5B90D500FE881A /* APESuperHUD.swift */; };
 		18AC6D1B1C5B90D500FE881A /* HudAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D131C5B90D500FE881A /* HudAppearance.swift */; };
-		18AC6D1D1C5B90D500FE881A /* HudUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D151C5B90D500FE881A /* HudUtilities.swift */; };
 		18AC6D1E1C5B90D500FE881A /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D161C5B90D500FE881A /* HudView.swift */; };
 		18AC6D201C5B90D500FE881A /* LoadingMessagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D181C5B90D500FE881A /* LoadingMessagesHandler.swift */; };
 		18AC6D2A1C5B90F000FE881A /* FrameworkMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D281C5B90F000FE881A /* FrameworkMedia.xcassets */; };
@@ -34,7 +33,6 @@
 		18AC6D111C5B90D500FE881A /* APESuperHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APESuperHUD.h; sourceTree = "<group>"; };
 		18AC6D121C5B90D500FE881A /* APESuperHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APESuperHUD.swift; sourceTree = "<group>"; };
 		18AC6D131C5B90D500FE881A /* HudAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudAppearance.swift; sourceTree = "<group>"; };
-		18AC6D151C5B90D500FE881A /* HudUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudUtilities.swift; sourceTree = "<group>"; };
 		18AC6D161C5B90D500FE881A /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		18AC6D181C5B90D500FE881A /* LoadingMessagesHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingMessagesHandler.swift; sourceTree = "<group>"; };
 		18AC6D221C5B90DA00FE881A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 				18AC6D111C5B90D500FE881A /* APESuperHUD.h */,
 				18AC6D121C5B90D500FE881A /* APESuperHUD.swift */,
 				18AC6D131C5B90D500FE881A /* HudAppearance.swift */,
-				18AC6D151C5B90D500FE881A /* HudUtilities.swift */,
 				18AC6D161C5B90D500FE881A /* HudView.swift */,
 				18AC6D181C5B90D500FE881A /* LoadingMessagesHandler.swift */,
 			);
@@ -231,7 +228,6 @@
 			files = (
 				18AC6D1E1C5B90D500FE881A /* HudView.swift in Sources */,
 				18AC6D1A1C5B90D500FE881A /* APESuperHUD.swift in Sources */,
-				18AC6D1D1C5B90D500FE881A /* HudUtilities.swift in Sources */,
 				18AC6D1B1C5B90D500FE881A /* HudAppearance.swift in Sources */,
 				18AC6D201C5B90D500FE881A /* LoadingMessagesHandler.swift in Sources */,
 			);
@@ -273,7 +269,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -321,7 +317,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -349,6 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -359,6 +356,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apegroup.APESuperHUD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -366,6 +364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -376,6 +375,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apegroup.APESuperHUD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -386,6 +386,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apegroup.APESuperHUDTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -396,6 +397,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apegroup.APESuperHUDTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

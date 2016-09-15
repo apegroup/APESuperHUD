@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,64 +14,58 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4j-OJ-zTL">
-                                <rect key="frame" x="130" y="89" width="340" height="422"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="CTT-Ce-clN">
-                                        <rect key="frame" x="20" y="8" width="300" height="177"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show message HUD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWt-LZ-bVd">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="3Wk-XX-Xgy"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFw-0J-sfk">
-                                                <rect key="frame" x="0.0" y="33" width="300" height="40"/>
-                                                <color key="backgroundColor" red="0.2196078431372549" green="0.22745098039215686" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.2196078431372549" green="0.22745098039215686" blue="0.43529411764705883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="SnL-fy-FHu"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="With default icon">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="withDefaultIconButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1P6-A6-duU"/>
+                                                    <action selector="withDefaultIconButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uBU-Ea-raK"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZe-U2-wYM">
-                                                <rect key="frame" x="0.0" y="85" width="300" height="40"/>
-                                                <color key="backgroundColor" red="0.2196078431372549" green="0.22745098039215686" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.2196078431372549" green="0.22745098039215686" blue="0.43529411764705883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="f0E-l7-gPN"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="With custom icon">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="withCustomIconButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ABQ-v0-Qzh"/>
+                                                    <action selector="withCustomIconButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fAh-4m-00B"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsq-eQ-eMz">
-                                                <rect key="frame" x="0.0" y="137" width="300" height="40"/>
-                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="J6Z-gy-mSB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="With title">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="withTitleButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C7s-lj-myq"/>
+                                                    <action selector="withTitleButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jZE-zy-eGd"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -79,57 +74,52 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1GO-6z-9Fa">
-                                        <rect key="frame" x="20" y="215" width="300" height="177"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show loading indicator HUD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3f0-RL-iwG">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="iYf-ig-8VY"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pc2-Fn-7Dr">
-                                                <rect key="frame" x="0.0" y="33" width="300" height="40"/>
-                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="ALb-UB-yaU"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="With loading text">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="withLoadingTextButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nor-x6-FM7"/>
+                                                    <action selector="withLoadingTextButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2DL-8X-bh7"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7SC-qk-9JQ">
-                                                <rect key="frame" x="0.0" y="85" width="300" height="40"/>
-                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="CNw-yf-Edc"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="Without loading text">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="withoutLoadingTextButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yzd-Wf-iek"/>
+                                                    <action selector="withoutLoadingTextButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vwu-fh-Myr"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVp-Aw-4f5">
-                                                <rect key="frame" x="0.0" y="137" width="300" height="40"/>
-                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.21960784310000001" green="0.2274509804" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="cGa-qp-gbd"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="With funny loading text">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="withFunnyLoadingTextButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kAH-c1-xqS"/>
+                                                    <action selector="withFunnyLoadingTextButtonPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UIM-Zf-Zeh"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -138,7 +128,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="CTT-Ce-clN" firstAttribute="leading" secondItem="x4j-OJ-zTL" secondAttribute="leading" constant="20" id="RPC-81-tPy"/>
                                     <constraint firstAttribute="trailing" secondItem="1GO-6z-9Fa" secondAttribute="trailing" constant="20" id="Vv5-gA-pjd"/>
@@ -156,19 +146,19 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="x4j-OJ-zTL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QsR-8e-TyF"/>
                             <constraint firstItem="x4j-OJ-zTL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YIw-7m-Nhs"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="loadingWithFunnyMessagesButton" destination="rVp-Aw-4f5" id="0Hl-H3-1qI"/>
-                        <outlet property="loadingWithTextButton" destination="pc2-Fn-7Dr" id="CiJ-yZ-Koz"/>
-                        <outlet property="loadingWithoutTextButton" destination="7SC-qk-9JQ" id="aIS-3w-lzN"/>
-                        <outlet property="messageWithCustomIconButton" destination="cZe-U2-wYM" id="aJP-co-8vB"/>
-                        <outlet property="messageWithDefaultIconButton" destination="lFw-0J-sfk" id="37G-VQ-AoH"/>
-                        <outlet property="messageWithTitleButton" destination="hsq-eQ-eMz" id="Fcf-2B-yME"/>
+                        <outlet property="loadingWithFunnyMessagesButton" destination="rVp-Aw-4f5" id="9QH-Gd-v4W"/>
+                        <outlet property="loadingWithTextButton" destination="pc2-Fn-7Dr" id="PLx-oG-KKw"/>
+                        <outlet property="loadingWithoutTextButton" destination="7SC-qk-9JQ" id="hp1-wd-CZM"/>
+                        <outlet property="messageWithCustomIconButton" destination="cZe-U2-wYM" id="IhO-M2-nI0"/>
+                        <outlet property="messageWithDefaultIconButton" destination="lFw-0J-sfk" id="E8Y-p4-a0m"/>
+                        <outlet property="messageWithTitleButton" destination="hsq-eQ-eMz" id="FA8-0I-tdN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

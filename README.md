@@ -14,7 +14,7 @@ A simple way to display a HUD with a message or progress information in your app
 
 ##Requirements
 - iOS 8 or later.
-- Xcode 7 or later.
+- Xcode 8 (Swift 3.0) or later. For Swift 2.2 use version 0.6
 
 ##Installation
 ####CocoaPods
@@ -43,29 +43,36 @@ import APESuperHUD
 ####Show message HUD
 ######With default icon
 ```swift
-APESuperHUD.showOrUpdateHUD(.Email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
+APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
     // Completed
 })
 ```
 ######With custom image
 ```swift
-APESuperHUD.showOrUpdateHUD(UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
+APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
     // Completed
 })
 ```
+######With Title
+```swift
+APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", presentingView: self.view) { _ in
+    // Completed
+}
+```
+
 
 ####Show HUD with loading indicator
 ######With loading text
 ```swift
-APESuperHUD.showOrUpdateHUD(.Standard, message: "Demo loading...", presentingView: self.view, completion: nil)
+APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "Demo loading...", presentingView: self.view)
 ```
 ######Without loading text
 ```swift
-APESuperHUD.showOrUpdateHUD(.Standard, message: "", presentingView: self.view, completion: nil)
+APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "", presentingView: self.view, completion: nil)
 ```
 ######With funny loading texts
 ```swift
-APESuperHUD.showOrUpdateHUD(.Standard, funnyMessagesLanguage: .English, presentingView: self.view, completion: nil)
+APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, funnyMessagesLanguage: .english, presentingView: self.view)
 ```
 ####Remove HUD
 ```swift
@@ -78,16 +85,18 @@ APESuperHUD.removeHUD(animated: true, presentingView: self.view, completion: { _
 APESuperHUD.appearance.cornerRadius = 12
 APESuperHUD.appearance.animateInTime = 1.0
 APESuperHUD.appearance.animateOutTime = 1.0
-APESuperHUD.appearance.backgroundBlurEffect = .None
-APESuperHUD.appearance.iconColor = UIColor.greenColor()
-APESuperHUD.appearance.textColor = UIColor.greenColor()
-APESuperHUD.appearance.loadingActivityIndicatorColor = UIColor.greenColor()
+APESuperHUD.appearance.backgroundBlurEffect = .none
+APESuperHUD.appearance.iconColor = UIColor.green
+APESuperHUD.appearance.textColor =  UIColor.green
+APESuperHUD.appearance.loadingActivityIndicatorColor = UIColor.green
 APESuperHUD.appearance.defaultDurationTime = 4.0
 APESuperHUD.appearance.cancelableOnTouch = true
 APESuperHUD.appearance.iconWidth = 48
 APESuperHUD.appearance.iconHeight = 48
-APESuperHUD.appearance.fontName = "Caviar Dreams"
-APESuperHUD.appearance.fontSize = 14
+APESuperHUD.appearance.messageFontName = "Caviar Dreams"
+APESuperHUD.appearance.titleFontName = "Caviar Dreams"
+APESuperHUD.appearance.titleFontSize = 22
+APESuperHUD.appearance.messageFontSize = 14
 ```
 
 ##Contributing

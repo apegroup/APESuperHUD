@@ -39,16 +39,22 @@ class ViewController: UIViewController {
         
         // Setup Appearnce
         setupHudAppearance()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         // Setup Buttons
         setupButtonsLayout()
     }
     
     private func setupHudAppearance() {
+        
         APESuperHUD.appearance.cornerRadius = 12
         APESuperHUD.appearance.animateInTime = 1.0
         APESuperHUD.appearance.animateOutTime = 1.0
-        APESuperHUD.appearance.backgroundBlurEffect = .None
+        APESuperHUD.appearance.backgroundBlurEffect = .none
         APESuperHUD.appearance.iconColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
         APESuperHUD.appearance.textColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
         APESuperHUD.appearance.loadingActivityIndicatorColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
@@ -64,16 +70,18 @@ class ViewController: UIViewController {
     }
     
     private func setupButtonsLayout() {
+        
         messageWithDefaultIconButton.layer.cornerRadius = messageWithDefaultIconButton.frame.height / 2
         messageWithCustomIconButton.layer.cornerRadius = messageWithCustomIconButton.frame.height / 2
         messageWithTitleButton.layer.cornerRadius = messageWithTitleButton.frame.height / 2
         loadingWithTextButton.layer.cornerRadius = loadingWithFunnyMessagesButton.frame.height / 2
         loadingWithoutTextButton.layer.cornerRadius = loadingWithoutTextButton.frame.height / 2
         loadingWithFunnyMessagesButton.layer.cornerRadius = loadingWithFunnyMessagesButton.frame.height / 2
+        
     }
     
     @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(icon: .Email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
+        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
             // Completed
         })
     }
@@ -91,40 +99,36 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "Demo loading...", presentingView: self.view)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "Demo loading...", presentingView: self.view)
         
-        runWithDelay(3.0, closure: { [weak self] in
-            APESuperHUD.showOrUpdateHUD(icon: .CheckMark, message: "Done loading!", duration: 2.0, presentingView: self!.view, completion: nil)
-        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+            guard let strongSelf = self else { return }
+            APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: "Done loading!", duration: 2.0, presentingView: strongSelf.view, completion: nil)
+        }
     }
     
     @IBAction func withoutLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "", presentingView: self.view)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "", presentingView: self.view)
         
-        runWithDelay(3.0, closure: { [weak self] in
-            APESuperHUD.removeHUD(animated: true, presentingView: self!.view, completion: nil)
-        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+            guard let strongSelf = self else { return }
+            APESuperHUD.removeHUD(animated: true, presentingView: strongSelf.view, completion: nil)
+        }
     }
     
     @IBAction func withFunnyLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, funnyMessagesLanguage: .English, presentingView: self.view)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, funnyMessagesLanguage: .english, presentingView: self.view)
         
-        runWithDelay(10.0, closure: { [weak self] in
-            APESuperHUD.removeHUD(animated: true, presentingView: self!.view, completion: nil)
-        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { [weak self] in
+            guard let strongSelf = self else { return }
+            APESuperHUD.removeHUD(animated: true, presentingView: strongSelf.view, completion: nil)
+
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-}
-
-extension ViewController {
-    
-    func runWithDelay(delay: Double, closure: Void -> Void) {
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
-        dispatch_after(time, dispatch_get_main_queue(), closure)
     }
 }
 
