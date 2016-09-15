@@ -46,11 +46,11 @@ class APESuperHUDTests: XCTestCase {
     func testAppearance() {
         let animationInTime = 1.2
         let animationOutTime = 1.5
-        let backgroundColor = UIColor.blackColor()
+        let backgroundColor = UIColor.black
         let cornerRadius = 12.0
-        let foregroundColor = UIColor.blackColor()
-        let iconColor = UIColor.brownColor()
-        let loadingActivityIndicatorColor = UIColor.purpleColor()
+        let foregroundColor = UIColor.black
+        let iconColor = UIColor.brown
+        let loadingActivityIndicatorColor = UIColor.purple
         
         APESuperHUD.appearance.animateInTime = animationInTime
         APESuperHUD.appearance.animateOutTime = animationOutTime
@@ -60,7 +60,9 @@ class APESuperHUDTests: XCTestCase {
         APESuperHUD.appearance.iconColor = iconColor
         APESuperHUD.appearance.loadingActivityIndicatorColor = loadingActivityIndicatorColor
         
-        let testView = UIView(frame: CGRectMake(0, 0, 200, 200))
+    
+        let testView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+       
         let hudView = APESuperHUD.createHudViewIfNeeded(presentingView: testView)
         
         XCTAssertEqual(hudView.hudMessageView.layer.cornerRadius, CGFloat(cornerRadius))
@@ -75,26 +77,30 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: originalText, presentingView: testView)
-        validateShow(testView)
-        validateLoadIndicator(testView, informationText: self.originalText)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: originalText, presentingView: testView)
+        validateShow(view: testView)
+        validateLoadIndicator(view: testView, informationText: self.originalText)
         
         // Test update
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: updatedTest, presentingView: testView)
-        validateUpdateLoadingIndicator(testView, description: "Delay update loading indicator with info")
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: updatedTest, presentingView: testView)
+        validateUpdateLoadingIndicator(view: testView, description: "Delay update loading indicator with info")
         
         // Test remove
-        self.validateRemove(testView, description: "Completion remove loading indicator with info")
+        self.validateRemove(view: testView, description: "Completion remove loading indicator with info")
     }
     
     func validateUpdateLoadingIndicator(view: UIView, description: String) {
-        let asyncExpectation = expectationWithDescription(description)
-        runWithDelay(3, closure: { _ in
-            self.validateShow(view)
-            self.validateLoadIndicator(view, informationText: self.updatedTest)
+        let asyncExpectation = expectation(description: description)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            
+            self.validateShow(view: view)
+            self.validateLoadIndicator(view: view, informationText: self.updatedTest)
             asyncExpectation.fulfill()
+            
         })
-        self.waitForExpectationsWithTimeout(8) { error in
+        
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while updating HUD")
         }
     }
@@ -103,38 +109,43 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: "", presentingView: testView)
-        validateShow(testView)
-        validateLoadIndicator(testView, informationText: "")
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "", presentingView: testView)
+        validateShow(view: testView)
+        validateLoadIndicator(view: testView, informationText: "")
         
         // Test remove
-        validateRemove(testView, description: "Completion remove loading indicator")
+        validateRemove(view: testView, description: "Completion remove loading indicator")
     }
     
     func testLoadingIndicatorRandomFunnyMessages() {
         let testView = getTestView()
         
         // Test show
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, funnyMessagesLanguage: .English, presentingView: testView)
-        validateShow(testView)
-        let asyncExpectation = expectationWithDescription(description)
-        runWithDelay(APESuperHUD.appearance.animateOutTime + APESuperHUD.appearance.animateInTime, closure: { _ in
-            let hudView = self.getHudView(testView)
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, funnyMessagesLanguage: .english, presentingView: testView)
+        validateShow(view: testView)
+        let asyncExpectation = expectation(description: description)
+        
+        let delayTime = APESuperHUD.appearance.animateOutTime + APESuperHUD.appearance.animateInTime
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayTime, execute: {
+            
+            let hudView = self.getHudView(view: testView)
             XCTAssertEqual(hudView?.isActiveTimer, true)
             XCTAssertNotEqual(hudView?.informationLabel.text, "")
-            XCTAssertEqual(hudView?.loadingActivityIndicator.hidden, false)
-            XCTAssertEqual(hudView?.loadingActivityIndicator.isAnimating(), true)
+            XCTAssertEqual(hudView?.loadingActivityIndicator.isHidden, false)
+            XCTAssertEqual(hudView?.loadingActivityIndicator.isAnimating, true)
             XCTAssertEqual(hudView?.iconImageView.alpha, 0.0)
             XCTAssertEqual(hudView?.iconImageView.image, nil)
             asyncExpectation.fulfill()
+            
         })
-        self.waitForExpectationsWithTimeout(8) { error in
+        
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while updating HUD")
         }
         
-        
         // Test remove
-        validateRemove(testView, description: "Completion remove loading indicator random funny messages")
+        validateRemove(view: testView, description: "Completion remove loading indicator random funny messages")
     }
     
     // MARK: - Message tests
@@ -143,18 +154,22 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show and duration
-        APESuperHUD.showOrUpdateHUD(icon: .Email, message: originalText, duration: 4.0, presentingView: testView, completion: nil)
-        validateShow(testView)
-        validateMessage(testView, informationText: originalText)
+        APESuperHUD.showOrUpdateHUD(icon: .email, message: originalText, duration: 4.0, presentingView: testView, completion: nil)
+        validateShow(view: testView)
+        validateMessage(view: testView, informationText: originalText)
         
-        let asyncExpectation = expectationWithDescription("Delay duration message with default icon and duration")
-        runWithDelay(5.0, closure: { _ in
-            if self.hudViewExists(testView) {
+        let asyncExpectation = expectation(description: "Delay duration message with default icon and duration")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            
+            if self.hudViewExists(view: testView) {
                 XCTFail("HUD did not get removed.")
             }
             asyncExpectation.fulfill()
+
         })
-        self.waitForExpectationsWithTimeout(8) { error in
+
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while updating HUD")
         }
     }
@@ -163,19 +178,23 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show
-        APESuperHUD.showOrUpdateHUD(icon: .HappyFace, message: originalText, presentingView: testView, completion: nil)
-        validateShow(testView)
-        validateMessage(testView, informationText: originalText)
+        APESuperHUD.showOrUpdateHUD(icon: .happyFace, message: originalText, presentingView: testView, completion: nil)
+        validateShow(view: testView)
+        validateMessage(view: testView, informationText: originalText)
         
         // Test update
-        APESuperHUD.showOrUpdateHUD(icon: .CheckMark, message: updatedTest, presentingView: testView, completion: nil)
-        let asyncExpectation = expectationWithDescription("Delay update message with default icon")
-        runWithDelay(1, closure: { _ in
-            self.validateShow(testView)
-            self.validateMessage(testView, informationText: self.updatedTest)
+        APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: updatedTest, presentingView: testView, completion: nil)
+        let asyncExpectation = expectation(description: "Delay update message with default icon")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            
+            self.validateShow(view: testView)
+            self.validateMessage(view: testView, informationText: self.updatedTest)
             asyncExpectation.fulfill()
+
         })
-        self.waitForExpectationsWithTimeout(8) { error in
+        
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while updating HUD")
         }
     }
@@ -184,16 +203,16 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         // Test show and auto remove
-        let asyncExpectation = expectationWithDescription("Completion duration message with default icon, duration and completion")
-        APESuperHUD.showOrUpdateHUD(icon: .CheckMark, message: originalText, duration: 3.0, presentingView: testView, completion: { _ in
+        let asyncExpectation = expectation(description: "Completion duration message with default icon, duration and completion")
+        APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: originalText, duration: 3.0, presentingView: testView, completion: { _ in
             asyncExpectation.fulfill()
         })
-        validateShow(testView)
-        validateMessage(testView, informationText: originalText)
+        validateShow(view: testView)
+        validateMessage(view: testView, informationText: originalText)
         
-        self.waitForExpectationsWithTimeout(8) { error in
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while removing HUD")
-            if self.hudViewExists(testView) {
+            if self.hudViewExists(view: testView) {
                 XCTFail("HUD view did not get removed.")
             }
         }
@@ -204,17 +223,21 @@ class APESuperHUDTests: XCTestCase {
         
         // Test show and auto remove
         APESuperHUD.showOrUpdateHUD(icon: createTestImage(width: 200, height: 200), message: originalText, presentingView: testView, completion: nil)
-        validateShow(testView)
-        validateMessage(testView, informationText: originalText)
+        validateShow(view: testView)
+        validateMessage(view: testView, informationText: originalText)
         
-        let asyncExpectation = expectationWithDescription("Delay duration message with image icon")
-        runWithDelay(APESuperHUD.appearance.defaultDurationTime + 1, closure: { _ in
-            if self.hudViewExists(testView) {
+        let asyncExpectation = expectation(description: "Delay duration message with image icon")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + APESuperHUD.appearance.defaultDurationTime + 1, execute: {
+            
+            if self.hudViewExists(view: testView) {
                 XCTFail("HUD did not get removed.")
             }
             asyncExpectation.fulfill()
+            
         })
-        self.waitForExpectationsWithTimeout(8) { error in
+        
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while updating HUD")
         }
     }
@@ -222,16 +245,16 @@ class APESuperHUDTests: XCTestCase {
     func testMessageWithImageIconAndCompletion() {
         let testView = getTestView()
         
-        let asyncExpectation = expectationWithDescription("Completion duration message with image ccon and completion")
+        let asyncExpectation = expectation(description: "Completion duration message with image ccon and completion")
         APESuperHUD.showOrUpdateHUD(icon: createTestImage(width: 200, height: 200), message: originalText, presentingView: testView, completion: { _ in
             asyncExpectation.fulfill()
         })
-        validateShow(testView)
-        validateMessage(testView, informationText: originalText)
+        validateShow(view: testView)
+        validateMessage(view: testView, informationText: originalText)
         
-        self.waitForExpectationsWithTimeout(8) { error in
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while removing HUD")
-            if self.hudViewExists(testView) {
+            if self.hudViewExists(view: testView) {
                 XCTFail("HUD view did not get removed.")
             }
         }
@@ -241,17 +264,21 @@ class APESuperHUDTests: XCTestCase {
         let testView = getTestView()
         
         APESuperHUD.showOrUpdateHUD(icon: createTestImage(width: 200, height: 200), message: originalText, duration: 3.0, presentingView: testView, completion: nil)
-        validateShow(testView)
-        validateMessage(testView, informationText: originalText)
+        validateShow(view: testView)
+        validateMessage(view: testView, informationText: originalText)
         
-        let asyncExpectation = expectationWithDescription("Delay duration message with image icon and duration")
-        runWithDelay(4, closure: { _ in
-            if self.hudViewExists(testView) {
+        let asyncExpectation = expectation(description: "Delay duration message with image icon and duration")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            
+            if self.hudViewExists(view: testView) {
                 XCTFail("HUD did not get removed.")
             }
             asyncExpectation.fulfill()
+            
         })
-        self.waitForExpectationsWithTimeout(8) { error in
+        
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while updating HUD")
         }
     }
@@ -259,16 +286,16 @@ class APESuperHUDTests: XCTestCase {
     func testMessageWithImageIconDurationAndCompletion() {
         let testView = getTestView()
         
-        let asyncExpectation = expectationWithDescription("Completion duration message with image icon, duration and completion")
+        let asyncExpectation = expectation(description: "Completion duration message with image icon, duration and completion")
         APESuperHUD.showOrUpdateHUD(icon: createTestImage(width: 200, height: 200), message: originalText, duration: 3.0, presentingView: testView, completion: { _ in
             asyncExpectation.fulfill()
         })
-        validateShow(testView)
-        validateMessage(testView, informationText: originalText)
+        validateShow(view: testView)
+        validateMessage(view: testView, informationText: originalText)
         
-        self.waitForExpectationsWithTimeout(8) { error in
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while removing HUD")
-            if self.hudViewExists(testView) {
+            if self.hudViewExists(view: testView) {
                 XCTFail("HUD view did not get removed.")
             }
         }
@@ -281,22 +308,25 @@ class APESuperHUDTests: XCTestCase {
         
         let testView = getTestView()
         
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .Standard, message: originalText, presentingView: testView)
-        validateShow(testView)
-        let hudView = getHudView(testView)
-        hudView?.tapGestureRecognized("")
+        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: originalText, presentingView: testView)
+        validateShow(view: testView)
+        let hudView = getHudView(view: testView)
+        hudView?.tapGestureRecognized(sender: "" as AnyObject)
         
-        let asyncExpectation = expectationWithDescription("Delay tap guesture recognized")
-        runWithDelay(1, closure: { _ in
+        let asyncExpectation = expectation(description: "Delay tap guesture recognized")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            
             // Validate that hud view is removed
-            if self.hudViewExists(testView) {
+            if self.hudViewExists(view: testView) {
                 XCTFail("HUD view did not get removed when tapped.")
             }
             
             asyncExpectation.fulfill()
+            
         })
         
-        self.waitForExpectationsWithTimeout(8) { error in
+        self.waitForExpectations(timeout: 8) { error in
             XCTAssertNil(error, "A error while tap view")
         }
     }
@@ -304,38 +334,38 @@ class APESuperHUDTests: XCTestCase {
     // MARK: - Validations
     
     func validateRemove(view: UIView, description: String) {
-        let asyncExpectation = expectationWithDescription(description)
+        let asyncExpectation = expectation(description: description)
         APESuperHUD.removeHUD(animated: true, presentingView: view, completion: { _ in
             asyncExpectation.fulfill()
         })
-        self.waitForExpectationsWithTimeout(8) { error in
+        self.waitForExpectations(timeout: 8) { error in
             print(description)
             XCTAssertNil(error, "A error while removing HUD")
-            if self.hudViewExists(view) {
+            if self.hudViewExists(view: view) {
                 XCTFail("HUD view did not get removed.")
             }
         }
     }
     
     func validateLoadIndicator(view: UIView, informationText: String) {
-        let hudView = self.getHudView(view)
+        let hudView = self.getHudView(view: view)
         XCTAssertEqual(hudView?.informationLabel.text, informationText)
-        XCTAssertEqual(hudView?.loadingActivityIndicator.hidden, false)
-        XCTAssertEqual(hudView?.loadingActivityIndicator.isAnimating(), true)
+        XCTAssertEqual(hudView?.loadingActivityIndicator.isHidden, false)
+        XCTAssertEqual(hudView?.loadingActivityIndicator.isAnimating, true)
         XCTAssertEqual(hudView?.iconImageView.alpha, 0.0)
         XCTAssertEqual(hudView?.iconImageView.image, nil)
     }
     
     func validateMessage(view: UIView, informationText: String) {
-        let hudView = getHudView(view)
+        let hudView = getHudView(view: view)
         XCTAssertEqual(hudView?.informationLabel.text, informationText)
-        XCTAssertEqual(hudView?.loadingActivityIndicator.isAnimating(), false)
+        XCTAssertEqual(hudView?.loadingActivityIndicator.isAnimating, false)
         XCTAssertEqual(hudView?.iconImageView.alpha, 1.0)
         XCTAssertNotEqual(hudView?.iconImageView.image, nil)
     }
     
     func validateShow(view: UIView) {
-        if !hudViewExists(view) {
+        if !hudViewExists(view: view) {
             XCTFail("No HUD view was added to the view.")
         }
     }
@@ -354,7 +384,7 @@ class APESuperHUDTests: XCTestCase {
     }
     
     func getTestView() -> UIView {
-        return UIView(frame: CGRectMake(0, 0, 400, 400))
+        return UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
     }
     
     func getHudView(view: UIView) -> HudView? {
@@ -367,14 +397,14 @@ class APESuperHUDTests: XCTestCase {
         return nil
     }
     
-    func createTestImage(width width: CGFloat, height: CGFloat, color: UIColor = UIColor.greenColor()) -> UIImage {
-        let rect = CGRectMake(0, 0, width, height)
+    func createTestImage(width: CGFloat, height: CGFloat, color: UIColor = UIColor.green) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: width, height: height)
         UIGraphicsBeginImageContext(rect.size)
         color.set()
         UIRectFill(rect)
         let testImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return testImage
+        return testImage!
     }
 }

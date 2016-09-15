@@ -34,31 +34,31 @@ import UIKit
 */
 public enum BlurEffect {
     
-    case None
-    case Dark
-    case Light
-    case ExtraLight
+    case none
+    case dark
+    case light
+    case extraLight
 }
 
 public struct HUDAppearance {
 
     /// Text color of the text inside the HUD
-    public var textColor = UIColor.blackColor()
+    public var textColor = UIColor.black
     
     /// The background color of the view where the HUD is presented
-    public var backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+    public var backgroundColor = UIColor.black.withAlphaComponent(0.5)
     
     /// The background color of the HUD view
-    public var foregroundColor = UIColor.whiteColor()
+    public var foregroundColor = UIColor.white
     
     /// The color of the icon in the HUD
-    public var iconColor = UIColor.grayColor()
+    public var iconColor = UIColor.gray
     
     /// The color of the loading indicator
-    public var loadingActivityIndicatorColor = UIColor.grayColor()
+    public var loadingActivityIndicatorColor = UIColor.gray
     
     /// The type of blur effect in background view when the HUD is presented
-    public var backgroundBlurEffect: BlurEffect = .None
+    public var backgroundBlurEffect: BlurEffect = .none
     
     /// The corner radius of the HUD
     public var cornerRadius: Double = 10
@@ -67,10 +67,10 @@ public struct HUDAppearance {
     public var shadow: Bool = true
     
     /// The HUD fade in duration
-    public var animateInTime: NSTimeInterval = 0.4
+    public var animateInTime: TimeInterval = 0.4
     
     /// The HUD fade out duration
-    public var animateOutTime: NSTimeInterval = 0.4
+    public var animateOutTime: TimeInterval = 0.4
     
     /// The default display duration for the HUD
     public var defaultDurationTime: Double = 2.0
