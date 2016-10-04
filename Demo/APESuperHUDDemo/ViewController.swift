@@ -27,6 +27,7 @@ import APESuperHUD
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var particleEffectSwitch: UISwitch!
     @IBOutlet weak var messageWithDefaultIconButton: UIButton!
     @IBOutlet weak var messageWithCustomIconButton: UIButton!
     @IBOutlet weak var messageWithTitleButton: UIButton!
@@ -66,6 +67,7 @@ class ViewController: UIViewController {
         APESuperHUD.appearance.titleFontName = "Caviar Dreams"
         APESuperHUD.appearance.titleFontSize = 22
         APESuperHUD.appearance.messageFontSize = 14
+        APESuperHUD.appearance.backgroundColor = UIColor(red: 0, green: 128.0 / 255.0, blue: 1.0, alpha: 0.8)
         
     }
     
@@ -81,21 +83,54 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
-            // Completed
-        })
+    
+        if particleEffectSwitch.isOn {
+            
+            APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, particleEffectFileName: "FireFliesParticle", presentingView: self.view, completion: { _ in
+                // Completed
+            })
+        
+        } else {
+            
+            APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
+                // Completed
+            })
+        }
+        
     }
     
     @IBAction func withCustomIconButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
-            // Completed
-        })
+        
+        if particleEffectSwitch.isOn {
+            
+            APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, particleEffectFileName: "FireFliesParticle", presentingView: self.view, completion: { _ in
+                // Completed
+            })
+            
+        } else {
+            
+            APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
+                // Completed
+            })
+        }
+        
     }
     
     @IBAction func withTitleButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", presentingView: self.view) { _ in
-            // Completed
+        
+        if particleEffectSwitch.isOn {
+            
+            APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", duration: 3.0, particleEffectFileName: "FireFliesParticle", presentingView: self.view, completion: { _ in
+                // Completed
+            })
+            
+        } else {
+            
+            APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", presentingView: self.view) { _ in
+                // Completed
+            }
         }
+        
     }
     
     @IBAction func withLoadingTextButtonPressed(sender: UIButton) {
