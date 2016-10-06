@@ -48,6 +48,9 @@ public struct HUDAppearance {
     /// The background color of the view where the HUD is presented
     public var backgroundColor = UIColor.black.withAlphaComponent(0.5)
     
+    /// The background color of the particle effect view
+    public var particleEffectBackgroundColor = UIColor.white
+    
     /// The background color of the HUD view
     public var foregroundColor = UIColor.white
     

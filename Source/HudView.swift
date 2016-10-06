@@ -37,7 +37,7 @@ class HudView: UIView {
     internal var iconImageHeightConstraint: NSLayoutConstraint!
     internal var iconTopConstraint: NSLayoutConstraint!
     internal var iconCenterYConstraint: NSLayoutConstraint!
-    internal var hudHeightConstraint: NSLayoutConstraint!
+    internal var hudMinimumHeightConstraint: NSLayoutConstraint!
     internal var hudWidthConstraint: NSLayoutConstraint!
     
     var isActivityIndicatorSpinnning: Bool {
@@ -70,18 +70,18 @@ class HudView: UIView {
      */
     internal override init(frame: CGRect) {
         
-        hudMessageView = UIView(frame: CGRect(x: 0, y: 0, width: 144, height: 144))
+        hudMessageView = UIView()
         hudMessageView.translatesAutoresizingMaskIntoConstraints = false
         
-        iconImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
+        iconImageView = UIImageView()
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 144, height: 21))
+        titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         
-        informationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 144, height: 16))
+        informationLabel = UILabel()
         informationLabel.translatesAutoresizingMaskIntoConstraints = false
         informationLabel.textAlignment = .center
         informationLabel.numberOfLines = 0
@@ -129,18 +129,19 @@ class HudView: UIView {
         
         let centerXConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         let centerYConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
-        let widthConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 144)
-        let heightConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 144)
+        let widthConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: APESuperHUD.appearance.hudSquareSize)
+        
+        let minimumHeightConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: APESuperHUD.appearance.hudSquareSize)
         
         widthConstraint.priority = UILayoutPriorityRequired - 1
-        heightConstraint.priority = UILayoutPriorityRequired - 1
+        minimumHeightConstraint.priority = UILayoutPriorityRequired - 1
         
-        [centerXConstraint, centerYConstraint, widthConstraint, heightConstraint].forEach {
+        [centerXConstraint, minimumHeightConstraint, centerYConstraint, widthConstraint].forEach {
             $0.isActive = true
         }
         
         hudWidthConstraint = widthConstraint
-        hudHeightConstraint = heightConstraint
+        hudMinimumHeightConstraint = minimumHeightConstraint
     }
     
     private func generateIconConstraints() {
@@ -151,7 +152,7 @@ class HudView: UIView {
         let widthConstraint = NSLayoutConstraint(item: iconImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
         let heightConstraint = NSLayoutConstraint(item: iconImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
         
-        [centerXConstraint, centerYConstraint, widthConstraint, heightConstraint].forEach {
+        [centerXConstraint, topConstraint, widthConstraint, heightConstraint].forEach {
             $0.isActive = true
         }
         
@@ -190,7 +191,7 @@ class HudView: UIView {
     private func generateMessageLabelConstraints() {
         
         let topConstraint = NSLayoutConstraint(item: informationLabel, attribute: .top, relatedBy: .equal, toItem: iconImageView, attribute: .bottom, multiplier: 1, constant: 8)
-        let bottomConstraint = NSLayoutConstraint(item: informationLabel, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: hudMessageView, attribute: .bottom, multiplier: 1, constant: -18)
+        let bottomConstraint = NSLayoutConstraint(item: informationLabel, attribute: .bottom, relatedBy: .equal, toItem: hudMessageView, attribute: .bottom, multiplier: 1, constant: -20)
         let leadingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .leading, relatedBy: .equal, toItem: hudMessageView, attribute: .leading, multiplier: 1, constant: 5)
         let trailingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .trailing, relatedBy: .equal, toItem: hudMessageView, attribute: .trailing, multiplier: 1, constant: -5)
         
@@ -385,25 +386,42 @@ extension HudView {
     /**
      Adds a particle effect in the background
      
-      - parameter sksfileName: The name of the Sprite Kit particle effect file.
+     - parameter sksfileName: The name of the Sprite Kit particle effect file.
      
      */
     func addParticleEffect(sksfileName: String) {
         
         guard let emitter = SKEmitterNode(fileNamed: sksfileName) else { return }
+    
+        // Can't have particle effect together witha a blur effect view
+        for subview in subviews {
+            if subview is UIVisualEffectView {
+                subview.removeFromSuperview()
+            }
+        }
+       
         emitter.position = CGPoint(x: center.x, y: center.y)
         emitter.zPosition = 0
         
-        let skView = SKView(frame: self.frame)
+        let skView = SKView()
+        skView.translatesAutoresizingMaskIntoConstraints = false
         skView.allowsTransparency = true
         
-        let skScene:SKScene = SKScene(size: skView.frame.size);
-        skScene.scaleMode = .aspectFill;
-        skScene.backgroundColor =  APESuperHUD.appearance.backgroundColor
+        let skScene:SKScene = SKScene(size: bounds.size)
+        skScene.scaleMode = .resizeFill
+        skScene.backgroundColor = APESuperHUD.appearance.particleEffectBackgroundColor
         skScene.addChild(emitter)
         
-        skView.presentScene(skScene)
         self.insertSubview(skView, at: 0)
+        
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: skView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: skView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: skView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: skView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0),
+            ])
+        
+        skView.presentScene(skScene)
         
     }
     
@@ -432,12 +450,12 @@ extension HudView {
             // HUD Size
             if APESuperHUD.appearance.hudSquareSize < frame.width && APESuperHUD.appearance.hudSquareSize < frame.height {
                 hudWidthConstraint.constant = APESuperHUD.appearance.hudSquareSize
-                hudHeightConstraint.constant = APESuperHUD.appearance.hudSquareSize
+                hudMinimumHeightConstraint.constant = APESuperHUD.appearance.hudSquareSize
                 
             } else {
                 let size = frame.width <= frame.height ? frame.width : frame.height
                 hudWidthConstraint.constant = size
-                hudHeightConstraint.constant = size
+                hudMinimumHeightConstraint.constant = size
             }
             
             // Icon size
@@ -451,10 +469,7 @@ extension HudView {
         super.didMoveToSuperview()
         
         setupDefaultState()
-        
-        animateInHud(completion: { _ in
-            
-        })
+        animateInHud()
         
     }
 }
@@ -470,7 +485,9 @@ extension HudView {
      */
     fileprivate func setupDefaultState() {
         
-        alpha = 0.0
+        //We can't set alpha in combination with a blur effect view
+        alpha = APESuperHUD.appearance.backgroundBlurEffect == .none ? 0 : 1
+        
         hudMessageView.alpha = 0.0
         titleLabel.alpha = 0.0
         informationLabel.alpha = 0.0
@@ -502,7 +519,6 @@ extension HudView {
             blurEffect =  UIBlurEffect(style: UIBlurEffectStyle.extraLight)
             
         case .none:
-            
             return nil
             
         }
@@ -541,7 +557,7 @@ extension HudView {
      - parameter completion: The completion block that will be trigger when the animation is finished
      
      */
-    fileprivate func animateInHud(completion: @escaping () -> Void ) {
+    fileprivate func animateInHud() {
         
         hudMessageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         layoutIfNeeded()
@@ -553,11 +569,8 @@ extension HudView {
             self?.hudMessageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             
             self?.layoutIfNeeded()
-            
-            }, completion: { _ in
-                
-                completion()
-        })
+            }
+        )
         
     }
     
