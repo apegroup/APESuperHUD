@@ -55,7 +55,6 @@ class ViewController: UIViewController {
         APESuperHUD.appearance.cornerRadius = 12
         APESuperHUD.appearance.animateInTime = 1.0
         APESuperHUD.appearance.animateOutTime = 1.0
-        APESuperHUD.appearance.backgroundBlurEffect = .none
         APESuperHUD.appearance.iconColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
         APESuperHUD.appearance.textColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
         APESuperHUD.appearance.loadingActivityIndicatorColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
@@ -67,8 +66,9 @@ class ViewController: UIViewController {
         APESuperHUD.appearance.titleFontName = "Caviar Dreams"
         APESuperHUD.appearance.titleFontSize = 22
         APESuperHUD.appearance.messageFontSize = 14
-        APESuperHUD.appearance.backgroundColor = UIColor(red: 0, green: 128.0 / 255.0, blue: 1.0, alpha: 0.8)
-        
+        APESuperHUD.appearance.backgroundColor = UIColor.white
+        APESuperHUD.appearance.particleEffectBackgroundColor = UIColor(red: 0, green: 128.0 / 255.0, blue: 1.0, alpha: 0.85)
+        APESuperHUD.appearance.backgroundBlurEffect = .light
     }
     
     private func setupButtonsLayout() {
