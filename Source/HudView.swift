@@ -392,6 +392,14 @@ extension HudView {
     func addParticleEffect(sksfileName: String) {
         
         guard let emitter = SKEmitterNode(fileNamed: sksfileName) else { return }
+    
+        // Can't have particle effect together witha a blur effect view
+        for subview in subviews {
+            if subview is UIVisualEffectView {
+                subview.removeFromSuperview()
+            }
+        }
+       
         emitter.position = CGPoint(x: center.x, y: center.y)
         emitter.zPosition = 0
         
@@ -399,11 +407,10 @@ extension HudView {
         skView.translatesAutoresizingMaskIntoConstraints = false
         skView.allowsTransparency = true
         
-        let skScene:SKScene = SKScene(size: bounds.size);
-        skScene.scaleMode = .aspectFill;
-        skScene.backgroundColor =  APESuperHUD.appearance.backgroundColor
+        let skScene:SKScene = SKScene(size: bounds.size)
+        skScene.scaleMode = .resizeFill
+        skScene.backgroundColor = APESuperHUD.appearance.particleEffectBackgroundColor
         skScene.addChild(emitter)
-        
         
         self.insertSubview(skView, at: 0)
         
@@ -462,10 +469,7 @@ extension HudView {
         super.didMoveToSuperview()
         
         setupDefaultState()
-        
-        animateInHud(completion: { _ in
-            
-        })
+        animateInHud()
         
     }
 }
@@ -481,7 +485,9 @@ extension HudView {
      */
     fileprivate func setupDefaultState() {
         
-        alpha = 0.0
+        //We can't set alpha in combination with a blur effect view
+        alpha = APESuperHUD.appearance.backgroundBlurEffect == .none ? 0 : 1
+        
         hudMessageView.alpha = 0.0
         titleLabel.alpha = 0.0
         informationLabel.alpha = 0.0
@@ -513,7 +519,6 @@ extension HudView {
             blurEffect =  UIBlurEffect(style: UIBlurEffectStyle.extraLight)
             
         case .none:
-            
             return nil
             
         }
@@ -552,7 +557,7 @@ extension HudView {
      - parameter completion: The completion block that will be trigger when the animation is finished
      
      */
-    fileprivate func animateInHud(completion: @escaping () -> Void ) {
+    fileprivate func animateInHud() {
         
         hudMessageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         layoutIfNeeded()
@@ -564,11 +569,8 @@ extension HudView {
             self?.hudMessageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             
             self?.layoutIfNeeded()
-            
-            }, completion: { _ in
-                
-                completion()
-        })
+            }
+        )
         
     }
     
