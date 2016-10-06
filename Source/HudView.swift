@@ -106,6 +106,10 @@ class HudView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     Manage generating constraints.
+     
+     */
     private func generateConstraints() {
         
         self.generateMessageViewConstraints()
@@ -202,7 +206,7 @@ class HudView: UIView {
 extension HudView {
     
     /**
-     Creates a HUD view according the appearance stuct.
+     Creates a HUD view according the appearance struct.
      
      */
     static func create() -> HudView {
@@ -249,6 +253,13 @@ extension HudView {
         layoutIfNeeded()
     }
     
+    /**
+     Removes HUD from view
+     
+     - parameter animated: Sets whether the HUD should be removed animated or not.
+     - parameter onDone: The completion block that will be triggered after the HUD view is removed from it's super view.
+     
+     */
     func removeHud(animated: Bool, onDone: ((Void) -> Void)?) {
         
         NotificationCenter.default.removeObserver(self)
