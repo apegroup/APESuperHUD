@@ -23,6 +23,8 @@
 // SOFTWARE.
 
 import UIKit
+import SpriteKit
+
 
 class HudView: UIView {
     
@@ -39,11 +41,11 @@ class HudView: UIView {
     internal var hudWidthConstraint: NSLayoutConstraint!
     
     var isActivityIndicatorSpinnning: Bool {
-
+        
         get {
             return self.loadingActivityIndicator.isAnimating
         }
-
+        
     }
     
     var isActiveTimer: Bool = false {
@@ -53,13 +55,21 @@ class HudView: UIView {
             }
         }
     }
-
+    
     fileprivate var isAnimating: Bool = false
     fileprivate var timer = Timer()
     fileprivate var loadingMessagesHandler: LoadingMessagesHandler!
     fileprivate var effectView: UIView?
     
+    
+    /**
+     Initiates the HUD view, sets up constraints, and adds subviews.
+     
+     - parameter frame: the frame
+     
+     */
     internal override init(frame: CGRect) {
+        
         hudMessageView = UIView(frame: CGRect(x: 0, y: 0, width: 144, height: 144))
         hudMessageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -70,7 +80,7 @@ class HudView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
-                
+        
         informationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 144, height: 16))
         informationLabel.translatesAutoresizingMaskIntoConstraints = false
         informationLabel.textAlignment = .center
@@ -96,7 +106,12 @@ class HudView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     Manage generating constraints.
+     
+     */
     private func generateConstraints() {
+        
         self.generateMessageViewConstraints()
         self.generateIconConstraints()
         self.generateLoadingIndicatorConstraints()
@@ -105,11 +120,13 @@ class HudView: UIView {
     }
     
     private func setupGestureRecognizers() {
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HudView.tapGestureRecognized(sender:)))
         self.addGestureRecognizer(tapGesture)
     }
     
     private func generateMessageViewConstraints() {
+        
         let centerXConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         let centerYConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         let widthConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 144)
@@ -127,6 +144,7 @@ class HudView: UIView {
     }
     
     private func generateIconConstraints() {
+        
         let centerXConstraint = NSLayoutConstraint(item: iconImageView, attribute: .centerX, relatedBy: .equal, toItem: hudMessageView, attribute: .centerX, multiplier: 1, constant: 0)
         let centerYConstraint = NSLayoutConstraint(item: iconImageView, attribute: .centerY, relatedBy: .equal, toItem: hudMessageView, attribute: .centerY, multiplier: 1, constant: 0)
         let topConstraint = NSLayoutConstraint(item: iconImageView, attribute: .top, relatedBy: .equal, toItem: hudMessageView, attribute: .top, multiplier: 1, constant: 30)
@@ -144,6 +162,7 @@ class HudView: UIView {
     }
     
     private func generateLoadingIndicatorConstraints() {
+        
         let centerXConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .centerX, relatedBy: .equal, toItem: iconImageView, attribute: .centerX, multiplier: 1, constant: 0)
         let centerYConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .centerY, relatedBy: .equal, toItem: iconImageView, attribute: .centerY, multiplier: 1, constant: 0)
         let widthConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
@@ -166,9 +185,10 @@ class HudView: UIView {
         
         titleLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
     }
-
+    
     
     private func generateMessageLabelConstraints() {
+        
         let topConstraint = NSLayoutConstraint(item: informationLabel, attribute: .top, relatedBy: .equal, toItem: iconImageView, attribute: .bottom, multiplier: 1, constant: 8)
         let bottomConstraint = NSLayoutConstraint(item: informationLabel, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: hudMessageView, attribute: .bottom, multiplier: 1, constant: -18)
         let leadingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .leading, relatedBy: .equal, toItem: hudMessageView, attribute: .leading, multiplier: 1, constant: 5)
@@ -185,6 +205,10 @@ class HudView: UIView {
 
 extension HudView {
     
+    /**
+     Creates a HUD view according the appearance struct.
+     
+     */
     static func create() -> HudView {
         
         let view: HudView = HudView(frame: UIScreen.main.bounds)
@@ -196,7 +220,7 @@ extension HudView {
         view.backgroundColor = APESuperHUD.appearance.backgroundColor
         view.iconImageView.tintColor = APESuperHUD.appearance.iconColor
         view.loadingActivityIndicator.color = APESuperHUD.appearance.loadingActivityIndicatorColor
-
+        
         // Corner radius
         view.hudMessageView.layer.cornerRadius = CGFloat(APESuperHUD.appearance.cornerRadius)
         
@@ -219,17 +243,25 @@ extension HudView {
     }
     
     func deviceOrientationDidChange() {
-      guard let superview = superview else {
-        return
-      }
-
-      frame = superview.bounds
-      effectView?.frame = frame
-      layoutIfNeeded()
+        
+        guard let superview = superview else {
+            return
+        }
+        
+        frame = superview.bounds
+        effectView?.frame = frame
+        layoutIfNeeded()
     }
-
+    
+    /**
+     Removes HUD from view
+     
+     - parameter animated: Sets whether the HUD should be removed animated or not.
+     - parameter onDone: The completion block that will be triggered after the HUD view is removed from it's super view.
+     
+     */
     func removeHud(animated: Bool, onDone: ((Void) -> Void)?) {
-
+        
         NotificationCenter.default.removeObserver(self)
         UIDevice.current.endGeneratingDeviceOrientationNotifications()
         timer.invalidate()
@@ -241,21 +273,22 @@ extension HudView {
                 self?.removeFromSuperview()
                 
                 onDone?()
-
-            })
-
+                
+                })
+            
         } else {
             
             self.effectView?.removeFromSuperview()
             self.removeFromSuperview()
             
             onDone?()
-
+            
         }
-
+        
     }
     
     func showMessages(messages: [String]) {
+        
         loadingMessagesHandler = LoadingMessagesHandler(messages: messages)
         let showMessagesSelector = #selector(showMessages as (Void) -> Void)
         showMessages()
@@ -264,15 +297,17 @@ extension HudView {
     }
     
     func showMessages() {
+        
         let message = loadingMessagesHandler.firstMessage()
         if isActiveTimer {
             hideViewsAnimated(views: [informationLabel], completion: { [weak self] in
                 self?.showLoadingActivityIndicator(text: message, completion: nil)
-            })
+                })
         }
     }
     
     func showFunnyMessages(languageType: LanguageType) {
+        
         loadingMessagesHandler = LoadingMessagesHandler(languageType: languageType)
         let showFunnyMessagesSelector = #selector(showFunnyMessages as (Void) -> Void)
         showFunnyMessages()
@@ -281,44 +316,45 @@ extension HudView {
     }
     
     func showFunnyMessages() {
+        
         let funnyMessage = loadingMessagesHandler.randomMessage()
         if isActiveTimer {
             hideViewsAnimated(views: [informationLabel], completion: { [weak self] in
                 self?.showLoadingActivityIndicator(text: funnyMessage, completion: nil)
-            })
+                })
         }
     }
-
+    
     func showLoadingActivityIndicator(text: String?, completion: (() -> Void)?) {
-
+        
         iconImageView.alpha = 0.0
         informationLabel.text = text ?? ""
         updateIconConstraints()
         
         loadingActivityIndicator.startAnimating()
-
+        
         showViewsAnimated(views: [loadingActivityIndicator, informationLabel], completion: { _ in
-
+            
             completion?()
-
+            
         })
-
+        
     }
-
+    
     func hideLoadingActivityIndicator(completion: (() -> Void)?) {
-
+        
         hideViewsAnimated(views: [loadingActivityIndicator, informationLabel], completion: { [weak self] _ in
-
+            
             self?.loadingActivityIndicator.stopAnimating()
-
+            
             completion?()
-
-        })
-
+            
+            })
+        
     }
-
+    
     func showMessage(title: String?, message: String?, icon: UIImage?, completion: (() -> Void)?) {
-
+        
         titleLabel.text = title
         informationLabel.text = message
         updateIconConstraints()
@@ -329,28 +365,55 @@ extension HudView {
             loadingActivityIndicator.alpha = 0
             loadingActivityIndicator.stopAnimating()
         }
-
+        
         showViewsAnimated(views: [titleLabel, informationLabel, iconImageView], completion: { _ in
-
+            
             completion?()
-
+            
         })
-
+        
     }
     
     func updateIconConstraints() {
+        
         let emptyMessage = (informationLabel.text ?? "").isEmpty
         
         iconTopConstraint.isActive = !emptyMessage
         iconCenterYConstraint.isActive = emptyMessage
     }
+    
+    /**
+     Adds a particle effect in the background
+     
+      - parameter sksfileName: The name of the Sprite Kit particle effect file.
+     
+     */
+    func addParticleEffect(sksfileName: String) {
+        
+        guard let emitter = SKEmitterNode(fileNamed: sksfileName) else { return }
+        emitter.position = CGPoint(x: center.x, y: center.y)
+        emitter.zPosition = 0
+        
+        let skView = SKView(frame: self.frame)
+        skView.allowsTransparency = true
+        
+        let skScene:SKScene = SKScene(size: skView.frame.size);
+        skScene.scaleMode = .aspectFill;
+        skScene.backgroundColor =  APESuperHUD.appearance.backgroundColor
+        skScene.addChild(emitter)
+        
+        skView.presentScene(skScene)
+        self.insertSubview(skView, at: 0)
+        
+    }
+    
 }
 
 
 // MARK: - Lifecycle
 
 extension HudView {
-
+    
     override internal func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         
@@ -361,7 +424,7 @@ extension HudView {
                 backgroundColor = UIColor.clear
                 insertSubview(blurEffectView, at: 0)
             }
-
+            
             UIDevice.current.beginGeneratingDeviceOrientationNotifications()
             NotificationCenter.default.removeObserver(self)
             NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -370,7 +433,7 @@ extension HudView {
             if APESuperHUD.appearance.hudSquareSize < frame.width && APESuperHUD.appearance.hudSquareSize < frame.height {
                 hudWidthConstraint.constant = APESuperHUD.appearance.hudSquareSize
                 hudHeightConstraint.constant = APESuperHUD.appearance.hudSquareSize
-            
+                
             } else {
                 let size = frame.width <= frame.height ? frame.width : frame.height
                 hudWidthConstraint.constant = size
@@ -381,18 +444,18 @@ extension HudView {
             iconImageWidthConstraint.constant = APESuperHUD.appearance.iconWidth
             iconImageHeightConstraint.constant = APESuperHUD.appearance.iconHeight
         }
-
+        
     }
-
+    
     override internal func didMoveToSuperview() {
         super.didMoveToSuperview()
-
+        
         setupDefaultState()
-
+        
         animateInHud(completion: { _ in
-
+            
         })
-
+        
     }
 }
 
@@ -400,9 +463,13 @@ extension HudView {
 // MARK: - Setup
 
 extension HudView {
-
+    
+    /**
+     Sets up the HUD default state.
+     
+     */
     fileprivate func setupDefaultState() {
-
+        
         alpha = 0.0
         hudMessageView.alpha = 0.0
         titleLabel.alpha = 0.0
@@ -410,15 +477,19 @@ extension HudView {
         iconImageView.alpha = 0.0
         loadingActivityIndicator.alpha = 0.0
         loadingActivityIndicator.stopAnimating()
-
+        
         layoutIfNeeded()
-
+        
     }
     
+    /**
+     Creates a blur effect view.
+     
+     */
     fileprivate func blurEffectView() -> UIView? {
         
         var blurEffect: UIBlurEffect?
-   
+        
         switch APESuperHUD.appearance.backgroundBlurEffect {
             
         case .dark:
@@ -432,7 +503,7 @@ extension HudView {
             
         case .none:
             
-          return nil
+            return nil
             
         }
         
@@ -442,7 +513,7 @@ extension HudView {
         return blurEffectView
         
     }
-
+    
 }
 
 
@@ -463,83 +534,95 @@ extension HudView {
 // MARK: - Animations
 
 extension HudView {
-
+    
+    /**
+     Animates in the HUD.
+     
+     - parameter completion: The completion block that will be trigger when the animation is finished
+     
+     */
     fileprivate func animateInHud(completion: @escaping () -> Void ) {
-
+        
         hudMessageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         layoutIfNeeded()
-
+        
         UIView.animate(withDuration: APESuperHUD.appearance.animateInTime, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: { [weak self] _ in
-
+            
             self?.hudMessageView.alpha = 1.0
             self?.alpha = 1.0
             self?.hudMessageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-
+            
             self?.layoutIfNeeded()
-
+            
             }, completion: { _ in
-
+                
                 completion()
         })
-
+        
     }
-
+    
+    /**
+     Animates out the HUD.
+     
+     - parameter completion: The completion block that will be trigger when the animation is finished
+     
+     */
     fileprivate func animateOutHud(completion: @escaping () -> Void) {
-
+        
         let delay: TimeInterval = isAnimating ? (APESuperHUD.appearance.animateInTime + 0.1) : 0
-
+        
         isAnimating = true
-
+        
         UIView.animate(withDuration: APESuperHUD.appearance.animateOutTime, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: { [weak self] _ in
-
+            
             self?.alpha = 0.0
-
+            
             }, completion: { [weak self] _ in
-
+                
                 self?.isAnimating = false
                 completion()
-
+                
             })
-
+        
     }
-
+    
     /**
      Animates in a array of views.
      
      - parameter views: the array of views to animate in
      - parameter completion: The completion block that will be trigger when the animation of views are finished
      
-    */
+     */
     fileprivate func showViewsAnimated(views: [UIView], completion: @escaping () -> Void ) {
-
+        
         let delay: TimeInterval = isAnimating ? APESuperHUD.appearance.animateInTime : 0
-
+        
         isAnimating = true
-
+        
         UIView.animate(withDuration: APESuperHUD.appearance.animateOutTime, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: {
-
+            
             for view in views {
                 view.alpha = 1.0
             }
-
+            
             }, completion: { [weak self] _ in
-
+                
                 self?.isAnimating = false
                 completion()
-
+                
             })
-
+        
     }
-
+    
     /**
      Animates out a array of views.
      
      - parameter views: the array of views to animate ot
      - parameter completion: The completion block that will be trigger when the animation of views are finished
      
-    */
+     */
     fileprivate func hideViewsAnimated(views: [UIView], completion: @escaping () -> Void ) {
-
+        
         let delay: TimeInterval = isAnimating ? APESuperHUD.appearance.animateInTime : 0
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delay + 0.1, execute: {
@@ -550,14 +633,14 @@ extension HudView {
                 for view in views {
                     view.alpha = 0.0
                 }
-    
+                
                 }, completion: { [weak self] _ in
                     self?.isAnimating = false
                     completion()
                 })
-        
+            
         })
-
+        
     }
-
+    
 }

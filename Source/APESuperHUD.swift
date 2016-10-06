@@ -60,17 +60,19 @@ public enum LanguageType: Int {
     case english
 }
 
+
 public class APESuperHUD {
 
     /// Property for setting up the HUD appearance
     public static var appearance = HUDAppearance()
+    
     
     // MARK: API With UIImage
     
     /**
      Show or update the HUD.
     
-     - parameter icon: The icon type icon in the HUD.
+     - parameter icon: The icon image in the HUD.
      - parameter message: The text in the HUD.
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
@@ -80,18 +82,50 @@ public class APESuperHUD {
         showHud(text: Array(arrayLiteral: message), icon: icon, duration: duration, presentingView: presentingView, completion: completion)
     }
     
+    
     /**
      Show or update the HUD.
      
-     - parameter icon: The icon type icon in the HUD.
+     - parameter icon: The icon image in the HUD.
      - parameter message: The text in the HUD.
-     - parameter duration: How long the HUD will be displayed (in seconds).
+     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
     public static func showOrUpdateHUD(icon: UIImage, message: String, duration: Double, presentingView: UIView, completion: (() -> Void)?) {
         showHud(text: Array(arrayLiteral: message), icon: icon, duration: duration, presentingView: presentingView, completion: completion)
     }
+    
+    
+    /**
+     Show or update the HUD.
+     
+     - parameter icon: The icon image in the HUD.
+     - parameter message: The text in the HUD.
+     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
+     - parameter presentingView: The view that the HUD will be located in.
+     - parameter completion: Will be trigger when the HUD is removed.
+     */
+    public static func showOrUpdateHUD(icon: UIImage, message: String, particleEffectFileName: String, presentingView: UIView, completion: (() -> Void)?) {
+        showHud(text: Array(arrayLiteral: message), icon: icon, duration: appearance.defaultDurationTime, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
+    }
+    
+    
+    /**
+     Show or update the HUD.
+     
+     - parameter icon: The icon image in the HUD.
+     - parameter message: The text in the HUD.
+     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
+     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
+     - parameter presentingView: The view that the HUD will be located in.
+     - parameter completion: Will be trigger when the HUD is removed.
+     */
+    public static func showOrUpdateHUD(icon: UIImage, message: String, duration: Double, particleEffectFileName: String, presentingView: UIView, completion: (() -> Void)?) {
+        showHud(text: Array(arrayLiteral: message), icon: icon, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
+    }
+    
+    
     
     
     // MARK: API With IconType
@@ -110,12 +144,13 @@ public class APESuperHUD {
         showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, presentingView: presentingView, completion: completion)
     }
     
+    
     /**
      Show or update the HUD.
      
      - parameter icon: The icon type icon in the HUD.
      - parameter message: The text in the HUD.
-     - parameter duration: How long the HUD will be displayed (in seconds).
+     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
@@ -123,6 +158,40 @@ public class APESuperHUD {
         let defaultIcon = iconImage(imageName: icon.rawValue)
         showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, presentingView: presentingView, completion: completion)
     }
+    
+    
+    /**
+     Show or update the HUD.
+     
+     - parameter icon: The icon type icon in the HUD.
+     - parameter message: The text in the HUD.
+     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
+     - parameter presentingView: The view that the HUD will be located in.
+     - parameter completion: Will be trigger when the HUD is removed.
+     */
+    public static func showOrUpdateHUD(icon: IconType, message: String, particleEffectFileName: String, presentingView: UIView, completion: (() -> Void)?) {
+        let duration = appearance.defaultDurationTime
+        let defaultIcon = iconImage(imageName: icon.rawValue)
+        showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, funnyMessagesLanguage: nil, completion: completion)
+    }
+    
+    
+    /**
+     Show or update the HUD.
+     
+     - parameter icon: The icon type icon in the HUD.
+     - parameter message: The text in the HUD.
+     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
+     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
+     - parameter presentingView: The view that the HUD will be located in.
+     - parameter completion: Will be trigger when the HUD is removed.
+     */
+    public static func showOrUpdateHUD(icon: IconType, message: String, duration: Double, particleEffectFileName: String, presentingView: UIView, completion: (() -> Void)?) {
+        let defaultIcon = iconImage(imageName: icon.rawValue)
+        showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, sksFileName: particleEffectFileName , presentingView: presentingView, completion: completion)
+    }
+    
+    
     
     
     // MARK: API With Title
@@ -139,6 +208,51 @@ public class APESuperHUD {
         let duration = appearance.defaultDurationTime
         showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: duration, presentingView: presentingView, completion: completion)
     }
+    
+    
+    /**
+     Show or update the HUD.
+     
+     - parameter title: The title in the HUD.
+     - parameter message: The text in the HUD.
+     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
+     - parameter presentingView: The view that the HUD will be located in.
+     - parameter completion: Will be trigger when the HUD is removed.
+     */
+    public static func showOrUpdateHUD(title: String, message: String, duration: Double, presentingView: UIView, completion: (() -> Void)?) {
+        showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: duration, presentingView: presentingView, completion: completion)
+    }
+    
+    
+    /**
+     Show or update the HUD.
+     
+     - parameter title: The title in the HUD.
+     - parameter message: The text in the HUD.
+     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
+     - parameter presentingView: The view that the HUD will be located in.
+     - parameter completion: Will be trigger when the HUD is removed.
+     */
+    public static func showOrUpdateHUD(title: String, message: String, particleEffectFileName: String, presentingView: UIView, completion: (() -> Void)?) {
+        showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: appearance.defaultDurationTime, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
+    }
+    
+    
+    /**
+     Show or update the HUD.
+     
+     - parameter title: The title in the HUD.
+     - parameter message: The text in the HUD.
+     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
+     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
+     - parameter presentingView: The view that the HUD will be located in.
+     - parameter completion: Will be trigger when the HUD is removed.
+     */
+    public static func showOrUpdateHUD(title: String, message: String, duration: Double, particleEffectFileName: String, presentingView: UIView, completion: (() -> Void)?) {
+        showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
+    }
+    
+    
     
     
     // MARK: API With LoadingIndicator
@@ -185,6 +299,9 @@ public class APESuperHUD {
         }
     }
 
+    
+    
+    
     // MARK: API Remove
     
     /**
@@ -202,9 +319,12 @@ public class APESuperHUD {
         }
     }
 
+    
+    
+    
     // MARK: - Private functions
 
-    private static func showHud(title: String = "", text: [String] = [""], icon: UIImage? = nil, duration: Double = -1, presentingView: UIView, funnyMessagesLanguage: LanguageType? = nil, completion: (() -> Void)? = nil) {
+    private static func showHud(title: String = "", text: [String] = [""], icon: UIImage? = nil, duration: Double = -1, sksFileName: String? = nil, presentingView: UIView, funnyMessagesLanguage: LanguageType? = nil, completion: (() -> Void)? = nil) {
 
         let hudView = createHudViewIfNeeded(presentingView: presentingView)
 
@@ -216,6 +336,10 @@ public class APESuperHUD {
                 return
             })
             return
+        }
+        
+        if let fileName = sksFileName {
+            hudView.addParticleEffect(sksfileName: fileName)
         }
         
         let isFunnyMessages = funnyMessagesLanguage != nil
