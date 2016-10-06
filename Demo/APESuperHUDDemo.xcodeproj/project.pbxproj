@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EDBBC5E1D992C5300B05357 /* FireFliesParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0EDBBC5D1D992C5300B05357 /* FireFliesParticle.sks */; };
 		18AC6D631C5B942900FE881A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D621C5B942900FE881A /* AppDelegate.swift */; };
 		18AC6D651C5B942900FE881A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D641C5B942900FE881A /* ViewController.swift */; };
 		18AC6D681C5B942900FE881A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D661C5B942900FE881A /* Main.storyboard */; };
@@ -56,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0EDBBC5D1D992C5300B05357 /* FireFliesParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireFliesParticle.sks; sourceTree = "<group>"; };
 		18AC6D5F1C5B942900FE881A /* APESuperHUDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APESuperHUDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AC6D621C5B942900FE881A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18AC6D641C5B942900FE881A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		18AC6D611C5B942900FE881A /* APESuperHUDDemo */ = {
 			isa = PBXGroup;
 			children = (
+				0EDBBC5D1D992C5300B05357 /* FireFliesParticle.sks */,
 				18AC6D621C5B942900FE881A /* AppDelegate.swift */,
 				18AC6D691C5B942900FE881A /* Assets.xcassets */,
 				18AC6D821C5B94B700FE881A /* CaviarDreams.ttf */,
@@ -205,6 +208,7 @@
 			files = (
 				18AC6D6D1C5B942900FE881A /* LaunchScreen.storyboard in Resources */,
 				18AC6D6A1C5B942900FE881A /* Assets.xcassets in Resources */,
+				0EDBBC5E1D992C5300B05357 /* FireFliesParticle.sks in Resources */,
 				18AC6D831C5B94B700FE881A /* CaviarDreams.ttf in Resources */,
 				18AC6D681C5B942900FE881A /* Main.storyboard in Resources */,
 			);
@@ -288,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -328,7 +332,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
