@@ -70,10 +70,10 @@ public struct HUDAppearance {
     public var shadow: Bool = true
     
     /// The HUD fade in duration
-    public var animateInTime: TimeInterval = 0.4
+    public var animateInTime: TimeInterval = 0.7
     
     /// The HUD fade out duration
-    public var animateOutTime: TimeInterval = 0.4
+    public var animateOutTime: TimeInterval = 0.7
     
     /// The default display duration for the HUD
     public var defaultDurationTime: Double = 2.0

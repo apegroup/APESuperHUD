@@ -83,53 +83,32 @@ class ViewController: UIViewController {
     }
     
     @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
-    
-        if particleEffectSwitch.isOn {
-            
-            APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, particleEffectFileName: "FireFliesParticle", presentingView: self.view, completion: { _ in
-                // Completed
-            })
         
-        } else {
-            
-            APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: { _ in
-                // Completed
-            })
-        }
+        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+        
+        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
+            // Completed
+        })
         
     }
     
     @IBAction func withCustomIconButtonPressed(sender: UIButton) {
         
-        if particleEffectSwitch.isOn {
-            
-            APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, particleEffectFileName: "FireFliesParticle", presentingView: self.view, completion: { _ in
-                // Completed
-            })
-            
-        } else {
-            
-            APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: { _ in
-                // Completed
-            })
-        }
+        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+        
+        APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
+            // Completed
+        })
         
     }
     
     @IBAction func withTitleButtonPressed(sender: UIButton) {
         
-        if particleEffectSwitch.isOn {
-            
-            APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", duration: 3.0, particleEffectFileName: "FireFliesParticle", presentingView: self.view, completion: { _ in
-                // Completed
-            })
-            
-        } else {
-            
-            APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", presentingView: self.view) { _ in
-                // Completed
-            }
-        }
+        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+        
+        APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
+            // Completed
+        })
         
     }
     
@@ -138,7 +117,11 @@ class ViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
             guard let strongSelf = self else { return }
-            APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: "Done loading!", duration: 2.0, presentingView: strongSelf.view, completion: nil)
+            
+            let sksFileName: String? = strongSelf.particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+            
+            APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: "Done loading!", duration: 3.0, particleEffectFileName: sksFileName, presentingView: strongSelf.view, completion: nil)
+            
         }
     }
     

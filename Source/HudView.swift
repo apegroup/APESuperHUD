@@ -96,113 +96,67 @@ class HudView: UIView {
         
         super.init(frame: frame)
         
-        self.isUserInteractionEnabled = true
-        self.addSubview(hudMessageView)
-        self.generateConstraints()
-        self.setupGestureRecognizers()
+        isUserInteractionEnabled = true
+        addSubview(hudMessageView)
+        generateConstraints()
+        setupGestureRecognizers()
     }
     
     internal required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /**
-     Manage generating constraints.
-     
-     */
-    private func generateConstraints() {
-        
-        self.generateMessageViewConstraints()
-        self.generateIconConstraints()
-        self.generateLoadingIndicatorConstraints()
-        self.generateTitleLabelConstraints()
-        self.generateMessageLabelConstraints()
-    }
+}
+
+
+// MARK: - Lifecycle
+
+extension HudView {
     
-    private func setupGestureRecognizers() {
+    override internal func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HudView.tapGestureRecognized(sender:)))
-        self.addGestureRecognizer(tapGesture)
-    }
-    
-    private func generateMessageViewConstraints() {
-        
-        let centerXConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
-        let centerYConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
-        let widthConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: APESuperHUD.appearance.hudSquareSize)
-        
-        let minimumHeightConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: APESuperHUD.appearance.hudSquareSize)
-        
-        widthConstraint.priority = UILayoutPriorityRequired - 1
-        minimumHeightConstraint.priority = UILayoutPriorityRequired - 1
-        
-        [centerXConstraint, minimumHeightConstraint, centerYConstraint, widthConstraint].forEach {
-            $0.isActive = true
+        if let bounds = newSuperview?.bounds {
+            frame = bounds
+            
+            if let blurEffectView = blurEffectView() {
+                backgroundColor = UIColor.clear
+                insertSubview(blurEffectView, at: 0)
+            }
+            
+            UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+            NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+            
+            // HUD Size
+            if APESuperHUD.appearance.hudSquareSize < frame.width && APESuperHUD.appearance.hudSquareSize < frame.height {
+                hudWidthConstraint.constant = APESuperHUD.appearance.hudSquareSize
+                hudMinimumHeightConstraint.constant = APESuperHUD.appearance.hudSquareSize
+                
+            } else {
+                let size = frame.width <= frame.height ? frame.width : frame.height
+                hudWidthConstraint.constant = size
+                hudMinimumHeightConstraint.constant = size
+            }
+            
+            // Icon size
+            iconImageWidthConstraint.constant = APESuperHUD.appearance.iconWidth
+            iconImageHeightConstraint.constant = APESuperHUD.appearance.iconHeight
         }
         
-        hudWidthConstraint = widthConstraint
-        hudMinimumHeightConstraint = minimumHeightConstraint
     }
     
-    private func generateIconConstraints() {
+    override internal func didMoveToSuperview() {
+        super.didMoveToSuperview()
         
-        let centerXConstraint = NSLayoutConstraint(item: iconImageView, attribute: .centerX, relatedBy: .equal, toItem: hudMessageView, attribute: .centerX, multiplier: 1, constant: 0)
-        let centerYConstraint = NSLayoutConstraint(item: iconImageView, attribute: .centerY, relatedBy: .equal, toItem: hudMessageView, attribute: .centerY, multiplier: 1, constant: 0)
-        let topConstraint = NSLayoutConstraint(item: iconImageView, attribute: .top, relatedBy: .equal, toItem: hudMessageView, attribute: .top, multiplier: 1, constant: 30)
-        let widthConstraint = NSLayoutConstraint(item: iconImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
-        let heightConstraint = NSLayoutConstraint(item: iconImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
+        setupDefaultState()
+        animateInHud()
         
-        [centerXConstraint, topConstraint, widthConstraint, heightConstraint].forEach {
-            $0.isActive = true
-        }
-        
-        iconImageWidthConstraint = widthConstraint
-        iconImageHeightConstraint = heightConstraint
-        iconCenterYConstraint = centerYConstraint
-        iconTopConstraint = topConstraint
-    }
-    
-    private func generateLoadingIndicatorConstraints() {
-        
-        let centerXConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .centerX, relatedBy: .equal, toItem: iconImageView, attribute: .centerX, multiplier: 1, constant: 0)
-        let centerYConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .centerY, relatedBy: .equal, toItem: iconImageView, attribute: .centerY, multiplier: 1, constant: 0)
-        let widthConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
-        let heightConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
-        
-        [centerXConstraint, centerYConstraint, widthConstraint, heightConstraint].forEach {
-            $0.isActive = true
-        }
-    }
-    
-    private func generateTitleLabelConstraints() {
-        let centerXConstraint = NSLayoutConstraint(item: titleLabel, attribute: .centerX, relatedBy: .equal, toItem: hudMessageView, attribute: .centerX, multiplier: 1, constant: 0)
-        let topConstraint = NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: hudMessageView, attribute: .top, multiplier: 1, constant: 40)
-        let widthConstraint = NSLayoutConstraint(item: titleLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 144)
-        let heightConstraint = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 21)
-        
-        [centerXConstraint, topConstraint, widthConstraint, heightConstraint].forEach {
-            $0.isActive = true
-        }
-        
-        titleLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
-    }
-    
-    
-    private func generateMessageLabelConstraints() {
-        
-        let topConstraint = NSLayoutConstraint(item: informationLabel, attribute: .top, relatedBy: .equal, toItem: iconImageView, attribute: .bottom, multiplier: 1, constant: 8)
-        let bottomConstraint = NSLayoutConstraint(item: informationLabel, attribute: .bottom, relatedBy: .equal, toItem: hudMessageView, attribute: .bottom, multiplier: 1, constant: -20)
-        let leadingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .leading, relatedBy: .equal, toItem: hudMessageView, attribute: .leading, multiplier: 1, constant: 5)
-        let trailingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .trailing, relatedBy: .equal, toItem: hudMessageView, attribute: .trailing, multiplier: 1, constant: -5)
-        
-        [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint].forEach {
-            $0.isActive = true
-        }
-        
-        informationLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
     }
 }
 
+
+// MARK: - API
 
 extension HudView {
     
@@ -243,16 +197,6 @@ extension HudView {
         return view
     }
     
-    func deviceOrientationDidChange() {
-        
-        guard let superview = superview else {
-            return
-        }
-        
-        frame = superview.bounds
-        effectView?.frame = frame
-        layoutIfNeeded()
-    }
     
     /**
      Removes HUD from view
@@ -375,14 +319,6 @@ extension HudView {
         
     }
     
-    func updateIconConstraints() {
-        
-        let emptyMessage = (informationLabel.text ?? "").isEmpty
-        
-        iconTopConstraint.isActive = !emptyMessage
-        iconCenterYConstraint.isActive = emptyMessage
-    }
-    
     /**
      Adds a particle effect in the background
      
@@ -406,13 +342,14 @@ extension HudView {
         let skView = SKView()
         skView.translatesAutoresizingMaskIntoConstraints = false
         skView.allowsTransparency = true
+        skView.alpha = 0.0
         
         let skScene:SKScene = SKScene(size: bounds.size)
         skScene.scaleMode = .resizeFill
         skScene.backgroundColor = APESuperHUD.appearance.particleEffectBackgroundColor
         skScene.addChild(emitter)
         
-        self.insertSubview(skView, at: 0)
+        insertSubview(skView, at: 0)
         
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: skView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
@@ -421,63 +358,125 @@ extension HudView {
             NSLayoutConstraint(item: skView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0),
             ])
         
-        skView.presentScene(skScene)
+        skView.presentScene(skScene, transition: SKTransition.crossFade(withDuration: 4))
         
-    }
-    
-}
-
-
-// MARK: - Lifecycle
-
-extension HudView {
-    
-    override internal func willMove(toSuperview newSuperview: UIView?) {
-        super.willMove(toSuperview: newSuperview)
-        
-        if let bounds = newSuperview?.bounds {
-            frame = bounds
-            
-            if let blurEffectView = blurEffectView() {
-                backgroundColor = UIColor.clear
-                insertSubview(blurEffectView, at: 0)
-            }
-            
-            UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-            NotificationCenter.default.removeObserver(self)
-            NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-            
-            // HUD Size
-            if APESuperHUD.appearance.hudSquareSize < frame.width && APESuperHUD.appearance.hudSquareSize < frame.height {
-                hudWidthConstraint.constant = APESuperHUD.appearance.hudSquareSize
-                hudMinimumHeightConstraint.constant = APESuperHUD.appearance.hudSquareSize
-                
-            } else {
-                let size = frame.width <= frame.height ? frame.width : frame.height
-                hudWidthConstraint.constant = size
-                hudMinimumHeightConstraint.constant = size
-            }
-            
-            // Icon size
-            iconImageWidthConstraint.constant = APESuperHUD.appearance.iconWidth
-            iconImageHeightConstraint.constant = APESuperHUD.appearance.iconHeight
+        UIView.animate(withDuration: APESuperHUD.appearance.animateInTime) {
+            skView.alpha = 1.0
         }
         
     }
     
-    override internal func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        
-        setupDefaultState()
-        animateInHud()
-        
-    }
 }
 
 
 // MARK: - Setup
 
 extension HudView {
+    
+    /**
+     Manage generating constraints.
+     
+     */
+    fileprivate func generateConstraints() {
+        
+        generateMessageViewConstraints()
+        generateIconConstraints()
+        generateLoadingIndicatorConstraints()
+        generateTitleLabelConstraints()
+        generateMessageLabelConstraints()
+    }
+    
+    fileprivate func setupGestureRecognizers() {
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HudView.tapGestureRecognized(sender:)))
+        addGestureRecognizer(tapGesture)
+    }
+    
+    fileprivate func generateMessageViewConstraints() {
+        
+        let centerXConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+        let centerYConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: APESuperHUD.appearance.hudSquareSize)
+        
+        let minimumHeightConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: APESuperHUD.appearance.hudSquareSize)
+        
+        widthConstraint.priority = UILayoutPriorityRequired - 1
+        minimumHeightConstraint.priority = UILayoutPriorityRequired - 1
+        
+        [centerXConstraint, minimumHeightConstraint, centerYConstraint, widthConstraint].forEach {
+            $0.isActive = true
+        }
+        
+        hudWidthConstraint = widthConstraint
+        hudMinimumHeightConstraint = minimumHeightConstraint
+    }
+    
+    fileprivate func generateIconConstraints() {
+        
+        let centerXConstraint = NSLayoutConstraint(item: iconImageView, attribute: .centerX, relatedBy: .equal, toItem: hudMessageView, attribute: .centerX, multiplier: 1, constant: 0)
+        let centerYConstraint = NSLayoutConstraint(item: iconImageView, attribute: .centerY, relatedBy: .equal, toItem: hudMessageView, attribute: .centerY, multiplier: 1, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: iconImageView, attribute: .top, relatedBy: .equal, toItem: hudMessageView, attribute: .top, multiplier: 1, constant: 30)
+        let widthConstraint = NSLayoutConstraint(item: iconImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
+        let heightConstraint = NSLayoutConstraint(item: iconImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
+        
+        [centerXConstraint, topConstraint, widthConstraint, heightConstraint].forEach {
+            $0.isActive = true
+        }
+        
+        iconImageWidthConstraint = widthConstraint
+        iconImageHeightConstraint = heightConstraint
+        iconCenterYConstraint = centerYConstraint
+        iconTopConstraint = topConstraint
+    }
+    
+    fileprivate func generateLoadingIndicatorConstraints() {
+        
+        let centerXConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .centerX, relatedBy: .equal, toItem: iconImageView, attribute: .centerX, multiplier: 1, constant: 0)
+        let centerYConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .centerY, relatedBy: .equal, toItem: iconImageView, attribute: .centerY, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
+        let heightConstraint = NSLayoutConstraint(item: loadingActivityIndicator, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
+        
+        [centerXConstraint, centerYConstraint, widthConstraint, heightConstraint].forEach {
+            $0.isActive = true
+        }
+    }
+    
+    fileprivate func generateTitleLabelConstraints() {
+        let centerXConstraint = NSLayoutConstraint(item: titleLabel, attribute: .centerX, relatedBy: .equal, toItem: hudMessageView, attribute: .centerX, multiplier: 1, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: hudMessageView, attribute: .top, multiplier: 1, constant: 40)
+        let widthConstraint = NSLayoutConstraint(item: titleLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 144)
+        let heightConstraint = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 21)
+        
+        [centerXConstraint, topConstraint, widthConstraint, heightConstraint].forEach {
+            $0.isActive = true
+        }
+        
+        titleLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
+    }
+    
+    
+    fileprivate func generateMessageLabelConstraints() {
+        
+        let topConstraint = NSLayoutConstraint(item: informationLabel, attribute: .top, relatedBy: .equal, toItem: iconImageView, attribute: .bottom, multiplier: 1, constant: 8)
+        let bottomConstraint = NSLayoutConstraint(item: informationLabel, attribute: .bottom, relatedBy: .equal, toItem: hudMessageView, attribute: .bottom, multiplier: 1, constant: -20)
+        let leadingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .leading, relatedBy: .equal, toItem: hudMessageView, attribute: .leading, multiplier: 1, constant: 5)
+        let trailingConstraint = NSLayoutConstraint(item: informationLabel, attribute: .trailing, relatedBy: .equal, toItem: hudMessageView, attribute: .trailing, multiplier: 1, constant: -5)
+        
+        [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint].forEach {
+            $0.isActive = true
+        }
+        
+        informationLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
+    }
+    
+    fileprivate func updateIconConstraints() {
+        
+        let emptyMessage = (informationLabel.text ?? "").isEmpty
+        
+        iconTopConstraint.isActive = !emptyMessage
+        iconCenterYConstraint.isActive = emptyMessage
+    }
+
     
     /**
      Sets up the HUD default state.
@@ -542,6 +541,17 @@ extension HudView {
             removeHud(animated: true, onDone: nil)
         }
         
+    }
+    
+    func deviceOrientationDidChange() {
+        
+        guard let superview = superview else {
+            return
+        }
+        
+        frame = superview.bounds
+        effectView?.frame = frame
+        layoutIfNeeded()
     }
     
 }
