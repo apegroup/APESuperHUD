@@ -78,7 +78,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(icon: UIImage, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(icon: UIImage, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)? = nil) {
         showHud(text: Array(arrayLiteral: message), icon: icon, duration: appearance.defaultDurationTime, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
     }
     
@@ -93,7 +93,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(icon: UIImage, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(icon: UIImage, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)? = nil) {
         showHud(text: Array(arrayLiteral: message), icon: icon, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
     }
     
@@ -111,7 +111,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(icon: IconType, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(icon: IconType, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)? = nil) {
         let duration = appearance.defaultDurationTime
         let defaultIcon = iconImage(imageName: icon.rawValue)
         showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, funnyMessagesLanguage: nil, completion: completion)
@@ -128,7 +128,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(icon: IconType, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(icon: IconType, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)? = nil) {
         let defaultIcon = iconImage(imageName: icon.rawValue)
         showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, sksFileName: particleEffectFileName , presentingView: presentingView, completion: completion)
     }
@@ -147,7 +147,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(title: String, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(title: String, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)? = nil) {
         showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: appearance.defaultDurationTime, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
     }
     
@@ -162,7 +162,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD will be located in.
      - parameter completion: Will be trigger when the HUD is removed.
      */
-    public static func showOrUpdateHUD(title: String, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
+    public static func showOrUpdateHUD(title: String, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)? = nil) {
         showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
     }
     
@@ -225,7 +225,7 @@ public class APESuperHUD {
      - parameter presentingView: The view that the HUD is located in.
      - parameter completion: Will be trigger when the HUD is removed.
     */
-    public static func removeHUD(animated: Bool, presentingView: UIView, completion: (() -> Void)?) {
+    public static func removeHUD(animated: Bool, presentingView: UIView, completion: (() -> Void)? = nil) {
         if let hudView = getHudView(presentingView: presentingView) {
             hudView.removeHud(animated: animated, onDone: { _ in
                 completion?()
