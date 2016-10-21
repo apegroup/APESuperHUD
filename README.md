@@ -2,7 +2,7 @@
 A simple way to display a HUD with a message or progress information in your application.
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/6545513/19600924/69e2a7f8-97a7-11e6-906b-b0ffbbabc11e.gif" alt="APESuperHUD">
+  <img src="https://cloud.githubusercontent.com/assets/6545513/19601280/eafb4b50-97a8-11e6-811b-23a6e9d92234.gif" alt="APESuperHUD">
 </p>
 
 ##Features
