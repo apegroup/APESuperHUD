@@ -212,6 +212,26 @@ public class APESuperHUD {
            showHud(text: messages, presentingView: presentingView, completion: nil)
         }
     }
+    
+    
+    
+    
+    // MARK: API Status
+    
+    /**
+     Returns the HUD's visibility status
+     
+     - parameter view: The view that the HUD is located in.
+     */
+    public static func isVisible(in view: UIView) -> Bool {
+        
+        var status = false
+        if getHudView(presentingView: view) != nil {
+            status = true
+        }
+        
+        return status
+    }
 
     
     
