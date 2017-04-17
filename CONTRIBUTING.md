@@ -1,7 +1,7 @@
-##Feature Request
+## Feature Request
 If you have any feature request, please [create a GitHub Issue](https://github.com/apegroup/APESuperHUD/issues/new) or make pull requests.
 
-##Reporting Issues
+## Reporting Issues
 A great way to contribute to the project
 is to send a detailed issue when you encounter an problem.
 We always appreciate a well-written, thorough bug report.
@@ -21,7 +21,7 @@ When reporting issues, please include the following:
 
 This information will help us review and fix your issue faster.
 
-##Developer's Certificate of Origin 1.1
+## Developer's Certificate of Origin 1.1
 By making a contribution to this project, I certify that:
 
 - (a) The contribution was created in whole or in part by me and I
