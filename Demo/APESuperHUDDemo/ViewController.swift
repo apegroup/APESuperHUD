@@ -26,7 +26,7 @@ import UIKit
 import APESuperHUD
 
 class ViewController: UIViewController {
-    
+
     @IBOutlet weak var particleEffectSwitch: UISwitch!
     @IBOutlet weak var messageWithDefaultIconButton: UIButton!
     @IBOutlet weak var messageWithCustomIconButton: UIButton!
@@ -34,24 +34,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var loadingWithTextButton: UIButton!
     @IBOutlet weak var loadingWithoutTextButton: UIButton!
     @IBOutlet weak var loadingWithFunnyMessagesButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Setup Appearnce
         setupHudAppearance()
 
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         // Setup Buttons
         setupButtonsLayout()
     }
-    
+
     private func setupHudAppearance() {
-        
+
         APESuperHUD.appearance.cornerRadius = 12
         APESuperHUD.appearance.animateInTime = 1.0
         APESuperHUD.appearance.animateOutTime = 1.0
@@ -70,83 +70,77 @@ class ViewController: UIViewController {
         APESuperHUD.appearance.particleEffectBackgroundColor = UIColor(red: 0, green: 128.0 / 255.0, blue: 1.0, alpha: 0.85)
         APESuperHUD.appearance.backgroundBlurEffect = .light
     }
-    
+
     private func setupButtonsLayout() {
-        
+
         messageWithDefaultIconButton.layer.cornerRadius = messageWithDefaultIconButton.frame.height / 2
         messageWithCustomIconButton.layer.cornerRadius = messageWithCustomIconButton.frame.height / 2
         messageWithTitleButton.layer.cornerRadius = messageWithTitleButton.frame.height / 2
         loadingWithTextButton.layer.cornerRadius = loadingWithFunnyMessagesButton.frame.height / 2
         loadingWithoutTextButton.layer.cornerRadius = loadingWithoutTextButton.frame.height / 2
         loadingWithFunnyMessagesButton.layer.cornerRadius = loadingWithFunnyMessagesButton.frame.height / 2
-        
-    }
-    
-    @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
-        
-        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
-        
-        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
-            // Completed
-        })
-        
-    }
-    
-    @IBAction func withCustomIconButtonPressed(sender: UIButton) {
-        
-        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
-        
-        APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
-            // Completed
-        })
-        
-    }
-    
-    @IBAction func withTitleButtonPressed(sender: UIButton) {
-        
-        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
-        
-        APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
-            // Completed
-        })
-        
-    }
-    
-    @IBAction func withLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "Demo loading...", presentingView: self.view)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            let sksFileName: String? = strongSelf.particleEffectSwitch.isOn ? "FireFliesParticle" : nil
-            
-            APESuperHUD.showOrUpdateHUD(icon: .checkMark, message: "Done loading!", duration: 3.0, particleEffectFileName: sksFileName, presentingView: strongSelf.view, completion: nil)
-            
-        }
-    }
-    
-    @IBAction func withoutLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "", presentingView: self.view)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
-            guard let strongSelf = self else { return }
-            APESuperHUD.removeHUD(animated: true, presentingView: strongSelf.view, completion: nil)
-        }
-    }
-    
-    @IBAction func withFunnyLoadingTextButtonPressed(sender: UIButton) {
-        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, funnyMessagesLanguage: .english, presentingView: self.view)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { [weak self] in
-            guard let strongSelf = self else { return }
-            APESuperHUD.removeHUD(animated: true, presentingView: strongSelf.view, completion: nil)
 
+    }
+
+    @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
+
+        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+
+		APESuperHUD.showOrUpdateHUD(with: .message("1 new message"), having: .icon(.email), in: view, particleEffectFileName: sksFileName) { status in
+			print(status)
+		}
+    }
+
+    @IBAction func withCustomIconButtonPressed(sender: UIButton) {
+
+        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+
+		APESuperHUD.showOrUpdateHUD(with: .message("Demo message"), having: .image(UIImage(named: "apegroup")!), in: view, particleEffectFileName: sksFileName) { (status) in
+			print(status)
+		}
+    }
+
+    @IBAction func withTitleButtonPressed(sender: UIButton) {
+
+        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+
+		APESuperHUD.showOrUpdateHUD(with: .title("Title", message: "Demo message"), in: view, autoremove: .after(3.0), particleEffectFileName: sksFileName) { (status) in
+			print(status)
+		}
+    }
+
+    @IBAction func withLoadingTextButtonPressed(sender: UIButton) {
+		APESuperHUD.showOrUpdateHUD(with: .message("Demo loading..."), having: .loader, in: view) { (status) in
+			print(status)
+		}
+		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+			guard let strongSelf = self else { return }
+			let sksFileName: String? = strongSelf.particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+
+			APESuperHUD.showOrUpdateHUD(with: .message("Done loading!"), having: .icon(.checkMark), in: strongSelf.view, autoremove: .after(3.0), particleEffectFileName: sksFileName, completion: { (status) in
+				print(status)
+			})
+		}
+    }
+
+    @IBAction func withoutLoadingTextButtonPressed(sender: UIButton) {
+		APESuperHUD.showOrUpdateHUD(having: .loader, in: view) { (status) in
+			print(status)
+		}
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+            guard let strongSelf = self else { return }
+            APESuperHUD.removeHUD(animated: true, presentingView: strongSelf.view, completion: nil)
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+    @IBAction func withFunnyLoadingTextButtonPressed(sender: UIButton) {
+//        APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, funnyMessagesLanguage: .english, presentingView: self.view)
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { [weak self] in
+//            guard let strongSelf = self else { return }
+//            APESuperHUD.removeHUD(animated: true, presentingView: strongSelf.view, completion: nil)
+//
+//        }
     }
 }
 
