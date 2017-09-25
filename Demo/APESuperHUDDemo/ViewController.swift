@@ -26,7 +26,7 @@ import UIKit
 import APESuperHUD
 
 class ViewController: UIViewController {
-    
+
     @IBOutlet weak var particleEffectSwitch: UISwitch!
     @IBOutlet weak var messageWithDefaultIconButton: UIButton!
     @IBOutlet weak var messageWithCustomIconButton: UIButton!
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         
         let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
         
-        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
+        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: {
             // Completed
         })
         
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         
         let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
         
-        APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
+        APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: {
             // Completed
         })
         
@@ -106,7 +106,7 @@ class ViewController: UIViewController {
         
         let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
         
-        APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
+        APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: {
             // Completed
         })
         
@@ -149,4 +149,3 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
-

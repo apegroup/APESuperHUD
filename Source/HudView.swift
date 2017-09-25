@@ -205,14 +205,13 @@ extension HudView {
      - parameter onDone: The completion block that will be triggered after the HUD view is removed from it's super view.
      
      */
-    func removeHud(animated: Bool, onDone: ((Void) -> Void)?) {
+    func removeHud(animated: Bool, onDone: (() -> Void)?) {
         
         NotificationCenter.default.removeObserver(self)
-        UIDevice.current.endGeneratingDeviceOrientationNotifications()
         timer.invalidate()
         
         if animated {
-            animateOutHud(completion: { [weak self] _ in
+            animateOutHud(completion: { [weak self] in
                 
                 self?.effectView?.removeFromSuperview()
                 self?.removeFromSuperview()
@@ -235,13 +234,13 @@ extension HudView {
     func showMessages(messages: [String]) {
         
         loadingMessagesHandler = LoadingMessagesHandler(messages: messages)
-        let showMessagesSelector = #selector(showMessages as (Void) -> Void)
+        let showMessagesSelector = #selector(showMessages as () -> Void)
         showMessages()
         timer.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: showMessagesSelector, userInfo: nil, repeats: true)
     }
     
-    func showMessages() {
+    @objc func showMessages() {
         
         let message = loadingMessagesHandler.firstMessage()
         if isActiveTimer {
@@ -254,13 +253,13 @@ extension HudView {
     func showFunnyMessages(languageType: LanguageType) {
         
         loadingMessagesHandler = LoadingMessagesHandler(languageType: languageType)
-        let showFunnyMessagesSelector = #selector(showFunnyMessages as (Void) -> Void)
+        let showFunnyMessagesSelector = #selector(showFunnyMessages as () -> Void)
         showFunnyMessages()
         timer.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: showFunnyMessagesSelector, userInfo: nil, repeats: true)
     }
     
-    func showFunnyMessages() {
+    @objc func showFunnyMessages() {
         
         let funnyMessage = loadingMessagesHandler.randomMessage()
         if isActiveTimer {
@@ -278,7 +277,7 @@ extension HudView {
         
         loadingActivityIndicator.startAnimating()
         
-        showViewsAnimated(views: [loadingActivityIndicator, informationLabel], completion: { _ in
+        showViewsAnimated(views: [loadingActivityIndicator, informationLabel], completion: { 
             
             completion?()
             
@@ -288,7 +287,7 @@ extension HudView {
     
     func hideLoadingActivityIndicator(completion: (() -> Void)?) {
         
-        hideViewsAnimated(views: [loadingActivityIndicator, informationLabel], completion: { [weak self] _ in
+        hideViewsAnimated(views: [loadingActivityIndicator, informationLabel], completion: { [weak self] in
             
             self?.loadingActivityIndicator.stopAnimating()
             
@@ -311,7 +310,7 @@ extension HudView {
             loadingActivityIndicator.stopAnimating()
         }
         
-        showViewsAnimated(views: [titleLabel, informationLabel, iconImageView], completion: { _ in
+        showViewsAnimated(views: [titleLabel, informationLabel, iconImageView], completion: { 
             
             completion?()
             
@@ -400,8 +399,8 @@ extension HudView {
         
         let minimumHeightConstraint = NSLayoutConstraint(item: hudMessageView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: APESuperHUD.appearance.hudSquareSize)
         
-        widthConstraint.priority = UILayoutPriorityRequired - 1
-        minimumHeightConstraint.priority = UILayoutPriorityRequired - 1
+        widthConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(Int(UILayoutPriority.required.rawValue) - 1))
+        minimumHeightConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(Int(UILayoutPriority.required.rawValue) - 1))
         
         [centerXConstraint, minimumHeightConstraint, centerYConstraint, widthConstraint].forEach {
             $0.isActive = true
@@ -451,7 +450,7 @@ extension HudView {
             $0.isActive = true
         }
         
-        titleLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
+        titleLabel.setContentCompressionResistancePriority(UILayoutPriority.required, for: .vertical)
     }
     
     
@@ -466,7 +465,7 @@ extension HudView {
             $0.isActive = true
         }
         
-        informationLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
+        informationLabel.setContentCompressionResistancePriority(UILayoutPriority.required, for: .vertical)
     }
     
     fileprivate func updateIconConstraints() {
@@ -543,7 +542,7 @@ extension HudView {
         
     }
     
-    func deviceOrientationDidChange() {
+    @objc func deviceOrientationDidChange() {
         
         guard let superview = superview else {
             return
@@ -572,7 +571,7 @@ extension HudView {
         hudMessageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         layoutIfNeeded()
         
-        UIView.animate(withDuration: APESuperHUD.appearance.animateInTime, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: { [weak self] _ in
+        UIView.animate(withDuration: APESuperHUD.appearance.animateInTime, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: { [weak self] in
             
             self?.hudMessageView.alpha = 1.0
             self?.alpha = 1.0
@@ -596,7 +595,7 @@ extension HudView {
         
         isAnimating = true
         
-        UIView.animate(withDuration: APESuperHUD.appearance.animateOutTime, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: { [weak self] _ in
+        UIView.animate(withDuration: APESuperHUD.appearance.animateOutTime, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: { [weak self] in
             
             self?.alpha = 0.0
             

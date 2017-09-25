@@ -227,7 +227,7 @@ public class APESuperHUD {
     */
     public static func removeHUD(animated: Bool, presentingView: UIView, completion: (() -> Void)? = nil) {
         if let hudView = getHudView(presentingView: presentingView) {
-            hudView.removeHud(animated: animated, onDone: { _ in
+            hudView.removeHud(animated: animated, onDone: {
                 completion?()
             })
         }
@@ -245,7 +245,7 @@ public class APESuperHUD {
         if hudView.isActivityIndicatorSpinnning {
 
             // Hide HUD view, and call same function when it's done
-            hudView.hideLoadingActivityIndicator(completion: { _ in
+            hudView.hideLoadingActivityIndicator(completion: {
                 
                 showHud(text: text, icon: icon, duration: duration, sksFileName: sksFileName, presentingView: presentingView, completion: completion)
                 return
