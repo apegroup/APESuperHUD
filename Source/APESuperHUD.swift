@@ -14,6 +14,7 @@ public class APESuperHUD_new: UIViewController {
     @IBOutlet private weak var hudViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var hudViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var loadingIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var iconContainerView: UIView!
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var iconWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var iconHeightConstraint: NSLayoutConstraint!
@@ -22,7 +23,22 @@ public class APESuperHUD_new: UIViewController {
     
     public var style: HUDStyle {
         didSet {
-            updateStyle(style)
+            switch style {
+            case .icon(let tuple):
+                loadingIndicatorView.isHidden = true
+                iconImageView.isHidden = false
+                iconContainerView.isHidden = false
+                iconImageView.image = tuple.image
+                
+            case .loadingIndicator(let type):
+                iconImageView.isHidden = true
+                loadingIndicatorView.isHidden = false
+                iconContainerView.isHidden = true
+                switch type {
+                case .standard:
+                    break
+                }
+            }
         }
     }
     
@@ -121,7 +137,7 @@ public class APESuperHUD_new: UIViewController {
         
         titleLabel.text = _title
         messageLabel.text = message
-        updateStyle(style)
+        setStyle(style, animated: false)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -184,15 +200,24 @@ public class APESuperHUD_new: UIViewController {
         }
     }
     
-    private func updateStyle(_ style: HUDStyle) {
+    public func setTitle(_ title: String, animated: Bool) {
+        if animated {
+            
+        } else {
+            
+        }
+    }
+    
+    public func setStyle(_ style: HUDStyle, animated: Bool) {
         dismissTask?.cancel()
         startDismissTimer()
         
-        switch style {
-        case .icon(let tuple):
-            iconImageView.image = tuple.image
-        case .loadingIndicator(let type):
-            break // TODO
+        if animated {
+            UIView.animate(withDuration: HUDAppearance_new.animateInTime) {
+                self.style = style
+            }
+        } else {
+            self.style = style
         }
     }
 }
