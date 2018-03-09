@@ -84,12 +84,16 @@ class ViewController: UIViewController {
     
     @IBAction func withDefaultIconButtonPressed(sender: UIButton) {
         
-        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+//        let sksFileName: String? = particleEffectSwitch.isOn ? "FireFliesParticle" : nil
+//
+//        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
+//            // Completed
+//        })
         
-        APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, particleEffectFileName: sksFileName, presentingView: self.view, completion: { _ in
-            // Completed
-        })
-        
+        // APESuperHUD_new.show(style: .loadingIndicator(type: .standard), title: "adsd", message: "asda")
+        let vc = APESuperHUD_new.init(style: .icon(image: UIImage(named: "apegroup")!, duration: 3.0), title: "adsd", message: "adsa")
+        present(vc, animated: true, completion: nil)
+    
     }
     
     @IBAction func withCustomIconButtonPressed(sender: UIButton) {
