@@ -62,11 +62,11 @@ public class APESuperHUD_new: UIViewController {
         }
     }
     
-    public var duration: TimeInterval {
+    public var duration: TimeInterval? {
         if case let .icon(tuple) = style {
             return tuple.duration
         } else {
-            return .infinity
+            return nil
         }
     }
     
@@ -93,6 +93,8 @@ public class APESuperHUD_new: UIViewController {
             vc.style = style
             vc.title = title
             vc.message = message
+            
+            vc.startDismissTimer()
         } else {
             let vc = APESuperHUD_new(style: style, title: title, message: message)
             let window = UIWindow(frame: UIScreen.main.bounds)
@@ -180,6 +182,12 @@ public class APESuperHUD_new: UIViewController {
     }
     
     private func startDismissTimer() {
+        self.dismissTask?.cancel()
+        
+        guard let duration = duration else {
+            return
+        }
+        
         let dismissTask = DispatchWorkItem { [weak self] in
             self?.dismiss(animated: true)
             APESuperHUD_new.window = nil
@@ -195,7 +203,6 @@ public class APESuperHUD_new: UIViewController {
     
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
         if HUDAppearance_new.cancelableOnTouch {
-            dismissTask?.cancel()
             dismiss(animated: true)
         }
     }
