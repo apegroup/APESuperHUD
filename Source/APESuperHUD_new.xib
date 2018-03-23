@@ -21,6 +21,7 @@
                 <outlet property="iconWidthConstraint" destination="Zsj-zV-kF4" id="4hG-Yn-0iq"/>
                 <outlet property="loadingIndicatorView" destination="wjJ-jA-Y8K" id="u8E-S9-ALW"/>
                 <outlet property="messageLabel" destination="6VW-EY-SkN" id="sPi-sg-7Za"/>
+                <outlet property="stackView" destination="FX8-r3-joL" id="VOE-tc-Lii"/>
                 <outlet property="titleLabel" destination="cM6-DD-kgJ" id="7HR-M3-9Wa"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

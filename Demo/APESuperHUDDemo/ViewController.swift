@@ -90,7 +90,16 @@ class ViewController: UIViewController {
 //            // Completed
 //        })
         
-        APESuperHUD_new.show(style: .loadingIndicator(type: .standard), title: "adsd", message: "asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda asda")
+        let image = UIImage(named: "apegroup")!
+        
+        APESuperHUD_new.show(style: .loadingIndicator(type: .standard), title: nil, message: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            
+            APESuperHUD_new.show(style: .icon(image: image, duration: 3.0), title: nil, message: nil)
+            
+        })
+        
         // let vc = APESuperHUD_new.init(style: .icon(image: UIImage(named: "apegroup")!, duration: 3.0), title: "adsd", message: "adsa")
         // present(vc, animated: true, completion: nil)
     

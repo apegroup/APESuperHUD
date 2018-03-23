@@ -13,6 +13,7 @@ public class APESuperHUD_new: UIViewController {
     @IBOutlet private weak var hudView: UIView!
     @IBOutlet private weak var hudViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var hudViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var loadingIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var iconContainerView: UIView!
     @IBOutlet private weak var iconImageView: UIImageView!
@@ -42,8 +43,11 @@ public class APESuperHUD_new: UIViewController {
         }
     }
     
+    private var window: UIWindow?
+    
     private var _title: String? {
         didSet {
+            titleLabel.isHidden = (_title?.isEmpty ?? true) ? true : false
             titleLabel.text = _title
         }
     }
@@ -58,6 +62,7 @@ public class APESuperHUD_new: UIViewController {
     
     public var message: String? {
         didSet {
+            messageLabel.isHidden = (message?.isEmpty ?? true) ? true : false
             messageLabel.text = message
         }
     }
@@ -90,11 +95,9 @@ public class APESuperHUD_new: UIViewController {
     
     public static func show(style: HUDStyle, title: String? = nil, message: String? = nil) {
         if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).flatMap({ $0 as? APESuperHUD_new }).first {
-            vc.style = style
-            vc.title = title
-            vc.message = message
-            
-            vc.startDismissTimer()
+            vc.setStyle(style, animated: true)
+            vc.setTitle(title, animated: true)
+            vc.setMessage(message, animated: true)
         } else {
             let vc = APESuperHUD_new(style: style, title: title, message: message)
             let window = UIWindow(frame: UIScreen.main.bounds)
@@ -137,9 +140,10 @@ public class APESuperHUD_new: UIViewController {
         hudViewWidthConstraint.constant = HUDAppearance_new.hudSize.width
         hudViewHeightConstraint.constant = HUDAppearance_new.hudSize.height
         
-        titleLabel.text = _title
-        messageLabel.text = message
         setStyle(style, animated: false)
+        setTitle(_title, animated: false)
+        setMessage(message, animated: false)
+       
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -164,7 +168,7 @@ public class APESuperHUD_new: UIViewController {
     
     public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         if flag {
-            let delay: TimeInterval = 0
+            let delay: TimeInterval = 2
 //        let delay: TimeInterval = isAnimating ? (APESuperHUD.appearance.animateInTime + 0.1) : 0
 //
 //        isAnimating = true
@@ -174,7 +178,7 @@ public class APESuperHUD_new: UIViewController {
                 self?.view.alpha = 0
                 }, completion: { _ in
                     // self?.isAnimating = false
-                    super.dismiss(animated: false, completion: completion)
+                    super.dismiss(animated: flag, completion: completion)
             })
         } else {
             super.dismiss(animated: flag, completion: completion)
@@ -184,16 +188,12 @@ public class APESuperHUD_new: UIViewController {
     private func startDismissTimer() {
         self.dismissTask?.cancel()
         
-        guard let duration = duration else {
-            return
-        }
-        
         let dismissTask = DispatchWorkItem { [weak self] in
             self?.dismiss(animated: true)
             APESuperHUD_new.window = nil
         }
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration, execute: dismissTask)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: dismissTask)
         self.dismissTask = dismissTask
     }
     
@@ -203,28 +203,71 @@ public class APESuperHUD_new: UIViewController {
     
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
         if HUDAppearance_new.cancelableOnTouch {
+            dismissTask?.cancel()
             dismiss(animated: true)
         }
     }
     
-    public func setTitle(_ title: String, animated: Bool) {
+    public func setStyle(_ style: HUDStyle, animated: Bool) {
+        startDismissTimer()
+        
+        self.style = style
+//        
+//        let animatingTime = HUDAppearance_new.animateInTime
+//        
+//        UIView.animate(withDuration: animatingTime, delay: 0, options: .curveEaseInOut, animations: {
+//            self.stackView.alpha = 0
+//        }) { (isSuccess) in
+//            self.style = style
+//        }
+//        
+//        UIView.animate(withDuration: animatingTime, delay: animatingTime + 0.3, options: .curveEaseInOut, animations: {
+//            self.stackView.alpha = 1
+//        })
+//        
+        
+//        UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
+//
+//            self.stackView.alpha = 0.0
+//
+//        }) { (_) in
+//
+//            self.style = style
+//
+//            UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
+//
+//                 self.stackView.alpha = 1.0
+//            })
+//        }
+        
+        
+//        if animated {
+//            UIView.animate(withDuration: HUDAppearance_new.animateInTime) {
+//                self.style = style
+//            }
+//        } else {
+//            self.style = style
+//        }
+    }
+    
+    public func setTitle(_ title: String?, animated: Bool) {
         if animated {
-            
+            UIView.animate(withDuration: HUDAppearance_new.animateInTime) {
+                self._title = title
+            }
         } else {
-            
+            self._title = title
         }
     }
     
-    public func setStyle(_ style: HUDStyle, animated: Bool) {
-        dismissTask?.cancel()
-        startDismissTimer()
-        
+    public func setMessage(_ message: String?, animated: Bool) {
         if animated {
             UIView.animate(withDuration: HUDAppearance_new.animateInTime) {
-                self.style = style
+                self.message = message
             }
         } else {
-            self.style = style
+            self.message = message
         }
     }
+
 }
