@@ -167,33 +167,40 @@ public class APESuperHUD_new: UIViewController {
     }
     
     public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        
         if flag {
             let delay: TimeInterval = 2
 //        let delay: TimeInterval = isAnimating ? (APESuperHUD.appearance.animateInTime + 0.1) : 0
 //
 //        isAnimating = true
             
-            UIView.animate(withDuration: APESuperHUD.appearance.animateOutTime, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: { [weak self] in
-                self?.hudView.alpha = 0.0
-                self?.view.alpha = 0
-                }, completion: { _ in
+            UIView.animate(withDuration: APESuperHUD.appearance.animateOutTime, animations: {
+          
+                self.hudView.alpha = 0.0
+                self.view.alpha = 0
+                }, completion: { isFinished in
                     // self?.isAnimating = false
-                    super.dismiss(animated: flag, completion: completion)
+                    if isFinished {
+                        super.dismiss(animated: flag, completion: completion)
+                         APESuperHUD_new.window = nil
+                    }
             })
         } else {
             super.dismiss(animated: flag, completion: completion)
+            APESuperHUD_new.window = nil
         }
     }
     
     private func startDismissTimer() {
         self.dismissTask?.cancel()
         
+        guard let duration = duration else { return }
+        
         let dismissTask = DispatchWorkItem { [weak self] in
             self?.dismiss(animated: true)
-            APESuperHUD_new.window = nil
         }
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: dismissTask)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration, execute: dismissTask)
         self.dismissTask = dismissTask
     }
     
@@ -209,9 +216,9 @@ public class APESuperHUD_new: UIViewController {
     }
     
     public func setStyle(_ style: HUDStyle, animated: Bool) {
-        startDismissTimer()
-        
+       
         self.style = style
+        startDismissTimer()
 //        
 //        let animatingTime = HUDAppearance_new.animateInTime
 //        
