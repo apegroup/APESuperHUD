@@ -39,6 +39,11 @@ public class APESuperHUD_new: UIViewController {
                 case .standard:
                     break
                 }
+                
+            case .textOnly:
+                loadingIndicatorView.isHidden = true
+                iconImageView.isHidden = true
+                iconContainerView.isHidden = true
             }
         }
     }
@@ -51,6 +56,7 @@ public class APESuperHUD_new: UIViewController {
             titleLabel.text = _title
         }
     }
+    
     public override var title: String? {
         get {
             return _title
@@ -169,17 +175,10 @@ public class APESuperHUD_new: UIViewController {
     public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         
         if flag {
-            let delay: TimeInterval = 2
-//        let delay: TimeInterval = isAnimating ? (APESuperHUD.appearance.animateInTime + 0.1) : 0
-//
-//        isAnimating = true
-            
             UIView.animate(withDuration: APESuperHUD.appearance.animateOutTime, animations: {
-          
                 self.hudView.alpha = 0.0
                 self.view.alpha = 0
                 }, completion: { isFinished in
-                    // self?.isAnimating = false
                     if isFinished {
                         super.dismiss(animated: flag, completion: completion)
                          APESuperHUD_new.window = nil
@@ -205,7 +204,7 @@ public class APESuperHUD_new: UIViewController {
     }
     
     public static func dismissAll(animated flag: Bool, completion: (() -> Void)? = nil) {
-        
+        // TA BORT?
     }
     
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
@@ -217,44 +216,26 @@ public class APESuperHUD_new: UIViewController {
     
     public func setStyle(_ style: HUDStyle, animated: Bool) {
        
-        self.style = style
-        startDismissTimer()
-//        
-//        let animatingTime = HUDAppearance_new.animateInTime
-//        
-//        UIView.animate(withDuration: animatingTime, delay: 0, options: .curveEaseInOut, animations: {
-//            self.stackView.alpha = 0
-//        }) { (isSuccess) in
-//            self.style = style
-//        }
-//        
-//        UIView.animate(withDuration: animatingTime, delay: animatingTime + 0.3, options: .curveEaseInOut, animations: {
-//            self.stackView.alpha = 1
-//        })
-//        
+        // Not animated
+        if animated == false {
+            self.style = style
+            startDismissTimer()
+            return
+        }
         
-//        UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
-//
-//            self.stackView.alpha = 0.0
-//
-//        }) { (_) in
-//
-//            self.style = style
-//
-//            UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
-//
-//                 self.stackView.alpha = 1.0
-//            })
-//        }
+        // Animated
+        let animatingTime = HUDAppearance_new.animateInTime
         
+        UIView.animate(withDuration: animatingTime, delay: 0, options: .curveEaseInOut, animations: {
+            self.stackView.alpha = 0
+        }) { (isSuccess) in
+            self.style = style
+            self.startDismissTimer()
+        }
         
-//        if animated {
-//            UIView.animate(withDuration: HUDAppearance_new.animateInTime) {
-//                self.style = style
-//            }
-//        } else {
-//            self.style = style
-//        }
+        UIView.animate(withDuration: animatingTime, delay: animatingTime + 0.3, options: .curveEaseInOut, animations: {
+            self.stackView.alpha = 1
+        })
     }
     
     public func setTitle(_ title: String?, animated: Bool) {
