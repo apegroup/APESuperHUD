@@ -9,6 +9,7 @@
 import Foundation
 
 public enum HUDStyle {
-    case icon(image: UIImage, duration: TimeInterval)
+    case icon(image: UIImage, duration: TimeInterval?)
     case loadingIndicator(type: LoadingIndicatorType)
+    case textOnly
 }
