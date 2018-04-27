@@ -24,27 +24,7 @@ public class APESuperHUD_new: UIViewController {
     
     public var style: HUDStyle {
         didSet {
-            switch style {
-            case .icon(let tuple):
-                loadingIndicatorView.isHidden = true
-                iconImageView.isHidden = false
-                iconContainerView.isHidden = false
-                iconImageView.image = tuple.image
-                
-            case .loadingIndicator(let type):
-                iconImageView.isHidden = true
-                loadingIndicatorView.isHidden = false
-                iconContainerView.isHidden = true
-                switch type {
-                case .standard:
-                    break
-                }
-                
-            case .textOnly:
-                loadingIndicatorView.isHidden = true
-                iconImageView.isHidden = true
-                iconContainerView.isHidden = true
-            }
+            setStyle(oldValue: oldValue, animated: true)
         }
     }
     
@@ -52,8 +32,21 @@ public class APESuperHUD_new: UIViewController {
     
     private var _title: String? {
         didSet {
-            titleLabel.isHidden = (_title?.isEmpty ?? true) ? true : false
-            titleLabel.text = _title
+            if oldValue == _title {
+                return
+            }
+            
+            UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                self.titleLabel.alpha = 0
+            }, completion: { isFinished in
+                guard isFinished else { return }
+                
+                self.titleLabel.text = self._title
+                
+                UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
+                    self.titleLabel.alpha = 1
+                })
+            })
         }
     }
     
@@ -68,8 +61,21 @@ public class APESuperHUD_new: UIViewController {
     
     public var message: String? {
         didSet {
-            messageLabel.isHidden = (message?.isEmpty ?? true) ? true : false
-            messageLabel.text = message
+            if oldValue == message {
+                return
+            }
+            
+            UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                self.messageLabel.alpha = 0
+            }, completion: { isFinished in
+                guard isFinished else { return }
+                
+                self.messageLabel.text = self.message
+                
+                UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
+                    self.messageLabel.alpha = 1
+                })
+            })
         }
     }
     
@@ -100,10 +106,10 @@ public class APESuperHUD_new: UIViewController {
     }
     
     public static func show(style: HUDStyle, title: String? = nil, message: String? = nil) {
-        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).flatMap({ $0 as? APESuperHUD_new }).first {
-            vc.setStyle(style, animated: true)
-            vc.setTitle(title, animated: true)
-            vc.setMessage(message, animated: true)
+        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD_new }).first {
+            vc.style = style
+            vc.title = title
+            vc.message = message
         } else {
             let vc = APESuperHUD_new(style: style, title: title, message: message)
             let window = UIWindow(frame: UIScreen.main.bounds)
@@ -146,10 +152,9 @@ public class APESuperHUD_new: UIViewController {
         hudViewWidthConstraint.constant = HUDAppearance_new.hudSize.width
         hudViewHeightConstraint.constant = HUDAppearance_new.hudSize.height
         
-        setStyle(style, animated: false)
-        setTitle(_title, animated: false)
-        setMessage(message, animated: false)
-       
+        setStyle(animated: false)
+        titleLabel.text = _title
+        messageLabel.text = message
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -173,20 +178,27 @@ public class APESuperHUD_new: UIViewController {
     }
     
     public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        
         if flag {
-            UIView.animate(withDuration: APESuperHUD.appearance.animateOutTime, animations: {
-                self.hudView.alpha = 0.0
+            UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                self.hudView.alpha = 0
                 self.view.alpha = 0
-                }, completion: { isFinished in
-                    if isFinished {
-                        super.dismiss(animated: flag, completion: completion)
-                         APESuperHUD_new.window = nil
+            }, completion: { isFinished in
+                if isFinished {
+                    if APESuperHUD_new.window != nil {
+                        completion?()
+                        APESuperHUD_new.window = nil
                     }
+                    
+                    super.dismiss(animated: flag, completion: completion)
+                }
             })
         } else {
+            if APESuperHUD_new.window != nil {
+                completion?()
+                APESuperHUD_new.window = nil
+            }
+            
             super.dismiss(animated: flag, completion: completion)
-            APESuperHUD_new.window = nil
         }
     }
     
@@ -204,58 +216,102 @@ public class APESuperHUD_new: UIViewController {
     }
     
     public static func dismissAll(animated flag: Bool, completion: (() -> Void)? = nil) {
-        // TA BORT?
+        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD_new }).first {
+            vc.dismiss(animated: flag, completion: completion)
+        }
     }
     
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
+        if duration != nil {
+            return
+        }
+        
         if HUDAppearance_new.cancelableOnTouch {
             dismissTask?.cancel()
             dismiss(animated: true)
         }
     }
     
-    public func setStyle(_ style: HUDStyle, animated: Bool) {
-       
-        // Not animated
-        if animated == false {
-            self.style = style
-            startDismissTimer()
-            return
-        }
-        
-        // Animated
-        let animatingTime = HUDAppearance_new.animateInTime
-        
-        UIView.animate(withDuration: animatingTime, delay: 0, options: .curveEaseInOut, animations: {
-            self.stackView.alpha = 0
-        }) { (isSuccess) in
-            self.style = style
-            self.startDismissTimer()
-        }
-        
-        UIView.animate(withDuration: animatingTime, delay: animatingTime + 0.3, options: .curveEaseInOut, animations: {
-            self.stackView.alpha = 1
-        })
-    }
-    
-    public func setTitle(_ title: String?, animated: Bool) {
-        if animated {
-            UIView.animate(withDuration: HUDAppearance_new.animateInTime) {
-                self._title = title
+    private func setStyle(oldValue: HUDStyle? = nil, animated: Bool) {
+        switch style {
+        case .icon(let tuple):
+            if let oldValue = oldValue, case let .icon(oldTuple) = oldValue, oldTuple.image == tuple.image {
+                return
             }
-        } else {
-            self._title = title
-        }
-    }
-    
-    public func setMessage(_ message: String?, animated: Bool) {
-        if animated {
-            UIView.animate(withDuration: HUDAppearance_new.animateInTime) {
-                self.message = message
+            
+            if animated {
+                UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                    self.loadingIndicatorView.alpha = 0
+                    self.iconImageView.alpha = 0
+                }, completion: { isFinished in
+                    guard isFinished else { return }
+                    
+                    self.iconImageView.image = tuple.image
+                    self.iconImageView.isHidden = false
+                    self.iconContainerView.isHidden = false
+                    self.loadingIndicatorView.isHidden = true
+                    
+                    UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
+                        self.iconImageView.alpha = 1
+                        self.iconContainerView.alpha = 1
+                    })
+                    
+                    self.startDismissTimer()
+                })
+            } else {
+                loadingIndicatorView.isHidden = true
+                iconImageView.isHidden = false
+                iconContainerView.isHidden = false
+                iconImageView.image = tuple.image
             }
-        } else {
-            self.message = message
+            
+        case .loadingIndicator(_):
+            if let oldValue = oldValue, case .loadingIndicator = oldValue {
+                return
+            }
+            
+            if animated {
+                UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                    self.loadingIndicatorView.alpha = 0
+                    self.iconImageView.alpha = 0
+                }, completion: { isFinished in
+                    guard isFinished else { return }
+                    
+                    self.loadingIndicatorView.isHidden = false
+                    self.iconImageView.isHidden = true
+                    
+                    UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
+                        self.loadingIndicatorView.alpha = 1
+                    })
+                    
+                    self.startDismissTimer()
+                })
+            } else {
+                iconImageView.isHidden = true
+                loadingIndicatorView.isHidden = false
+                iconContainerView.isHidden = true
+            }
+            
+        case .textOnly:
+            if animated {
+                UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                    self.loadingIndicatorView.alpha = 0
+                    self.iconImageView.alpha = 0
+                    self.iconContainerView.alpha = 0
+                }, completion: { isFinished in
+                    guard isFinished else { return }
+                    
+                    self.loadingIndicatorView.isHidden = true
+                    self.iconImageView.isHidden = true
+                    self.iconContainerView.isHidden = true
+                    
+                    self.startDismissTimer()
+                })
+            } else {
+                loadingIndicatorView.isHidden = true
+                iconImageView.isHidden = true
+                iconContainerView.isHidden = true
+            }
         }
     }
-
 }
