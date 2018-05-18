@@ -24,82 +24,60 @@
 
 import UIKit
 
-/**
- The blur effect of the view where the HUD is presented in
- 
- - None: No blur effect.
- - Dark: Dark blur.
- - Light: Light blur.
- - ExtraLight: Extra light blur.
-*/
-public enum BlurEffect {
-    
-    case none
-    case dark
-    case light
-    case extraLight
-}
-
 public struct HUDAppearance {
-
-    /// Text color of the text inside the HUD
-    public var textColor = UIColor.black
     
-    /// The background color of the view where the HUD is presented
-    public var backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    private init() {}
     
-    /// The background color of the particle effect view
-    public var particleEffectBackgroundColor = UIColor.white
+    /// Text color of the title text inside the HUD
+    public static var titleTextColor = UIColor.black
     
-    /// The background color of the HUD view
-    public var foregroundColor = UIColor.white
+    /// Text color of the message text inside the HUD
+    public static var messageTextColor = UIColor.black
     
     /// The color of the icon in the HUD
-    public var iconColor = UIColor.gray
+    public static var iconColor = UIColor.black
+    
+    /// The background color of the view where the HUD is presented
+    public static var backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    
+    /// The background color of the HUD view
+    public static var foregroundColor = UIColor.white
     
     /// The color of the loading indicator
-    public var loadingActivityIndicatorColor = UIColor.gray
-    
-    /// The type of blur effect in background view when the HUD is presented
-    public var backgroundBlurEffect: BlurEffect = .none
+    public static var loadingActivityIndicatorColor = UIColor.gray
     
     /// The corner radius of the HUD
-    public var cornerRadius: Double = 10
+    public static var cornerRadius: CGFloat = 10
     
     /// Enables/disables shadow effect around the HUD
-    public var shadow: Bool = true
+    public static var shadow: Bool = true
     
-    /// The HUD fade in duration
-    public var animateInTime: TimeInterval = 0.7
+    public static var shadowColor: UIColor = UIColor.black
     
-    /// The HUD fade out duration
-    public var animateOutTime: TimeInterval = 0.7
+    public static var shadowOffset: CGSize = CGSize(width: 0, height: 0)
     
-    /// The default display duration for the HUD
-    public var defaultDurationTime: Double = 2.0
+    public static var shadowRadius: CGFloat = 6.0
+    
+    public static var shadowOpacity: Float = 0.15
     
     /// Enables/disables removal of the HUD if the user taps on the screen
-    public var cancelableOnTouch = false
+    public static var cancelableOnTouch = true // false
     
-    /// The title font name of text in the HUD
-    public var titleFontName: String = "Helvetica-Bold"
+    /// The info message font in the HUD
+    public static var messageFont = UIFont.systemFont(ofSize: 13, weight: .regular)
     
-    /// The info message font name of text in the HUD
-    public var messageFontName: String = "Helvetica"
+    /// The title font in the HUD
+    public static var titleFont = UIFont.systemFont(ofSize: 20, weight: .bold)
     
-    /// The title font size of text in the HUD
-    public var titleFontSize: CGFloat = 20
-    
-    /// The info message font size of text in the HUD
-    public var messageFontSize: CGFloat = 13
+    /// The size of the icon inside the HUD
+    public static var iconSize = CGSize(width: 48, height: 48)
     
     /// The HUD size
-    public var hudSquareSize: CGFloat = 144
+    public static var hudSize = CGSize(width: 144, height: 144)
     
-    /// The width of the icon inside the HUD
-    public var iconWidth: CGFloat = 48
+    /// The HUD fade in duration
+    public static var animateInTime: TimeInterval = 0.7
     
-    /// The height of the icon inside the HUD
-    public var iconHeight: CGFloat = 48
-    
+    /// The HUD fade out duration
+    public static var animateOutTime: TimeInterval = 0.7
 }

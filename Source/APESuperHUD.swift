@@ -24,325 +24,322 @@
 
 import UIKit
 
-/**
- Default icons
- 
- - HappyFace: An icon with a smiling face.
- - SadFace: An icon with a sad face.
- - CheckMark: An icon with a standard checkmark.
- - Email: An icon with a letter.
-*/
-public enum IconType: String {
+public class APESuperHUD: UIViewController {
     
-    case info = "info_icon"
-    case happyFace = "happy_face_icon"
-    case sadFace = "sad_face_icon"
-    case checkMark = "checkmark_icon"
-    case email = "email_icon"
+    @IBOutlet private weak var hudView: UIView!
+    @IBOutlet private weak var hudViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var hudViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var stackView: UIStackView!
+    @IBOutlet private weak var loadingIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var iconContainerView: UIView!
+    @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet private weak var iconWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var iconHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var messageLabel: UILabel!
     
-}
-
-/**
-Layout of the loading indicator
- 
- - Standard: Apple standard spinner loading indicator.
-*/
-public enum LoadingIndicatorType: Int {
-    case standard
-}
-
-/**
- Enum for setting language for default messages in the HUD
- 
- - English: English
- */
-public enum LanguageType: Int {
-    case english
-}
-
-
-public class APESuperHUD {
-
-    /// Property for setting up the HUD appearance
-    public static var appearance = HUDAppearance()
-    
-    
-    // MARK: API With UIImage
-    
-    /**
-     Show or update the HUD.
-     
-     - parameter icon: The icon image in the HUD.
-     - parameter message: The text in the HUD.
-     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-     */
-    public static func showOrUpdateHUD(icon: UIImage, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
-        showHud(text: Array(arrayLiteral: message), icon: icon, duration: appearance.defaultDurationTime, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
-    }
-    
-    
-    /**
-     Show or update the HUD.
-     
-     - parameter icon: The icon image in the HUD.
-     - parameter message: The text in the HUD.
-     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
-     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-     */
-    public static func showOrUpdateHUD(icon: UIImage, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
-        showHud(text: Array(arrayLiteral: message), icon: icon, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
-    }
-    
-    
-    
-    
-    // MARK: API With IconType
-    
-    /**
-     Show or update the HUD.
-     
-     - parameter icon: The icon type icon in the HUD.
-     - parameter message: The text in the HUD.
-     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-     */
-    public static func showOrUpdateHUD(icon: IconType, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
-        let duration = appearance.defaultDurationTime
-        let defaultIcon = iconImage(imageName: icon.rawValue)
-        showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, funnyMessagesLanguage: nil, completion: completion)
-    }
-    
-    
-    /**
-     Show or update the HUD.
-     
-     - parameter icon: The icon type icon in the HUD.
-     - parameter message: The text in the HUD.
-     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
-     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-     */
-    public static func showOrUpdateHUD(icon: IconType, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
-        let defaultIcon = iconImage(imageName: icon.rawValue)
-        showHud(text: Array(arrayLiteral: message), icon: defaultIcon, duration: duration, sksFileName: particleEffectFileName , presentingView: presentingView, completion: completion)
-    }
-    
-    
-    
-    
-    // MARK: API With Title
-    
-    /**
-     Show or update the HUD.
-     
-     - parameter title: The title in the HUD.
-     - parameter message: The text in the HUD.
-     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-     */
-    public static func showOrUpdateHUD(title: String, message: String, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
-        showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: appearance.defaultDurationTime, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
-    }
-    
-    
-    /**
-     Show or update the HUD.
-     
-     - parameter title: The title in the HUD.
-     - parameter message: The text in the HUD.
-     - parameter duration: Set how long the HUD will be displayed in seconds (override the default value).
-     - parameter particleEffectFileName: The name of the Sprite Kit particle file in your project that you want to show in the HUD background.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-     */
-    public static func showOrUpdateHUD(title: String, message: String, duration: Double, particleEffectFileName: String? = nil, presentingView: UIView, completion: (() -> Void)?) {
-        showHud(title: title, text: Array(arrayLiteral: message), icon: nil, duration: duration, sksFileName: particleEffectFileName, presentingView: presentingView, completion: completion)
-    }
-    
-    
-    
-    
-    // MARK: API With LoadingIndicator
-    
-    /**
-     Show or update the HUD.
-    
-     - parameter loadingIndicator: The type of loading indicator in the HUD.
-     - parameter message: The text in the HUD.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-    */
-    public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, message: String, presentingView: UIView) {
-        if loadingIndicator == .standard {
-            showHud(text: Array(arrayLiteral: message), presentingView: presentingView, completion: nil)
+    public var style: HUDStyle {
+        didSet {
+            setStyle(oldValue: oldValue, animated: true)
         }
     }
     
-    /**
-     Show or update the HUD.
-     
-     - parameter loadingIndicator: The type of loading indicator in the HUD.
-     - parameter funnyMessagesLanguage: The language of the funny messages.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-     */
-    public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, funnyMessagesLanguage: LanguageType, presentingView: UIView) {
-        if loadingIndicator == .standard {
-            showHud(presentingView: presentingView, funnyMessagesLanguage: funnyMessagesLanguage, completion: nil)
-        }
-    }
+    private var window: UIWindow?
     
-    /**
-     Show or update the HUD.
-
-     - parameter loadingIndicator: The type of loading indicator in the HUD.
-     - parameter messages: A array of messages that will be displayed one by one.
-     - parameter presentingView: The view that the HUD will be located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-    */
-    public static func showOrUpdateHUD(loadingIndicator: LoadingIndicatorType, messages: [String], presentingView: UIView) {
-        if loadingIndicator == .standard {
-           showHud(text: messages, presentingView: presentingView, completion: nil)
-        }
-    }
-    
-    
-    
-    
-    // MARK: API Status
-    
-    /**
-     Returns the HUD's visibility status
-     
-     - parameter view: The view that the HUD is located in.
-     */
-    public static func isVisible(in view: UIView) -> Bool {
-        
-        var status = false
-        if getHudView(presentingView: view) != nil {
-            status = true
-        }
-        
-        return status
-    }
-
-    
-    
-    
-    // MARK: API Remove
-    
-    /**
-     Removes the HUD.
-
-     - parameter animated: If the remove action should be animated or not.
-     - parameter presentingView: The view that the HUD is located in.
-     - parameter completion: Will be trigger when the HUD is removed.
-    */
-    public static func removeHUD(animated: Bool, presentingView: UIView, completion: (() -> Void)?) {
-        if let hudView = getHudView(presentingView: presentingView) {
-            hudView.removeHud(animated: animated, onDone: {
-                completion?()
-            })
-        }
-    }
-
-    
-    
-    
-    // MARK: - Private functions
-
-    private static func showHud(title: String = "", text: [String] = [""], icon: UIImage? = nil, duration: Double = -1, sksFileName: String? = nil, presentingView: UIView, funnyMessagesLanguage: LanguageType? = nil, completion: (() -> Void)? = nil) {
-
-        let hudView = createHudViewIfNeeded(presentingView: presentingView)
-
-        if hudView.isActivityIndicatorSpinnning {
-
-            // Hide HUD view, and call same function when it's done
-            hudView.hideLoadingActivityIndicator(completion: {
-                
-                showHud(text: text, icon: icon, duration: duration, sksFileName: sksFileName, presentingView: presentingView, completion: completion)
+    private var _title: String? {
+        didSet {
+            if oldValue == _title {
                 return
-            })
+            }
             
+            UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
+                self.titleLabel.alpha = 0
+            }, completion: { isFinished in
+                guard isFinished else { return }
+                
+                self.titleLabel.text = self._title
+                
+                UIView.animate(withDuration: HUDAppearance.animateInTime, animations: {
+                    self.titleLabel.alpha = 1
+                })
+            })
+        }
+    }
+    
+    public override var title: String? {
+        get {
+            return _title
+        }
+        set {
+            _title = newValue
+        }
+    }
+    
+    public var message: String? {
+        didSet {
+            if oldValue == message {
+                return
+            }
+            
+            UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
+                self.messageLabel.alpha = 0
+            }, completion: { isFinished in
+                guard isFinished else { return }
+                
+                self.messageLabel.text = self.message
+                
+                UIView.animate(withDuration: HUDAppearance.animateInTime, animations: {
+                    self.messageLabel.alpha = 1
+                })
+            })
+        }
+    }
+    
+    public var duration: TimeInterval? {
+        if case let .icon(tuple) = style {
+            return tuple.duration
+        } else {
+            return nil
+        }
+    }
+    
+    private static var window: UIWindow?
+    private var dismissTask: DispatchWorkItem?
+    
+    public init(style: HUDStyle, title: String? = nil, message: String? = nil) {
+        self.style = style
+        self._title = title
+        self.message = message
+        
+        let nibName = String(describing: type(of: self))
+        let bundle = Bundle(for: APESuperHUD.self)
+        super.init(nibName: nibName, bundle: bundle)
+        
+        modalPresentationStyle = .overFullScreen
+        modalTransitionStyle = .crossDissolve
+        
+        startDismissTimer()
+    }
+    
+    public static func show(style: HUDStyle, title: String? = nil, message: String? = nil) {
+        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD }).first {
+            vc.style = style
+            vc.title = title
+            vc.message = message
+        } else {
+            let vc = APESuperHUD(style: style, title: title, message: message)
+            let window = UIWindow(frame: UIScreen.main.bounds)
+            window.backgroundColor = .clear
+            window.rootViewController = vc
+            window.makeKeyAndVisible()
+            self.window = window
+        }
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        hudView.alpha = 0
+        
+        titleLabel.textColor = HUDAppearance.titleTextColor
+        messageLabel.textColor = HUDAppearance.messageTextColor
+        view.backgroundColor = HUDAppearance.backgroundColor
+        hudView.backgroundColor = HUDAppearance.foregroundColor
+        loadingIndicatorView.color = HUDAppearance.loadingActivityIndicatorColor
+        hudView.layer.masksToBounds = true
+        hudView.layer.cornerRadius = HUDAppearance.cornerRadius
+        
+        if HUDAppearance.shadow {
+            hudView.layer.shadowColor = HUDAppearance.shadowColor.cgColor
+            hudView.layer.shadowOffset = HUDAppearance.shadowOffset
+            hudView.layer.shadowRadius = HUDAppearance.shadowRadius
+            hudView.layer.shadowOpacity = HUDAppearance.shadowOpacity
+            hudView.clipsToBounds = false
+        }
+        iconImageView.tintColor = HUDAppearance.iconColor
+        
+        messageLabel.font = HUDAppearance.messageFont
+        titleLabel.font = HUDAppearance.titleFont
+        
+        iconWidthConstraint.constant = HUDAppearance.iconSize.width
+        iconHeightConstraint.constant = HUDAppearance.iconSize.height
+        
+        hudViewWidthConstraint.constant = HUDAppearance.hudSize.width
+        hudViewHeightConstraint.constant = HUDAppearance.hudSize.height
+        
+        setStyle(animated: false)
+        titleLabel.text = _title
+        messageLabel.text = message
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        animateInHud()
+    }
+    
+    private func animateInHud() {
+        hudView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: HUDAppearance.animateInTime, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: { [weak self] in
+            self?.hudView.alpha = 1.0
+            self?.view.alpha = 1.0
+            self?.hudView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            
+            self?.view.layoutIfNeeded()
+            }
+        )
+    }
+    
+    public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        if flag {
+            UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
+                self.hudView.alpha = 0
+                self.view.alpha = 0
+            }, completion: { isFinished in
+                if isFinished {
+                    if APESuperHUD.window != nil {
+                        completion?()
+                        APESuperHUD.window = nil
+                    }
+                    
+                    super.dismiss(animated: flag, completion: completion)
+                }
+            })
+        } else {
+            if APESuperHUD.window != nil {
+                completion?()
+                APESuperHUD.window = nil
+            }
+            
+            super.dismiss(animated: flag, completion: completion)
+        }
+    }
+    
+    private func startDismissTimer() {
+        self.dismissTask?.cancel()
+        
+        guard let duration = duration else { return }
+        
+        let dismissTask = DispatchWorkItem { [weak self] in
+            self?.dismiss(animated: true)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration, execute: dismissTask)
+        self.dismissTask = dismissTask
+    }
+    
+    public static func dismissAll(animated flag: Bool, completion: (() -> Void)? = nil) {
+        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD }).first {
+            vc.dismiss(animated: flag, completion: completion)
+        }
+    }
+    
+    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
+        if duration != nil {
             return
         }
         
-        if let fileName = sksFileName {
-            hudView.addParticleEffect(sksfileName: fileName)
+        if HUDAppearance.cancelableOnTouch {
+            dismissTask?.cancel()
+            dismiss(animated: true)
         }
-        
-        let isFunnyMessages = funnyMessagesLanguage != nil
-        let isMessages = text.count > 1
-        hudView.isActiveTimer = isFunnyMessages || isMessages
-
-        if isFunnyMessages {
-            hudView.showFunnyMessages(languageType: funnyMessagesLanguage!)
-        
-        } else if isMessages {
-            hudView.showMessages(messages: text)
-        
-        } else if icon != nil {
-            hudView.showMessage(title: nil, message: text.first, icon: icon, completion: nil)
-        
-        } else if title != "" {
-            hudView.showMessage(title: title, message: text.first, icon: nil, completion: nil)
-        
-        } else {
-            hudView.showLoadingActivityIndicator(text: text.first, completion: nil)
-        }
-
-        if duration > 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: {
-                hudView.removeHud(animated: true, onDone: completion)
-            })
-        }
-    }
-
-    private static func iconImage(imageName: String) -> UIImage? {
-
-        let iconImage = UIImage(named: imageName, in: Bundle(for: APESuperHUD.self), compatibleWith: nil)
-
-        return iconImage
-    }
-
-    static func createHudViewIfNeeded(presentingView: UIView) -> HudView {
-
-        if let hudView = getHudView(presentingView: presentingView) {
-            return hudView
-        }
-
-        let hudView = HudView.create()
-        presentingView.addSubview(hudView)
-
-        return hudView
     }
     
-    static func createHudView(presentingView: UIView) -> HudView {
-        
-        let hudView = HudView.create()
-        presentingView.addSubview(hudView)
-        
-        return hudView
-    }
-
-    private static func getHudView(presentingView: UIView) -> HudView? {
-
-        for subview in presentingView.subviews {
-            
-            if let hudview = subview as? HudView {
-                return hudview
+    private func setStyle(oldValue: HUDStyle? = nil, animated: Bool) {
+        switch style {
+        case .icon(let tuple):
+            if let oldValue = oldValue, case let .icon(oldTuple) = oldValue, oldTuple.image == tuple.image {
+                return
             }
-
+            
+            if animated {
+                let delay = loadingIndicatorView.alpha == 0 && iconImageView.alpha == 0 ? HUDAppearance.animateOutTime : 0
+                UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
+                    self.loadingIndicatorView.alpha = 0
+                    self.iconImageView.alpha = 0
+                }, completion: { isFinished in
+                    guard isFinished else { return }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: {
+                        self.iconImageView.image = tuple.image
+                        self.iconImageView.isHidden = false
+                        self.iconContainerView.isHidden = false
+                        self.loadingIndicatorView.isHidden = true
+                        
+                        UIView.animate(withDuration: HUDAppearance.animateInTime, animations: {
+                            self.iconImageView.alpha = 1
+                            self.iconContainerView.alpha = 1
+                        })
+                        
+                        self.startDismissTimer()
+                    })
+                })
+            } else {
+                loadingIndicatorView.isHidden = true
+                iconImageView.isHidden = false
+                iconContainerView.isHidden = false
+                iconImageView.image = tuple.image
+            }
+            
+        case .loadingIndicator(_):
+            if let oldValue = oldValue, case .loadingIndicator = oldValue {
+                return
+            }
+            
+            if animated {
+                let delay = loadingIndicatorView.alpha == 0 && iconImageView.alpha == 0 ? HUDAppearance.animateOutTime : 0
+                UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
+                    self.loadingIndicatorView.alpha = 0
+                    self.iconImageView.alpha = 0
+                }, completion: { isFinished in
+                    guard isFinished else { return }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: {
+                        self.loadingIndicatorView.isHidden = false
+                        self.iconImageView.isHidden = true
+                        
+                        UIView.animate(withDuration: HUDAppearance.animateInTime, animations: {
+                            self.loadingIndicatorView.alpha = 1
+                        })
+                        
+                        self.startDismissTimer()
+                    })
+                })
+            } else {
+                iconImageView.isHidden = true
+                loadingIndicatorView.isHidden = false
+                iconContainerView.isHidden = true
+            }
+            
+        case .textOnly:
+            if animated {
+                let delay = loadingIndicatorView.alpha == 0 && iconImageView.alpha == 0 && iconContainerView.alpha == 0 ? HUDAppearance.animateOutTime : 0
+                UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
+                    self.loadingIndicatorView.alpha = 0
+                    self.iconImageView.alpha = 0
+                    self.iconContainerView.alpha = 0
+                }, completion: { isFinished in
+                    guard isFinished else { return }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: {
+                        self.loadingIndicatorView.isHidden = true
+                        self.iconImageView.isHidden = true
+                        self.iconContainerView.isHidden = true
+                        
+                        self.startDismissTimer()
+                    })
+                })
+            } else {
+                loadingIndicatorView.isHidden = true
+                iconImageView.isHidden = true
+                iconContainerView.isHidden = true
+            }
         }
-
-        return nil
     }
-
 }
