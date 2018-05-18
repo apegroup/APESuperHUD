@@ -8,17 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		0EDBBC5E1D992C5300B05357 /* FireFliesParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0EDBBC5D1D992C5300B05357 /* FireFliesParticle.sks */; };
+		181272911F7935C400CF834F /* APESuperHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */; };
+		181272921F7935C400CF834F /* APESuperHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18AC6D631C5B942900FE881A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D621C5B942900FE881A /* AppDelegate.swift */; };
 		18AC6D651C5B942900FE881A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D641C5B942900FE881A /* ViewController.swift */; };
 		18AC6D681C5B942900FE881A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D661C5B942900FE881A /* Main.storyboard */; };
 		18AC6D6A1C5B942900FE881A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D691C5B942900FE881A /* Assets.xcassets */; };
 		18AC6D6D1C5B942900FE881A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D6B1C5B942900FE881A /* LaunchScreen.storyboard */; };
-		18AC6D7D1C5B94A000FE881A /* APESuperHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */; };
-		18AC6D7E1C5B94A000FE881A /* APESuperHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18AC6D831C5B94B700FE881A /* CaviarDreams.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D821C5B94B700FE881A /* CaviarDreams.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		181272931F7935C400CF834F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 18AC6CF51C5B902800FE881A;
+			remoteInfo = APESuperHUD;
+		};
 		18AC6D791C5B947800FE881A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */;
@@ -33,23 +40,16 @@
 			remoteGlobalIDString = 18AC6D001C5B902800FE881A;
 			remoteInfo = APESuperHUDTests;
 		};
-		18AC6D7F1C5B94A000FE881A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 18AC6D741C5B947800FE881A /* APESuperHUD.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 18AC6CF51C5B902800FE881A;
-			remoteInfo = APESuperHUD;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		18AC6D811C5B94A000FE881A /* Embed Frameworks */ = {
+		181272951F7935C400CF834F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				18AC6D7E1C5B94A000FE881A /* APESuperHUD.framework in Embed Frameworks */,
+				181272921F7935C400CF834F /* APESuperHUD.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18AC6D7D1C5B94A000FE881A /* APESuperHUD.framework in Frameworks */,
+				181272911F7935C400CF834F /* APESuperHUD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,12 +132,12 @@
 				18AC6D5B1C5B942900FE881A /* Sources */,
 				18AC6D5C1C5B942900FE881A /* Frameworks */,
 				18AC6D5D1C5B942900FE881A /* Resources */,
-				18AC6D811C5B94A000FE881A /* Embed Frameworks */,
+				181272951F7935C400CF834F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				18AC6D801C5B94A000FE881A /* PBXTargetDependency */,
+				181272941F7935C400CF834F /* PBXTargetDependency */,
 			);
 			name = APESuperHUDDemo;
 			productName = APESuperHUDDemo;
@@ -151,12 +151,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Apegroup;
 				TargetAttributes = {
 					18AC6D5E1C5B942900FE881A = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = Q48PCXNS55;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -229,10 +230,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		18AC6D801C5B94A000FE881A /* PBXTargetDependency */ = {
+		181272941F7935C400CF834F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = APESuperHUD;
-			targetProxy = 18AC6D7F1C5B94A000FE881A /* PBXContainerItemProxy */;
+			targetProxy = 181272931F7935C400CF834F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -264,13 +265,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -292,7 +301,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -310,13 +319,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -332,9 +349,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -344,28 +362,32 @@
 		18AC6D721C5B942900FE881A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q48PCXNS55;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = APESuperHUDDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apegroup.APESuperHUDDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		18AC6D731C5B942900FE881A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q48PCXNS55;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = APESuperHUDDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apegroup.APESuperHUDDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
