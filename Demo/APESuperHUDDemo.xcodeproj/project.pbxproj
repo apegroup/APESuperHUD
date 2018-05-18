@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EDBBC5E1D992C5300B05357 /* FireFliesParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0EDBBC5D1D992C5300B05357 /* FireFliesParticle.sks */; };
 		181272911F7935C400CF834F /* APESuperHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */; };
 		181272921F7935C400CF834F /* APESuperHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6D7A1C5B947800FE881A /* APESuperHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18AC6D631C5B942900FE881A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D621C5B942900FE881A /* AppDelegate.swift */; };
@@ -57,7 +56,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0EDBBC5D1D992C5300B05357 /* FireFliesParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireFliesParticle.sks; sourceTree = "<group>"; };
 		18AC6D5F1C5B942900FE881A /* APESuperHUDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APESuperHUDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AC6D621C5B942900FE881A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18AC6D641C5B942900FE881A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 		18AC6D611C5B942900FE881A /* APESuperHUDDemo */ = {
 			isa = PBXGroup;
 			children = (
-				0EDBBC5D1D992C5300B05357 /* FireFliesParticle.sks */,
 				18AC6D621C5B942900FE881A /* AppDelegate.swift */,
 				18AC6D691C5B942900FE881A /* Assets.xcassets */,
 				18AC6D821C5B94B700FE881A /* CaviarDreams.ttf */,
@@ -209,7 +206,6 @@
 			files = (
 				18AC6D6D1C5B942900FE881A /* LaunchScreen.storyboard in Resources */,
 				18AC6D6A1C5B942900FE881A /* Assets.xcassets in Resources */,
-				0EDBBC5E1D992C5300B05357 /* FireFliesParticle.sks in Resources */,
 				18AC6D831C5B94B700FE881A /* CaviarDreams.ttf in Resources */,
 				18AC6D681C5B942900FE881A /* Main.storyboard in Resources */,
 			);
