@@ -158,10 +158,10 @@ HUDAppearance.iconSize = CGSize(width: 48, height: 48)
 HUDAppearance.hudSize = CGSize(width: 144, height: 144)
 
 /// The HUD fade in duration
-HUDAppearance.animateInTime: TimeInterval = 0.7
+HUDAppearance.animateInTime = 0.7
 
 /// The HUD fade out duration
-HUDAppearance.animateOutTime: TimeInterval = 0.7
+HUDAppearance.animateOutTime = 0.7
 ```
 
 ## Contributing
