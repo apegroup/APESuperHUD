@@ -12,21 +12,23 @@ A simple way to display a HUD with a message or progress information in your app
 - Unit tests.
 
 ## Requirements
-- iOS 8 or later.
-- Xcode 8 (Swift 3.0) or later. For Swift 2.2 use version 0.6
+- iOS 9 or later.
+- Xcode 9 (Swift 4.1) or later.
+  - For Swift 3.0 use version 1.1.3
+  - For Swift 2.2 use version 0.6
 
 ## Installation
 #### CocoaPods
 You can use [CocoaPods](http://cocoapods.org/) to install `APESuperHUD` by adding it to your `Podfile`:
 ```ruby
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 target 'MyApp' do
     pod 'APESuperHUD', :git => 'https://github.com/apegroup/APESuperHUD.git'
 end
 ```
-Note that this requires CocoaPods version 36, and your iOS deployment target to be at least 8.0:
+Note that this requires CocoaPods version 36, and your iOS deployment target to be at least 9.0:
 
 #### Carthage
 You can use [Carthage](https://github.com/Carthage/Carthage) to install `APESuperHUD` by adding it to your `Cartfile`:
@@ -39,63 +41,127 @@ Don't forget to import.
 ```swift
 import APESuperHUD
 ```
-#### Show message HUD
-###### With default icon
+#### Show hud with icon
 ```swift
-APESuperHUD.showOrUpdateHUD(icon: .email, message: "1 new message", duration: 3.0, presentingView: self.view, completion: {
-    // Completed
-})
-```
-###### With custom image
-```swift
-APESuperHUD.showOrUpdateHUD(icon: UIImage(named: "apegroup")!, message: "Demo message", duration: 3.0, presentingView: self.view, completion: {
-    // Completed
-})
-```
-###### With Title
-```swift
-APESuperHUD.showOrUpdateHUD(title: "Title", message: "Demo message", presentingView: self.view) {
-    // Completed
-}
-```
+let image = UIImage(named: "apegroup")!
+APESuperHUD.show(style: .icon(image: image, duration: 3.0), title: "Hello", message: "world")
 
+// Or create a instance of APESuperHud
 
-#### Show HUD with loading indicator
-###### With loading text
-```swift
-APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "Demo loading...", presentingView: self.view)
+/*
+let hudViewController = APESuperHUD(style: .icon(image: image, duration: 3), title: "Hello", message: "world")
+present(hudViewController, animated: true)
+*/
 ```
-###### Without loading text
+#### Show hud with loading indicator
 ```swift
-APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, message: "", presentingView: self.view, completion: nil)
+APESuperHUD.show(style: .loadingIndicator(type: .standard), title: nil, message: "Loading...")
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+    APESuperHUD.dismissAll(animated: true)
+})
+
+// Or create a instance of APESuperHud
+
+/*
+let hudViewController = APESuperHUD(style: .loadingIndicator(type: .standard), title: nil, message: "Loading...")
+present(hudViewController, animated: true)
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+    hudViewController.dismiss(animated: true)
+})
+*/
 ```
-###### With funny loading texts
+#### Show hud with title and message
 ```swift
-APESuperHUD.showOrUpdateHUD(loadingIndicator: .standard, funnyMessagesLanguage: .english, presentingView: self.view)
+APESuperHUD.show(style: .textOnly, title: "Hello", message: "world")
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+    APESuperHUD.dismissAll(animated: true)
+})
+
+// Or create a instance of APESuperHud
+
+/*
+let hudViewController = APESuperHUD(style: .textOnly, title: "Hello", message: "world")
+present(hudViewController, animated: true)
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+    hudViewController.dismiss(animated: true)
+})
+*/
 ```
-#### Remove HUD
+#### Show hud with updates
 ```swift
-APESuperHUD.removeHUD(animated: true, presentingView: self.view, completion: {
-    // Completed
+APESuperHUD.show(style: .loadingIndicator(type: .standard), title: nil, message: "Loading...")
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+    APESuperHUD.show(style: .textOnly, title: "Done loading", message: nil)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+        let image = UIImage(named: "apegroup")!
+        APESuperHUD.show(style: .icon(image: image, duration: 3.0), title: nil, message: nil)
+    })
 })
 ```
 #### Change appearance
 ```swift
-APESuperHUD.appearance.cornerRadius = 12
-APESuperHUD.appearance.animateInTime = 1.0
-APESuperHUD.appearance.animateOutTime = 1.0
-APESuperHUD.appearance.backgroundBlurEffect = .none
-APESuperHUD.appearance.iconColor = UIColor.green
-APESuperHUD.appearance.textColor =  UIColor.green
-APESuperHUD.appearance.loadingActivityIndicatorColor = UIColor.green
-APESuperHUD.appearance.defaultDurationTime = 4.0
-APESuperHUD.appearance.cancelableOnTouch = true
-APESuperHUD.appearance.iconWidth = 48
-APESuperHUD.appearance.iconHeight = 48
-APESuperHUD.appearance.messageFontName = "Caviar Dreams"
-APESuperHUD.appearance.titleFontName = "Caviar Dreams"
-APESuperHUD.appearance.titleFontSize = 22
-APESuperHUD.appearance.messageFontSize = 14
+/// Text color of the title text inside the HUD
+HUDAppearance.titleTextColor = UIColor.black
+
+/// Text color of the message text inside the HUD
+HUDAppearance.messageTextColor = UIColor.black
+
+/// The color of the icon in the HUD
+HUDAppearance.iconColor = UIColor.black
+
+/// The background color of the view where the HUD is presented
+HUDAppearance.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+
+/// The background color of the HUD view
+HUDAppearance.foregroundColor = UIColor.white
+
+/// The color of the loading indicator
+HUDAppearance.loadingActivityIndicatorColor = UIColor.gray
+
+/// The corner radius of the HUD
+HUDAppearance.cornerRadius = 10.0
+
+/// Enables/disables shadow effect around the HUD
+HUDAppearance.shadow = true
+
+/// The shadow color around the HUD
+HUDAppearance.shadowColor = UIColor.black
+
+/// The shadow offset around the HUD
+HUDAppearance.shadowOffset = CGSize(width: 0, height: 0)
+
+/// The shadow radius around the HUD
+HUDAppearance.shadowRadius = 6.0
+
+/// The shadow opacity around the HUD
+HUDAppearance.shadowOpacity = 0.15
+
+/// Enables/disables removal of the HUD if the user taps on the screen
+HUDAppearance.cancelableOnTouch = true
+
+/// The info message font in the HUD
+HUDAppearance.messageFont = UIFont.systemFont(ofSize: 13, weight: .regular)
+
+/// The title font in the HUD
+HUDAppearance.titleFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+
+/// The size of the icon inside the HUD
+HUDAppearance.iconSize = CGSize(width: 48, height: 48)
+
+/// The HUD size
+HUDAppearance.hudSize = CGSize(width: 144, height: 144)
+
+/// The HUD fade in duration
+HUDAppearance.animateInTime: TimeInterval = 0.7
+
+/// The HUD fade out duration
+HUDAppearance.animateOutTime: TimeInterval = 0.7
 ```
 
 ## Contributing
