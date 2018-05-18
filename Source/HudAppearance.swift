@@ -52,12 +52,16 @@ public struct HUDAppearance {
     /// Enables/disables shadow effect around the HUD
     public static var shadow: Bool = true
     
+    /// The shadow color around the HUD
     public static var shadowColor: UIColor = UIColor.black
     
+    /// The shadow offset around the HUD
     public static var shadowOffset: CGSize = CGSize(width: 0, height: 0)
     
+    /// The shadow radius around the HUD
     public static var shadowRadius: CGFloat = 6.0
     
+    /// The shadow opacity around the HUD
     public static var shadowOpacity: Float = 0.15
     
     /// Enables/disables removal of the HUD if the user taps on the screen
