@@ -24,97 +24,18 @@
 
 import UIKit
 
-/**
- The blur effect of the view where the HUD is presented in
- 
- - None: No blur effect.
- - Dark: Dark blur.
- - Light: Light blur.
- - ExtraLight: Extra light blur.
-*/
-public enum BlurEffect {
-    
-    case none
-    case dark
-    case light
-    case extraLight
-}
-
 public struct HUDAppearance {
-
-    /// Text color of the text inside the HUD
-    public var textColor = UIColor.black
-    
-    /// The background color of the view where the HUD is presented
-    public var backgroundColor = UIColor.black.withAlphaComponent(0.5)
-    
-    /// The background color of the particle effect view
-    public var particleEffectBackgroundColor = UIColor.white
-    
-    /// The background color of the HUD view
-    public var foregroundColor = UIColor.white
-    
-    /// The color of the icon in the HUD
-    public var iconColor = UIColor.gray
-    
-    /// The color of the loading indicator
-    public var loadingActivityIndicatorColor = UIColor.gray
-    
-    /// The type of blur effect in background view when the HUD is presented
-    public var backgroundBlurEffect: BlurEffect = .none
-    
-    /// The corner radius of the HUD
-    public var cornerRadius: Double = 10
-    
-    /// Enables/disables shadow effect around the HUD
-    public var shadow: Bool = true
-    
-    /// The HUD fade in duration
-    public var animateInTime: TimeInterval = 0.7
-    
-    /// The HUD fade out duration
-    public var animateOutTime: TimeInterval = 0.7
-    
-    /// The default display duration for the HUD
-    public var defaultDurationTime: Double = 2.0
-    
-    /// Enables/disables removal of the HUD if the user taps on the screen
-    public var cancelableOnTouch = false
-    
-    /// The title font name of text in the HUD
-    public var titleFontName: String = "Helvetica-Bold"
-    
-    /// The info message font name of text in the HUD
-    public var messageFontName: String = "Helvetica"
-    
-    /// The title font size of text in the HUD
-    public var titleFontSize: CGFloat = 20
-    
-    /// The info message font size of text in the HUD
-    public var messageFontSize: CGFloat = 13
-    
-    /// The HUD size
-    public var hudSquareSize: CGFloat = 144
-    
-    /// The width of the icon inside the HUD
-    public var iconWidth: CGFloat = 48
-    
-    /// The height of the icon inside the HUD
-    public var iconHeight: CGFloat = 48
-    
-}
-
-public enum HUDAppearanceShadow {
-    case on()
-    case off
-}
-
-public struct HUDAppearance_new {
     
     private init() {}
     
-    /// Text color of the text inside the HUD
-    public static var textColor = UIColor.black
+    /// Text color of the title text inside the HUD
+    public static var titleTextColor = UIColor.black
+    
+    /// Text color of the message text inside the HUD
+    public static var messageTextColor = UIColor.black
+    
+    /// The color of the icon in the HUD
+    public static var iconColor = UIColor.black
     
     /// The background color of the view where the HUD is presented
     public static var backgroundColor = UIColor.black.withAlphaComponent(0.5)

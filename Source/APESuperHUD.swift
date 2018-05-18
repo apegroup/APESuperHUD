@@ -1,14 +1,30 @@
+// APESuperHUD.swift
 //
-//  APESuperHUD.swift
-//  APESuperHUD
+// The MIT License (MIT)
 //
-//  Created by Daniel Nilsson on 2018-02-23.
-//  Copyright © 2018 Apegroup. All rights reserved.
+// Copyright (c) 2016 apegroup
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 import UIKit
 
-public class APESuperHUD_new: UIViewController {
+public class APESuperHUD: UIViewController {
     
     @IBOutlet private weak var hudView: UIView!
     @IBOutlet private weak var hudViewWidthConstraint: NSLayoutConstraint!
@@ -36,14 +52,14 @@ public class APESuperHUD_new: UIViewController {
                 return
             }
             
-            UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+            UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
                 self.titleLabel.alpha = 0
             }, completion: { isFinished in
                 guard isFinished else { return }
                 
                 self.titleLabel.text = self._title
                 
-                UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
+                UIView.animate(withDuration: HUDAppearance.animateInTime, animations: {
                     self.titleLabel.alpha = 1
                 })
             })
@@ -55,7 +71,7 @@ public class APESuperHUD_new: UIViewController {
             return _title
         }
         set {
-            _title = title
+            _title = newValue
         }
     }
     
@@ -65,14 +81,14 @@ public class APESuperHUD_new: UIViewController {
                 return
             }
             
-            UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+            UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
                 self.messageLabel.alpha = 0
             }, completion: { isFinished in
                 guard isFinished else { return }
                 
                 self.messageLabel.text = self.message
                 
-                UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
+                UIView.animate(withDuration: HUDAppearance.animateInTime, animations: {
                     self.messageLabel.alpha = 1
                 })
             })
@@ -96,7 +112,7 @@ public class APESuperHUD_new: UIViewController {
         self.message = message
         
         let nibName = String(describing: type(of: self))
-        let bundle = Bundle(for: APESuperHUD_new.self)
+        let bundle = Bundle(for: APESuperHUD.self)
         super.init(nibName: nibName, bundle: bundle)
         
         modalPresentationStyle = .overFullScreen
@@ -106,12 +122,12 @@ public class APESuperHUD_new: UIViewController {
     }
     
     public static func show(style: HUDStyle, title: String? = nil, message: String? = nil) {
-        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD_new }).first {
+        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD }).first {
             vc.style = style
             vc.title = title
             vc.message = message
         } else {
-            let vc = APESuperHUD_new(style: style, title: title, message: message)
+            let vc = APESuperHUD(style: style, title: title, message: message)
             let window = UIWindow(frame: UIScreen.main.bounds)
             window.backgroundColor = .clear
             window.rootViewController = vc
@@ -129,28 +145,31 @@ public class APESuperHUD_new: UIViewController {
         
         hudView.alpha = 0
         
-        titleLabel.textColor = HUDAppearance_new.textColor
-        view.backgroundColor = HUDAppearance_new.backgroundColor
-        hudView.backgroundColor = HUDAppearance_new.foregroundColor
-        loadingIndicatorView.color = HUDAppearance_new.loadingActivityIndicatorColor
+        titleLabel.textColor = HUDAppearance.titleTextColor
+        messageLabel.textColor = HUDAppearance.messageTextColor
+        view.backgroundColor = HUDAppearance.backgroundColor
+        hudView.backgroundColor = HUDAppearance.foregroundColor
+        loadingIndicatorView.color = HUDAppearance.loadingActivityIndicatorColor
         hudView.layer.masksToBounds = true
-        hudView.layer.cornerRadius = HUDAppearance_new.cornerRadius
+        hudView.layer.cornerRadius = HUDAppearance.cornerRadius
         
-        if HUDAppearance_new.shadow {
-            hudView.layer.shadowColor = HUDAppearance_new.shadowColor.cgColor
-            hudView.layer.shadowOffset = HUDAppearance_new.shadowOffset
-            hudView.layer.shadowRadius = HUDAppearance_new.shadowRadius
-            hudView.layer.shadowOpacity = HUDAppearance_new.shadowOpacity
+        if HUDAppearance.shadow {
+            hudView.layer.shadowColor = HUDAppearance.shadowColor.cgColor
+            hudView.layer.shadowOffset = HUDAppearance.shadowOffset
+            hudView.layer.shadowRadius = HUDAppearance.shadowRadius
+            hudView.layer.shadowOpacity = HUDAppearance.shadowOpacity
+            hudView.clipsToBounds = false
         }
+        iconImageView.tintColor = HUDAppearance.iconColor
         
-        messageLabel.font = HUDAppearance_new.messageFont
-        titleLabel.font = HUDAppearance_new.titleFont
+        messageLabel.font = HUDAppearance.messageFont
+        titleLabel.font = HUDAppearance.titleFont
         
-        iconWidthConstraint.constant = HUDAppearance_new.iconSize.width
-        iconHeightConstraint.constant = HUDAppearance_new.iconSize.height
+        iconWidthConstraint.constant = HUDAppearance.iconSize.width
+        iconHeightConstraint.constant = HUDAppearance.iconSize.height
         
-        hudViewWidthConstraint.constant = HUDAppearance_new.hudSize.width
-        hudViewHeightConstraint.constant = HUDAppearance_new.hudSize.height
+        hudViewWidthConstraint.constant = HUDAppearance.hudSize.width
+        hudViewHeightConstraint.constant = HUDAppearance.hudSize.height
         
         setStyle(animated: false)
         titleLabel.text = _title
@@ -167,7 +186,7 @@ public class APESuperHUD_new: UIViewController {
         hudView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         view.layoutIfNeeded()
         
-        UIView.animate(withDuration: HUDAppearance_new.animateInTime, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: { [weak self] in
+        UIView.animate(withDuration: HUDAppearance.animateInTime, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: { [weak self] in
             self?.hudView.alpha = 1.0
             self?.view.alpha = 1.0
             self?.hudView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
@@ -179,23 +198,23 @@ public class APESuperHUD_new: UIViewController {
     
     public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         if flag {
-            UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+            UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
                 self.hudView.alpha = 0
                 self.view.alpha = 0
             }, completion: { isFinished in
                 if isFinished {
-                    if APESuperHUD_new.window != nil {
+                    if APESuperHUD.window != nil {
                         completion?()
-                        APESuperHUD_new.window = nil
+                        APESuperHUD.window = nil
                     }
                     
                     super.dismiss(animated: flag, completion: completion)
                 }
             })
         } else {
-            if APESuperHUD_new.window != nil {
+            if APESuperHUD.window != nil {
                 completion?()
-                APESuperHUD_new.window = nil
+                APESuperHUD.window = nil
             }
             
             super.dismiss(animated: flag, completion: completion)
@@ -216,7 +235,7 @@ public class APESuperHUD_new: UIViewController {
     }
     
     public static func dismissAll(animated flag: Bool, completion: (() -> Void)? = nil) {
-        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD_new }).first {
+        if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD }).first {
             vc.dismiss(animated: flag, completion: completion)
         }
     }
@@ -226,7 +245,7 @@ public class APESuperHUD_new: UIViewController {
             return
         }
         
-        if HUDAppearance_new.cancelableOnTouch {
+        if HUDAppearance.cancelableOnTouch {
             dismissTask?.cancel()
             dismiss(animated: true)
         }
@@ -240,23 +259,26 @@ public class APESuperHUD_new: UIViewController {
             }
             
             if animated {
-                UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                let delay = loadingIndicatorView.alpha == 0 && iconImageView.alpha == 0 ? HUDAppearance.animateOutTime : 0
+                UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
                     self.loadingIndicatorView.alpha = 0
                     self.iconImageView.alpha = 0
                 }, completion: { isFinished in
                     guard isFinished else { return }
                     
-                    self.iconImageView.image = tuple.image
-                    self.iconImageView.isHidden = false
-                    self.iconContainerView.isHidden = false
-                    self.loadingIndicatorView.isHidden = true
-                    
-                    UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
-                        self.iconImageView.alpha = 1
-                        self.iconContainerView.alpha = 1
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: {
+                        self.iconImageView.image = tuple.image
+                        self.iconImageView.isHidden = false
+                        self.iconContainerView.isHidden = false
+                        self.loadingIndicatorView.isHidden = true
+                        
+                        UIView.animate(withDuration: HUDAppearance.animateInTime, animations: {
+                            self.iconImageView.alpha = 1
+                            self.iconContainerView.alpha = 1
+                        })
+                        
+                        self.startDismissTimer()
                     })
-                    
-                    self.startDismissTimer()
                 })
             } else {
                 loadingIndicatorView.isHidden = true
@@ -271,20 +293,23 @@ public class APESuperHUD_new: UIViewController {
             }
             
             if animated {
-                UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                let delay = loadingIndicatorView.alpha == 0 && iconImageView.alpha == 0 ? HUDAppearance.animateOutTime : 0
+                UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
                     self.loadingIndicatorView.alpha = 0
                     self.iconImageView.alpha = 0
                 }, completion: { isFinished in
                     guard isFinished else { return }
                     
-                    self.loadingIndicatorView.isHidden = false
-                    self.iconImageView.isHidden = true
-                    
-                    UIView.animate(withDuration: HUDAppearance_new.animateInTime, animations: {
-                        self.loadingIndicatorView.alpha = 1
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: {
+                        self.loadingIndicatorView.isHidden = false
+                        self.iconImageView.isHidden = true
+                        
+                        UIView.animate(withDuration: HUDAppearance.animateInTime, animations: {
+                            self.loadingIndicatorView.alpha = 1
+                        })
+                        
+                        self.startDismissTimer()
                     })
-                    
-                    self.startDismissTimer()
                 })
             } else {
                 iconImageView.isHidden = true
@@ -294,18 +319,21 @@ public class APESuperHUD_new: UIViewController {
             
         case .textOnly:
             if animated {
-                UIView.animate(withDuration: HUDAppearance_new.animateOutTime, animations: {
+                let delay = loadingIndicatorView.alpha == 0 && iconImageView.alpha == 0 && iconContainerView.alpha == 0 ? HUDAppearance.animateOutTime : 0
+                UIView.animate(withDuration: HUDAppearance.animateOutTime, animations: {
                     self.loadingIndicatorView.alpha = 0
                     self.iconImageView.alpha = 0
                     self.iconContainerView.alpha = 0
                 }, completion: { isFinished in
                     guard isFinished else { return }
                     
-                    self.loadingIndicatorView.isHidden = true
-                    self.iconImageView.isHidden = true
-                    self.iconContainerView.isHidden = true
-                    
-                    self.startDismissTimer()
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: {
+                        self.loadingIndicatorView.isHidden = true
+                        self.iconImageView.isHidden = true
+                        self.iconContainerView.isHidden = true
+                        
+                        self.startDismissTimer()
+                    })
                 })
             } else {
                 loadingIndicatorView.isHidden = true

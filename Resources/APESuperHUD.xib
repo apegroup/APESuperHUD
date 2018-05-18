@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="APESuperHUD_new" customModule="APESuperHUD" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="APESuperHUD" customModule="APESuperHUD" customModuleProvider="target">
             <connections>
                 <outlet property="hudView" destination="NHB-vj-huw" id="FYU-FE-gSN"/>
                 <outlet property="hudViewHeightConstraint" destination="LNY-c1-Eb8" id="UEV-8M-0vK"/>

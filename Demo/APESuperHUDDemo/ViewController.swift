@@ -34,86 +34,88 @@ class ViewController: UIViewController {
         setupHudAppearance()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     private func setupHudAppearance() {
+        HUDAppearance.cornerRadius = 12
+        HUDAppearance.animateInTime = 1.0
+        HUDAppearance.animateOutTime = 1.0
+        HUDAppearance.iconColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
+        HUDAppearance.titleTextColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
+        HUDAppearance.messageTextColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
+        HUDAppearance.loadingActivityIndicatorColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
+        HUDAppearance.cancelableOnTouch = true
+        HUDAppearance.iconSize = CGSize(width: 40, height: 40)
+        HUDAppearance.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         
-        APESuperHUD.appearance.cornerRadius = 12
-        APESuperHUD.appearance.animateInTime = 1.0
-        APESuperHUD.appearance.animateOutTime = 1.0
-        APESuperHUD.appearance.iconColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
-        APESuperHUD.appearance.textColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
-        APESuperHUD.appearance.loadingActivityIndicatorColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)
-        APESuperHUD.appearance.defaultDurationTime = 4.0
-        APESuperHUD.appearance.cancelableOnTouch = true
-        APESuperHUD.appearance.iconWidth = 48
-        APESuperHUD.appearance.iconHeight = 48
-        APESuperHUD.appearance.messageFontName = "Caviar Dreams"
-        APESuperHUD.appearance.titleFontName = "Caviar Dreams"
-        APESuperHUD.appearance.titleFontSize = 22
-        APESuperHUD.appearance.messageFontSize = 14
-        APESuperHUD.appearance.backgroundColor = UIColor.white
-        APESuperHUD.appearance.particleEffectBackgroundColor = UIColor(red: 0, green: 128.0 / 255.0, blue: 1.0, alpha: 0.85)
-        APESuperHUD.appearance.backgroundBlurEffect = .light
+        if let messageFont = UIFont(name: "Caviar Dreams", size: 14) {
+            HUDAppearance.messageFont = messageFont
+        }
+        
+        if let titleFont = UIFont(name: "Caviar Dreams", size: 22) {
+            HUDAppearance.titleFont = titleFont
+        }
     }
     
-    @IBAction func showHudWithIconClickToDismissButtonPressed(sender: UIButton) {
-        
+    @IBAction func showHudWithIcon(_ sender: UIButton) {
         let image = UIImage(named: "apegroup")!
-        APESuperHUD_new.show(style: .icon(image: image, duration: nil), title: nil, message: "Click to dismiss")
+        APESuperHUD.show(style: .icon(image: image, duration: 3.0), title: "Hello", message: "world")
         
+        // Or create a instance of APESuperHud
         
+        /*
+        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 3), title: "Hello", message: "world")
+        present(hudViewController, animated: true)
+        */
     }
     
-    @IBAction func showHudWithIconAutoDismissButtonPressed(sender: UIButton) {
+    @IBAction func showHudWithLoadingIndicator(_ sender: UIButton) {
+        APESuperHUD.show(style: .loadingIndicator(type: .standard), title: nil, message: "Loading...")
         
-        let image = UIImage(named: "apegroup")!
-        APESuperHUD_new.show(style: .icon(image: image, duration: 3.0), title: nil, message: "Auto dismiss after 3 seconds")
-        
-    }
-    
-    @IBAction func showHudWithLoadingIndicatorAndTextButtonPressed(sender: UIButton) {
-        let hud = APESuperHUD_new(style: .loadingIndicator(type: .standard), title: "test", message: "tsa")
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-            hud.dismiss(animated: true, completion: {
-                print("test")
+            APESuperHUD.dismissAll(animated: true)
+        })
+        
+        // Or create a instance of APESuperHud
+        
+        /*
+        let hudViewController = APESuperHUD(style: .loadingIndicator(type: .standard), title: nil, message: "Loading...")
+        present(hudViewController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+            hudViewController.dismiss(animated: true)
+        })
+        */
+    }
+    
+    @IBAction func showHudWithTitleAndMessage(_ sender: UIButton) {
+        APESuperHUD.show(style: .textOnly, title: "Hello", message: "world")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+            APESuperHUD.dismissAll(animated: true)
+        })
+        
+        // Or create a instance of APESuperHud
+        
+        /*
+        let hudViewController = APESuperHUD(style: .textOnly, title: "Hello", message: "world")
+        present(hudViewController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+            hudViewController.dismiss(animated: true)
+        })
+        */
+    }
+    
+    @IBAction func showHudWithUpdates(_ sender: UIButton) {
+        APESuperHUD.show(style: .loadingIndicator(type: .standard), title: nil, message: "Loading...")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+            APESuperHUD.show(style: .textOnly, title: "Done loading", message: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                let image = UIImage(named: "apegroup")!
+                APESuperHUD.show(style: .icon(image: image, duration: 3.0), title: nil, message: nil)
             })
         })
-        present(hud, animated: true, completion: nil)
-//
-//        let image = UIImage(named: "apegroup")!
-//        APESuperHUD_new.show(style: .loadingIndicator(type: .standard), title: nil, message: "Loading...")
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-//            APESuperHUD_new.show(style: .icon(image: image, duration: 3.0), title: nil, message: "Done loading!")
-//        })
     }
-    
-    @IBAction func showHudWithOnlyLoadingIndicatorButtonPressed(sender: UIButton) {
-        
-        let image = UIImage(named: "apegroup")!
-        APESuperHUD_new.show(style: .loadingIndicator(type: .standard), title: nil, message: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-            APESuperHUD_new.show(style: .icon(image: image, duration: 2.0), title: nil, message: "Done loading!")
-        })
-    }
-    
-    @IBAction func showHudWithTitlaAndMessageButtonPressed(sender: UIButton) {
-        
-        APESuperHUD_new.show(style: .textOnly, title: "Title", message: "Click to dismiss")
-        
-    }
-    
-    
-    @IBAction func withTitleButtonPressed(sender: UIButton) {
-        
-        APESuperHUD_new.show(style: .textOnly, title: "Title", message: "Message")
-        
-    }
-    
 }
 

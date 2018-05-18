@@ -10,14 +10,11 @@
 		18087298204064C10031DEF4 /* HUDStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18087297204064C10031DEF4 /* HUDStyle.swift */; };
 		18AC6D011C5B902800FE881A /* APESuperHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AC6CF61C5B902800FE881A /* APESuperHUD.framework */; };
 		18AC6D191C5B90D500FE881A /* APESuperHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 18AC6D111C5B90D500FE881A /* APESuperHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		18AC6D1A1C5B90D500FE881A /* APESuperHUD_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D121C5B90D500FE881A /* APESuperHUD_old.swift */; };
 		18AC6D1B1C5B90D500FE881A /* HudAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D131C5B90D500FE881A /* HudAppearance.swift */; };
-		18AC6D1E1C5B90D500FE881A /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D161C5B90D500FE881A /* HudView.swift */; };
-		18AC6D201C5B90D500FE881A /* LoadingMessagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D181C5B90D500FE881A /* LoadingMessagesHandler.swift */; };
 		18AC6D2A1C5B90F000FE881A /* FrameworkMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18AC6D281C5B90F000FE881A /* FrameworkMedia.xcassets */; };
 		18AC6D2D1C5B924A00FE881A /* APESuperHUDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC6D251C5B90E100FE881A /* APESuperHUDTests.swift */; };
 		18C9957320404C6700DC92D3 /* APESuperHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9957120404C6700DC92D3 /* APESuperHUD.swift */; };
-		18C9957420404C6700DC92D3 /* APESuperHUD_new.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C9957220404C6700DC92D3 /* APESuperHUD_new.xib */; };
+		18C9957420404C6700DC92D3 /* APESuperHUD.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C9957220404C6700DC92D3 /* APESuperHUD.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,16 +32,13 @@
 		18AC6CF61C5B902800FE881A /* APESuperHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = APESuperHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AC6D001C5B902800FE881A /* APESuperHUDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APESuperHUDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AC6D111C5B90D500FE881A /* APESuperHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APESuperHUD.h; sourceTree = "<group>"; };
-		18AC6D121C5B90D500FE881A /* APESuperHUD_old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APESuperHUD_old.swift; sourceTree = "<group>"; };
 		18AC6D131C5B90D500FE881A /* HudAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudAppearance.swift; sourceTree = "<group>"; };
-		18AC6D161C5B90D500FE881A /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
-		18AC6D181C5B90D500FE881A /* LoadingMessagesHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingMessagesHandler.swift; sourceTree = "<group>"; };
 		18AC6D221C5B90DA00FE881A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18AC6D251C5B90E100FE881A /* APESuperHUDTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APESuperHUDTests.swift; sourceTree = "<group>"; };
 		18AC6D281C5B90F000FE881A /* FrameworkMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FrameworkMedia.xcassets; sourceTree = "<group>"; };
 		18AC6D2E1C5B930D00FE881A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18C9957120404C6700DC92D3 /* APESuperHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APESuperHUD.swift; sourceTree = "<group>"; };
-		18C9957220404C6700DC92D3 /* APESuperHUD_new.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APESuperHUD_new.xib; sourceTree = "<group>"; };
+		18C9957220404C6700DC92D3 /* APESuperHUD.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APESuperHUD.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,12 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				18AC6D111C5B90D500FE881A /* APESuperHUD.h */,
-				18AC6D121C5B90D500FE881A /* APESuperHUD_old.swift */,
 				18AC6D131C5B90D500FE881A /* HudAppearance.swift */,
-				18AC6D161C5B90D500FE881A /* HudView.swift */,
-				18AC6D181C5B90D500FE881A /* LoadingMessagesHandler.swift */,
 				18C9957120404C6700DC92D3 /* APESuperHUD.swift */,
-				18C9957220404C6700DC92D3 /* APESuperHUD_new.xib */,
 				18087297204064C10031DEF4 /* HUDStyle.swift */,
 			);
 			path = Source;
@@ -121,6 +111,7 @@
 		18AC6D271C5B90F000FE881A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				18C9957220404C6700DC92D3 /* APESuperHUD.xib */,
 				18AC6D281C5B90F000FE881A /* FrameworkMedia.xcassets */,
 			);
 			path = Resources;
@@ -183,7 +174,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Apegroup;
 				TargetAttributes = {
 					18AC6CF51C5B902800FE881A = {
@@ -219,7 +210,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18C9957420404C6700DC92D3 /* APESuperHUD_new.xib in Resources */,
+				18C9957420404C6700DC92D3 /* APESuperHUD.xib in Resources */,
 				18AC6D2A1C5B90F000FE881A /* FrameworkMedia.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,11 +229,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18AC6D1E1C5B90D500FE881A /* HudView.swift in Sources */,
 				18087298204064C10031DEF4 /* HUDStyle.swift in Sources */,
-				18AC6D1A1C5B90D500FE881A /* APESuperHUD_old.swift in Sources */,
 				18AC6D1B1C5B90D500FE881A /* HudAppearance.swift in Sources */,
-				18AC6D201C5B90D500FE881A /* LoadingMessagesHandler.swift in Sources */,
 				18C9957320404C6700DC92D3 /* APESuperHUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,12 +266,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -334,12 +324,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

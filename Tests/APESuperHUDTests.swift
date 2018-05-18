@@ -52,13 +52,13 @@ class APESuperHUDTests: XCTestCase {
         let iconColor = UIColor.brown
         let loadingActivityIndicatorColor = UIColor.purple
         
-        APESuperHUD.appearance.animateInTime = animationInTime
-        APESuperHUD.appearance.animateOutTime = animationOutTime
-        APESuperHUD.appearance.backgroundColor = backgroundColor
-        APESuperHUD.appearance.cornerRadius = cornerRadius
-        APESuperHUD.appearance.foregroundColor = foregroundColor
-        APESuperHUD.appearance.iconColor = iconColor
-        APESuperHUD.appearance.loadingActivityIndicatorColor = loadingActivityIndicatorColor
+        HUDAppearance.animateInTime = animationInTime
+        HUDAppearance.animateOutTime = animationOutTime
+        HUDAppearance.backgroundColor = backgroundColor
+        HUDAppearance.cornerRadius = cornerRadius
+        HUDAppearance.foregroundColor = foregroundColor
+        HUDAppearance.iconColor = iconColor
+        HUDAppearance.loadingActivityIndicatorColor = loadingActivityIndicatorColor
         
     
         let testView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
@@ -125,7 +125,7 @@ class APESuperHUDTests: XCTestCase {
         validateShow(view: testView)
         let asyncExpectation = expectation(description: description)
         
-        let delayTime = APESuperHUD.appearance.animateOutTime + APESuperHUD.appearance.animateInTime
+        let delayTime = HUDAppearance.animateOutTime + HUDAppearance.animateInTime
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delayTime, execute: {
             
@@ -228,7 +228,7 @@ class APESuperHUDTests: XCTestCase {
         
         let asyncExpectation = expectation(description: "Delay duration message with image icon")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + APESuperHUD.appearance.defaultDurationTime + 1, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + HUDAppearance.defaultDurationTime + 1, execute: {
             
             if self.hudViewExists(view: testView) {
                 XCTFail("HUD did not get removed.")
@@ -304,7 +304,7 @@ class APESuperHUDTests: XCTestCase {
     // MARK: - Gesture recognize tests
     
     func testTapGestureRecognized() {
-        APESuperHUD.appearance.cancelableOnTouch = true
+        HUDAppearance.cancelableOnTouch = true
         
         let testView = getTestView()
         
