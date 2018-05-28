@@ -216,6 +216,8 @@ public class APESuperHUD: UIViewController {
                 }
             })
         } else {
+            completionBlock?()
+            
             if APESuperHUD.window != nil {
                 completion?()
                 APESuperHUD.window = nil
