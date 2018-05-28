@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "APESuperHUD"
   s.summary          = "A simple way to display a HUD with a message or progress information in your application."
-  s.version          = "2.0.0"
+  s.version          = "2.0.1"
   s.homepage         = "https://github.com/apegroup/APESuperHUD"
   s.license          = 'MIT'
   s.author           = { "apegroup AB" => "support@apegroup.com" }
