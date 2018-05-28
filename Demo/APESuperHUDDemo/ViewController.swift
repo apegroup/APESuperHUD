@@ -57,7 +57,10 @@ class ViewController: UIViewController {
     
     @IBAction func showHudWithIcon(_ sender: UIButton) {
         let image = UIImage(named: "apegroup")!
-        APESuperHUD.show(style: .icon(image: image, duration: 3.0), title: "Hello", message: "world")
+        
+        APESuperHUD.show(style: .icon(image: image, duration: 3.0), title: "Hello", message: "world") {
+            print("HUD dismissed")
+        }
         
         // Or create a instance of APESuperHud
         

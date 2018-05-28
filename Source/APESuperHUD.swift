@@ -105,11 +105,13 @@ public class APESuperHUD: UIViewController {
     
     private static var window: UIWindow?
     private var dismissTask: DispatchWorkItem?
+    private var completionBlock: (() -> Void)?
     
-    public init(style: HUDStyle, title: String? = nil, message: String? = nil) {
+    public init(style: HUDStyle, title: String? = nil, message: String? = nil, completion: (() -> Void)? = nil) {
         self.style = style
         self._title = title
         self.message = message
+        self.completionBlock = completion
         
         let nibName = String(describing: type(of: self))
         let bundle = Bundle(for: APESuperHUD.self)
@@ -121,13 +123,14 @@ public class APESuperHUD: UIViewController {
         startDismissTimer()
     }
     
-    public static func show(style: HUDStyle, title: String? = nil, message: String? = nil) {
+    public static func show(style: HUDStyle, title: String? = nil, message: String? = nil, completion: (() -> Void)? = nil) {
         if let vc = UIApplication.shared.windows.map({ $0.rootViewController }).compactMap({ $0 as? APESuperHUD }).first {
             vc.style = style
             vc.title = title
             vc.message = message
+            vc.completionBlock = completion
         } else {
-            let vc = APESuperHUD(style: style, title: title, message: message)
+            let vc = APESuperHUD(style: style, title: title, message: message, completion: completion)
             let window = UIWindow(frame: UIScreen.main.bounds)
             window.backgroundColor = .clear
             window.rootViewController = vc
@@ -202,6 +205,7 @@ public class APESuperHUD: UIViewController {
                 self.hudView.alpha = 0
                 self.view.alpha = 0
             }, completion: { isFinished in
+                self.completionBlock?()
                 if isFinished {
                     if APESuperHUD.window != nil {
                         completion?()
