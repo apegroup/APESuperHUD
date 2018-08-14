@@ -164,6 +164,7 @@ public class APESuperHUD: UIViewController {
             hudView.clipsToBounds = false
         }
         iconImageView.tintColor = HUDAppearance.iconColor
+        iconImageView.contentMode = HUDAppearance.iconContentMode
         
         messageLabel.font = HUDAppearance.messageFont
         titleLabel.font = HUDAppearance.titleFont
