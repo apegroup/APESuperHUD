@@ -151,6 +151,9 @@ HUDAppearance.messageFont = UIFont.systemFont(ofSize: 13, weight: .regular)
 /// The title font in the HUD
 HUDAppearance.titleFont = UIFont.systemFont(ofSize: 20, weight: .bold)
 
+/// The content mode used to render the icon
+HUDAppearance.iconContentMode = .scaleToFill
+
 /// The size of the icon inside the HUD
 HUDAppearance.iconSize = CGSize(width: 48, height: 48)
 

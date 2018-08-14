@@ -73,6 +73,9 @@ public struct HUDAppearance {
     /// The title font in the HUD
     public static var titleFont = UIFont.systemFont(ofSize: 20, weight: .bold)
     
+    /// The content mode used to render the icon
+    public static var iconContentMode: UIViewContentMode = .scaleToFill
+    
     /// The size of the icon inside the HUD
     public static var iconSize = CGSize(width: 48, height: 48)
     
