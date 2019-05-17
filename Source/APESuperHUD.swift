@@ -349,3 +349,17 @@ public class APESuperHUD: UIViewController {
         }
     }
 }
+
+#if swift(>=4.1)
+#elseif swift(>=4.2)
+    #warning("Remove this once we've updated.")
+#else
+    extension Collection {
+        func compactMap<ElementOfResult>(
+            _ transform: (Element) throws -> ElementOfResult?
+            ) rethrows -> [ElementOfResult] {
+            return try flatMap(transform)
+        }
+    }
+#endif
+
